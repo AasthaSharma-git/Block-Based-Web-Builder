@@ -124,73 +124,99 @@
   </category>
 
   <category name="JavaScript" colour="#FFAB19">
-    <category name="Variables" colour="%{BKY_VARIABLES_HUE}">
-      <block type="js_variable_declare"></block>
-      <block type="js_variable_assign"></block>
-      <block type="js_variable_increment"></block>
-      <block type="variables_get">
-        <field name="VAR">myVar</field>
-      </block>
-      <block type="variables_set">
-        <field name="VAR">myVar</field>
-        <value name="VALUE">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-      </block>
-    </category>
-    <category name="Functions" colour="%{BKY_PROCEDURES_HUE}">
-      <block type="js_function_with_params"></block>
-      <block type="js_function_call"></block>
-    </category>
-    <category name="Logic" colour="%{BKY_LOGIC_HUE}">
-      <block type="js_if_elif_else"></block>
-      <block type="js_comparison_operations"></block>
-      <block type="js_logical_operations"></block>
-      <block type="controls_if"></block>
-    </category>
-    <category name="Loops" colour="%{BKY_LOOPS_HUE}">
-      <block type="js_for_loop"></block>
-      <block type="controls_repeat_ext">
-        <value name="TIMES">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
-        </value>
-      </block>
-    </category>
-    <category name="Math" colour="%{BKY_MATH_HUE}">
-      <block type="js_math_operations"></block>
-      <block type="math_number">
-        <field name="NUM">0</field>
-      </block>
-      <block type="math_arithmetic"></block>
-    </category>
-    <category name="Text" colour="%{BKY_TEXTS_HUE}">
-      <block type="text"></block>
-      <block type="text_print"></block>
-    </category>
-    <category name="Functions Advanced" colour="#FFAB19">
-      <block type="js_return"></block>
-    </category>
-    <category name="Event Listeners" colour="#FFAB19">
-      <block type="js_event_listener"></block>
-      <block type="js_event_listener_domcontentloaded"></block>
-    </category>
-    <category name="HTTP" colour="#FFAB19">
-      <block type="js_http_get"></block>
-    </category>
-    <category name="Console" colour="#FFAB19">
-      <block type="js_console_log"></block>
-    </category>
-    <category name="Alerts" colour="#FFAB19">
-      <block type="js_alert"></block>
-    </category>
-    <category name="Number" colour="#FFAB19">
-      <block type="number_input"></block>
-    </category>
-  </xml>
+    <block type="js_alert">
+      <value name="MESSAGE">
+        <shadow type="text">
+          <field name="TEXT">Hello, World!</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="js_console_log">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">Debugging message</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="js_function">
+      <field name="NAME">myFunction</field>
+      <statement name="DO">
+        <block type="js_console_log">
+          <value name="TEXT">
+            <shadow type="text">
+              <field name="TEXT">Function executed!</field>
+            </shadow>
+          </value>
+        </block>
+      </statement>
+    </block>
+
+    <!-- Newly Added Blocks -->
+    <block type="js_variable_declare">
+      <field name="VAR">myVar</field>
+      <value name="VALUE">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+
+    <block type="js_event_listenerDOMContentLoaded">
+      <statement name="DO">
+        <block type="js_console_log">
+          <value name="TEXT">
+            <shadow type="text">
+              <field name="TEXT">DOM is ready!</field>
+            </shadow>
+          </value>
+        </block>
+      </statement>
+    </block>
+
+    <block type="js_event_listener">
+      <field name="EVENT">click</field>
+      <value name="ELEMENT">
+        <shadow type="text">
+          <field name="TEXT">document.getElementById('myButton')</field>
+        </shadow>
+      </value>
+      <statement name="DO">
+        <block type="js_alert">
+          <value name="MESSAGE">
+            <shadow type="text">
+              <field name="TEXT">Button clicked!</field>
+            </shadow>
+          </value>
+        </block>
+      </statement>
+    </block>
+
+    <block type="js_if_else">
+      <value name="CONDITION">
+        <shadow type="logic_boolean">
+          <field name="BOOL">TRUE</field>
+        </shadow>
+      </value>
+      <statement name="DO">
+        <block type="js_console_log">
+          <value name="TEXT">
+            <shadow type="text">
+              <field name="TEXT">Condition is true!</field>
+            </shadow>
+          </value>
+        </block>
+      </statement>
+      <statement name="ELSE">
+        <block type="js_console_log">
+          <value name="TEXT">
+            <shadow type="text">
+              <field name="TEXT">Condition is false!</field>
+            </shadow>
+          </value>
+        </block>
+      </statement>
+    </block>
+    <block type="number_input"></block>
   </category>
 
 </xml>  

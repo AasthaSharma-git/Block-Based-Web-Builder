@@ -1,870 +1,291 @@
-// js_blocks.js
+// blocks/js_blocks.js
 
-// Define all custom blocks using JSON
-Blockly.defineBlocksWithJsonArray([
-  // Variable Declaration Block with var, let, const
-  {
-    "type": "js_variable_declare",
-    "message0": "%1 %2 = %3",
-    "args0": [
-      {
-        "type": "field_dropdown",
-        "name": "DECLARATION",
-        "options": [
-          ["var", "var"],
-          ["let", "let"],
-          ["const", "const"]
-        ]
-      },
-      {
-        "type": "field_input",
-        "name": "VAR",
-        "text": "myVar"
-      },
-      {
-        "type": "input_value",
-        "name": "VALUE",
-        "check": null
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 30,
-    "tooltip": "Declare a variable using var, let, or const.",
-    "helpUrl": ""
-  },
+// Variable declaration block
+Blockly.Blocks['js_variable_declare'] = {
+  init: function() {
+    this.appendDummyInput()
+      .appendField("var") // Label for the block
+      .appendField(new Blockly.FieldTextInput("myVar"), "VAR")// Input for variable name
+      .appendField(new Blockly.FieldTextInput(''), 'VALUE')// Input for variable value
+      
+    this.setPreviousStatement(true); // Allow connecting to previous blocks
+    this.setNextStatement(true); // Allow connecting to next blocks
+    this.setColour('#FFAB19'); // Set block color
+    this.setTooltip("Declare a variable."); // Tooltip for the block
+    this.setHelpUrl(""); // Help URL if needed
+  }
+};
 
-  // Variable Assignment Block
-  {
-    "type": "js_variable_assign",
-    "message0": "%1 = %2",
-    "args0": [
-      {
-        "type": "field_input",
-        "name": "VAR",
-        "text": "myVar"
-      },
-      {
-        "type": "input_value",
-        "name": "VALUE",
-        "check": null
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 30,
-    "tooltip": "Assign a new value to a variable.",
-    "helpUrl": ""
-  },
+// JavaScript Code Generator for the js_variable_declare block
+Blockly.JavaScript['js_variable_declare'] = function(block) {
+  var variable = block.getFieldValue('VAR'); // Get the variable name input
+  var value = block.getFieldValue('VALUE') || '0'; // Get the value input
+  var code = 'var ' + variable + ' = ' + value + ';\n'; // Generate the JavaScript code
+  return code; // Return the generated code
+};
 
-  // Variable Increment/Decrement Block
-  {
-    "type": "js_variable_increment",
-    "message0": "%1 %2",
-    "args0": [
-      {
-        "type": "field_input",
-        "name": "VAR",
-        "text": "myVar"
-      },
-      {
-        "type": "field_dropdown",
-        "name": "OPERATOR",
-        "options": [
-          ["++", "++"],
-          ["--", "--"]
-        ]
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 30,
-    "tooltip": "Increment or decrement a variable.",
-    "helpUrl": ""
-  },
 
-  // Function Definition Block with Parameters
-  {
-    "type": "js_function_with_params",
-    "message0": "function %1 (%2) {",
-    "args0": [
-      {
-        "type": "field_input",
-        "name": "NAME",
-        "text": "myFunction"
-      },
-      {
-        "type": "field_input",
-        "name": "PARAMS",
-        "text": "param1, param2"
-      }
-    ],
-    "message1": "%1",
-    "args1": [
-      {
-        "type": "input_statement",
-        "name": "CONTENT",
-        "check": null
-      }
-    ],
-    "message2": "}",
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 290,
-    "tooltip": "Define a function with parameters.",
-    "helpUrl": ""
-  },
 
-  // Function Call Block with Arguments (Dynamic Number of Args)
-  {
-    "type": "js_function_call",
-    "message0": "%1(%2);",
-    "args0": [
-      {
-        "type": "field_input",
-        "name": "NAME",
-        "text": "myFunction"
-      },
-      {
-        "type": "input_value",
-        "name": "ARGS",
-        "check": null
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 290,
-    "tooltip": "Call a function with arguments.",
-    "helpUrl": ""
-  },
 
-  // If-Elif-Else Block
-  {
-    "type": "js_if_elif_else",
-    "message0": "if %1 {",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "IF_CONDITION",
-        "check": "Boolean"
-      }
-    ],
-    "message1": "%1",
-    "args1": [
-      {
-        "type": "input_statement",
-        "name": "IF_DO",
-        "check": null
-      }
-    ],
-    "message2": "else if %1 {",
-    "args2": [
-      {
-        "type": "input_value",
-        "name": "ELIF_CONDITION",
-        "check": "Boolean"
-      }
-    ],
-    "message3": "%1",
-    "args3": [
-      {
-        "type": "input_statement",
-        "name": "ELIF_DO",
-        "check": null
-      }
-    ],
-    "message4": "else {",
-    "message5": "%1",
-    "args5": [
-      {
-        "type": "input_statement",
-        "name": "ELSE_DO",
-        "check": null
-      }
-    ],
-    "message6": "}",
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 210,
-    "tooltip": "If-Elif-Else condition.",
-    "helpUrl": ""
-  },
-
-  // Math Operations Block
-  {
-    "type": "js_math_operations",
-    "message0": "%1 %2 %3",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "A",
-        "check": "Number"
-      },
-      {
-        "type": "field_dropdown",
-        "name": "OP",
-        "options": [
-          ["+", "+"],
-          ["-", "-"],
-          ["*", "*"],
-          ["/", "/"]
-        ]
-      },
-      {
-        "type": "input_value",
-        "name": "B",
-        "check": "Number"
-      }
-    ],
-    "inputsInline": true,
-    "output": "Number",
-    "colour": 230,
-    "tooltip": "Perform a mathematical operation.",
-    "helpUrl": ""
-  },
-
-  // Comparison Operations Block
-  {
-    "type": "js_comparison_operations",
-    "message0": "%1 %2 %3",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "A",
-        "check": null
-      },
-      {
-        "type": "field_dropdown",
-        "name": "OP",
-        "options": [
-          ["==", "=="],
-          ["!=", "!="],
-          [">", ">"],
-          ["<", "<"],
-          [">=", ">="],
-          ["<=", "<="]
-        ]
-      },
-      {
-        "type": "input_value",
-        "name": "B",
-        "check": null
-      }
-    ],
-    "inputsInline": true,
-    "output": "Boolean",
-    "colour": 210,
-    "tooltip": "Compare two values.",
-    "helpUrl": ""
-  },
-
-  // Logical Operations Block
-  {
-    "type": "js_logical_operations",
-    "message0": "%1 %2 %3",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "A",
-        "check": "Boolean"
-      },
-      {
-        "type": "field_dropdown",
-        "name": "OP",
-        "options": [
-          ["&&", "&&"],
-          ["||", "||"]
-        ]
-      },
-      {
-        "type": "input_value",
-        "name": "B",
-        "check": "Boolean"
-      }
-    ],
-    "inputsInline": true,
-    "output": "Boolean",
-    "colour": 210,
-    "tooltip": "Perform a logical operation.",
-    "helpUrl": ""
-  },
-
-  // Return Statement Block
-  {
-    "type": "js_return",
-    "message0": "return %1",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "RETURN",
-        "check": null
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 160,
-    "tooltip": "Return a value from a function.",
-    "helpUrl": ""
-  },
-
-  // Console Log Block
-  {
-    "type": "js_console_log",
-    "message0": "console.log(%1)",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "TEXT",
-        "check": null
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 60,
-    "tooltip": "Log a message to the console.",
-    "helpUrl": ""
-  },
-
-  // Alert Block
-  {
-    "type": "js_alert",
-    "message0": "alert(%1)",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "MESSAGE",
-        "check": null
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 20,
-    "tooltip": "Display an alert box with the specified message.",
-    "helpUrl": ""
-  },
-
-  // Event Listener Block
-  {
-    "type": "js_event_listener",
-    "message0": "document.getElementById(%1).addEventListener(%2, function() {",
-    "args0": [
-      {
-        "type": "field_input",
-        "name": "ELEMENT_ID",
-        "text": "btn"
-      },
-      {
-        "type": "field_dropdown",
-        "name": "EVENT",
-        "options": [
+Blockly.Blocks['js_event_listener'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('document.getElementById("')
+        .appendField(new Blockly.FieldTextInput("btn"), "ELEMENT_ID") // Input for button ID
+        .appendField('"').appendField(').addEventListener("')
+        .appendField(new Blockly.FieldDropdown([
           ["click", "click"],
           ["mouseover", "mouseover"],
           ["mouseout", "mouseout"]
-        ]
-      }
-    ],
-    "message1": "%1",
-    "args1": [
-      {
-        "type": "input_statement",
-        "name": "DO",
-        "check": null
-      }
-    ],
-    "message2": "});",
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 290,
-    "tooltip": "Add an event listener to an element.",
-    "helpUrl": ""
-  },
-
-  // DOMContentLoaded Event Listener Block
-  {
-    "type": "js_event_listener_domcontentloaded",
-    "message0": "document.addEventListener('DOMContentLoaded', function() {",
-    "message1": "%1",
-    "args1": [
-      {
-        "type": "input_statement",
-        "name": "DO",
-        "check": null
-      }
-    ],
-    "message2": "});",
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 290,
-    "tooltip": "Execute code when the DOM is fully loaded.",
-    "helpUrl": ""
-  },
-
-  // HTTP GET Request Block
-  {
-    "type": "js_http_get",
-    "message0": "fetch(%1).then(response => response.json()).then(data => console.log(data));",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "URL",
-        "check": null
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 290,
-    "tooltip": "Make an HTTP GET request.",
-    "helpUrl": ""
-  },
-
-  // Traditional For Loop Block
-  {
-    "type": "js_for_loop",
-    "message0": "for (let %1 = %2; %1 < %3; %1 += %4) {",
-    "args0": [
-      {
-        "type": "field_variable",
-        "name": "VAR",
-        "variable": "i"
-      },
-      {
-        "type": "input_value",
-        "name": "START",
-        "check": "Number"
-      },
-      {
-        "type": "input_value",
-        "name": "END",
-        "check": "Number"
-      },
-      {
-        "type": "input_value",
-        "name": "STEP",
-        "check": "Number"
-      }
-    ],
-    "message1": "%1",
-    "args1": [
-      {
-        "type": "input_statement",
-        "name": "DO",
-        "check": null
-      }
-    ],
-    "message2": "}",
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 120,
-    "tooltip": "Traditional for loop in JavaScript.",
-    "helpUrl": ""
-  },
-
-  // For...of Loop Block
-  {
-    "type": "js_for_of_loop",
-    "message0": "for (let %1 of %2) {",
-    "args0": [
-      {
-        "type": "field_variable",
-        "name": "VAR",
-        "variable": "item"
-      },
-      {
-        "type": "input_value",
-        "name": "ARRAY",
-        "check": "Array"
-      }
-    ],
-    "message1": "%1",
-    "args1": [
-      {
-        "type": "input_statement",
-        "name": "DO",
-        "check": null
-      }
-    ],
-    "message2": "}",
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 120,
-    "tooltip": "For...of loop in JavaScript.",
-    "helpUrl": ""
-  },
-
-  // For...in Loop Block
-  {
-    "type": "js_for_in_loop",
-    "message0": "for (let %1 in %2) {",
-    "args0": [
-      {
-        "type": "field_variable",
-        "name": "VAR",
-        "variable": "key"
-      },
-      {
-        "type": "input_value",
-        "name": "OBJECT",
-        "check": "Object"
-      }
-    ],
-    "message1": "%1",
-    "args1": [
-      {
-        "type": "input_statement",
-        "name": "DO",
-        "check": null
-      }
-    ],
-    "message2": "}",
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 120,
-    "tooltip": "For...in loop in JavaScript.",
-    "helpUrl": ""
-  },
-
-  // Array Declaration Block
-  {
-    "type": "js_array_declare",
-    "message0": "%1 %2 = [%3]",
-    "args0": [
-      {
-        "type": "field_dropdown",
-        "name": "DECLARATION",
-        "options": [
-          ["var", "var"],
-          ["let", "let"],
-          ["const", "const"]
-        ]
-      },
-      {
-        "type": "field_input",
-        "name": "VAR",
-        "text": "myArray"
-      },
-      {
-        "type": "input_value",
-        "name": "ELEMENTS",
-        "check": "Array",
-        "default": "[]"
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 260,
-    "tooltip": "Declare an array.",
-    "helpUrl": ""
-  },
-
-  // Access Array Element Block
-  {
-    "type": "js_array_access",
-    "message0": "%1[%2]",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "ARRAY",
-        "check": "Array"
-      },
-      {
-        "type": "input_value",
-        "name": "INDEX",
-        "check": "Number"
-      }
-    ],
-    "inputsInline": true,
-    "output": null,
-    "colour": 260,
-    "tooltip": "Access an element in an array by index.",
-    "helpUrl": ""
-  },
-
-  // Add to Array (Push) Block
-  {
-    "type": "js_array_push",
-    "message0": "%1.push(%2)",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "ARRAY",
-        "check": "Array"
-      },
-      {
-        "type": "input_value",
-        "name": "ELEMENT",
-        "check": null
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 260,
-    "tooltip": "Add an element to the end of an array.",
-    "helpUrl": ""
-  },
-
-  // Array Length Block
-  {
-    "type": "js_array_length",
-    "message0": "%1.length",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "ARRAY",
-        "check": "Array"
-      }
-    ],
-    "output": "Number",
-    "colour": 260,
-    "tooltip": "Get the length of an array.",
-    "helpUrl": ""
-  },
-
-  // Iterate Over Array Using forEach Block
-  {
-    "type": "js_array_foreach",
-    "message0": "array.forEach(function(%1) {",
-    "args0": [
-      {
-        "type": "field_variable",
-        "name": "ITEM",
-        "variable": "item"
-      }
-    ],
-    "message1": "%1",
-    "args1": [
-      {
-        "type": "input_statement",
-        "name": "DO",
-        "check": null
-      }
-    ],
-    "message2": "});",
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 260,
-    "tooltip": "Iterate over each element in an array using forEach.",
-    "helpUrl": ""
-  },
-
-  // Number Input Block
-  {
-    "type": "number_input",
-    "message0": "%1",
-    "args0": [
-      {
-        "type": "field_number",
-        "name": "NUM",
-        "value": 0
-      }
-    ],
-    "output": "Number",
-    "colour": 230,
-    "tooltip": "Number input.",
-    "helpUrl": ""
+        ]), "EVENT")// Dropdown for event type
+        .appendField('"),function(){')
+    this.appendStatementInput("DO") // Allow nested blocks for the action
+        .setCheck(null); // Accept any type of blocks
+    this.appendDummyInput()
+     .appendField('});'); // Closing brace for event listener function
+    this.setColour('#FFAB19'); // Set block color
+    this.setTooltip("Add an event listener to an element."); // Tooltip
+    this.setHelpUrl(""); // Help URL
+    this.setPreviousStatement(true); // Allow connection to previous blocks
+    this.setNextStatement(true); // Allow connection to next blocks
   }
-]);
+};
 
-// JavaScript Code Generators
-
-// Variable Declaration
-Blockly.JavaScript['js_variable_declare'] = function(block) {
-  var declaration = block.getFieldValue('DECLARATION');
-  var variable = block.getFieldValue('VAR');
-  var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
-  var code = declaration + ' ' + variable + ' = ' + value + ';\n';
+Blockly.JavaScript['js_if_else'] = function(block) {
+  var condition = Blockly.JavaScript.valueToCode(block, 'CONDITION', Blockly.JavaScript.ORDER_ATOMIC) || 'false';
+  var doStatements = Blockly.JavaScript.statementToCode(block, 'DO');
+  var elseStatements = Blockly.JavaScript.statementToCode(block, 'ELSE');
+  var code = `if (${condition}) {\n${doStatements}\n} else {\n${elseStatements}\n}\n`;
   return code;
 };
 
-// Variable Assignment
-Blockly.JavaScript['js_variable_assign'] = function(block) {
-  var variable = block.getFieldValue('VAR');
-  var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
-  var code = variable + ' = ' + value + ';\n';
-  return code;
-};
-
-// Variable Increment/Decrement
-Blockly.JavaScript['js_variable_increment'] = function(block) {
-  var variable = block.getFieldValue('VAR');
-  var operator = block.getFieldValue('OPERATOR');
-  var code = variable + operator + ';\n';
-  return code;
-};
-
-// Function Definition with Parameters
-Blockly.JavaScript['js_function_with_params'] = function(block) {
-  var functionName = block.getFieldValue('NAME');
-  var params = block.getFieldValue('PARAMS');
-  var statements = Blockly.JavaScript.statementToCode(block, 'CONTENT');
-  var code = 'function ' + functionName + '(' + params + ') {\n' + statements + '}\n';
-  return code;
-};
-
-// Function Call with Arguments
-Blockly.JavaScript['js_function_call'] = function(block) {
-  var functionName = block.getFieldValue('NAME');
-  var args = Blockly.JavaScript.valueToCode(block, 'ARGS', Blockly.JavaScript.ORDER_NONE) || '';
-  var code = functionName + '(' + args + ');\n';
-  return code;
-};
-
-// If-Elif-Else Block
-Blockly.JavaScript['js_if_elif_else'] = function(block) {
-  var ifCondition = Blockly.JavaScript.valueToCode(block, 'IF_CONDITION', Blockly.JavaScript.ORDER_NONE) || 'false';
-  var ifStatements = Blockly.JavaScript.statementToCode(block, 'IF_DO');
-  var elifCondition = Blockly.JavaScript.valueToCode(block, 'ELIF_CONDITION', Blockly.JavaScript.ORDER_NONE) || 'false';
-  var elifStatements = Blockly.JavaScript.statementToCode(block, 'ELIF_DO');
-  var elseStatements = Blockly.JavaScript.statementToCode(block, 'ELSE_DO');
-  
-  var code = `if (${ifCondition}) {\n${ifStatements}} else if (${elifCondition}) {\n${elifStatements}} else {\n${elseStatements}}\n`;
-  return code;
-};
-
-// Math Operations
-Blockly.JavaScript['js_math_operations'] = function(block) {
-  var a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  var op = block.getFieldValue('OP');
-  var b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  var code = a + ' ' + op + ' ' + b;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];
-};
-
-// Comparison Operations
-Blockly.JavaScript['js_comparison_operations'] = function(block) {
-  var a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  var op = block.getFieldValue('OP');
-  var b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  var code = a + ' ' + op + ' ' + b;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];
-};
-
-// Logical Operations
-Blockly.JavaScript['js_logical_operations'] = function(block) {
-  var a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC) || 'false';
-  var op = block.getFieldValue('OP');
-  var b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC) || 'false';
-  var code = a + ' ' + op + ' ' + b;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];
-};
-
-// Return Statement
-Blockly.JavaScript['js_return'] = function(block) {
-  var returnValue = Blockly.JavaScript.valueToCode(block, 'RETURN', Blockly.JavaScript.ORDER_NONE) || 'null';
-  var code = 'return ' + returnValue + ';\n';
-  return code;
-};
-
-// Console Log
-Blockly.JavaScript['js_console_log'] = function(block) {
-  var text = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_NONE) || '""';
-  var code = 'console.log(' + text + ');\n';
-  return code;
-};
-
-// Alert
-Blockly.JavaScript['js_alert'] = function(block) {
-  var message = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_NONE) || '""';
-  var code = 'alert(' + message + ');\n';
-  return code;
-};
-
-// Event Listener
-Blockly.JavaScript['js_event_listener'] = function(block) {
-  var elementId = Blockly.JavaScript.quote_(block.getFieldValue('ELEMENT_ID'));
-  var eventType = Blockly.JavaScript.quote_(block.getFieldValue('EVENT'));
-  var statements_do = Blockly.JavaScript.statementToCode(block, 'DO');
-  
-  var code = `document.getElementById(${elementId}).addEventListener(${eventType}, function() {\n${statements_do}});\n`;
-  return code;
-};
-
-// DOMContentLoaded Event Listener
-Blockly.JavaScript['js_event_listener_domcontentloaded'] = function(block) {
-  var statements_do = Blockly.JavaScript.statementToCode(block, 'DO');
-  var code = `document.addEventListener('DOMContentLoaded', function() {\n${statements_do}});\n`;
-  return code;
-};
-
-// HTTP GET Request
 Blockly.JavaScript['js_http_get'] = function(block) {
-  var url = Blockly.JavaScript.valueToCode(block, 'URL', Blockly.JavaScript.ORDER_NONE) || '""';
+  var url = Blockly.JavaScript.valueToCode(block, 'URL', Blockly.JavaScript.ORDER_ATOMIC) || '""';
   var code = `fetch(${url})\n  .then(response => response.json())\n  .then(data => console.log(data));\n`;
   return code;
 };
-
-// Traditional For Loop
 Blockly.JavaScript['js_for_loop'] = function(block) {
   var variable = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var start = Blockly.JavaScript.valueToCode(block, 'START', Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
   var end = Blockly.JavaScript.valueToCode(block, 'END', Blockly.JavaScript.ORDER_ASSIGNMENT) || '10';
   var step = Blockly.JavaScript.valueToCode(block, 'STEP', Blockly.JavaScript.ORDER_ASSIGNMENT) || '1';
   var statements_do = Blockly.JavaScript.statementToCode(block, 'DO');
-  var code = `for (let ${variable} = ${start}; ${variable} < ${end}; ${variable} += ${step}) {\n${statements_do}};\n`;
+  var code = `for (var ${variable} = ${start}; ${variable} < ${end}; ${variable} += ${step}) {\n${statements_do}}\n`;
   return code;
 };
 
-// For...of Loop
-Blockly.JavaScript['js_for_of_loop'] = function(block) {
-  var variable = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  var array = Blockly.JavaScript.valueToCode(block, 'ARRAY', Blockly.JavaScript.ORDER_NONE) || '[]';
-  var statements_do = Blockly.JavaScript.statementToCode(block, 'DO');
-  var code = `for (let ${variable} of ${array}) {\n${statements_do}};\n`;
+// Define the js_alert block
+Blockly.Blocks['js_alert'] = {
+  init: function() {
+    this.jsonInit({
+      "type": "js_alert",
+      "message0": "Alert %1", // This defines the block's label
+      "args0": [
+        {
+          "type": "field_input", // This allows input for the alert message
+          "name": "MESSAGE",
+          "text": "Hello, World!" // Default text for the input field
+        }
+      ],
+      "previousStatement": null, // The block can connect to previous statements
+      "nextStatement": null, // The block can connect to subsequent statements
+      "colour": '#FFAB19', // The block color
+      "tooltip": "Displays an alert box with the specified message.",
+      "helpUrl": "" // URL for additional help (if needed)
+    });
+  }
+};
+
+// Generate JavaScript code for the js_alert block
+Blockly.JavaScript['js_alert'] = function(block) {
+  var message = block.getFieldValue('MESSAGE'); // Get the message input
+  var code = 'alert("' + message + '");\n'; // Generate the JavaScript code for the alert
+  return code; // Return the code to be included in the generated script
+};
+
+// Generate JavaScript code for the event listener block
+Blockly.JavaScript['js_event_listener'] = function(block) {
+  var elementId = block.getFieldValue('ELEMENT_ID'); // Get the element ID
+  var eventType = block.getFieldValue('EVENT'); // Get the event type
+  var statements_do = Blockly.JavaScript.statementToCode(block, 'DO'); // Get the statements inside the block
+
+  // Generate the event listener code without quotes around the getElementById
+  var code = 'document.getElementById("' + elementId + '").addEventListener("' + eventType + '", function() {\n' + statements_do + '});\n';
+  return code; // Return the code
+};
+
+Blockly.Blocks['js_event_listenerDOMContentLoaded'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("document.addEventListener('DOMContentLoaded'")
+        .appendField(", function() {\n"); // Start the event listener block
+    this.appendStatementInput("DO") // Allow nested blocks for the action
+        .setCheck(null); // Accept any type of blocks
+    this.appendDummyInput()
+        .appendField("});"); // Close the event listener block
+    this.setPreviousStatement(true); // Allow connection to previous blocks
+    this.setColour('#FFAB19'); // Set block color
+    this.setTooltip("Execute code when the DOM is fully loaded."); // Tooltip
+    this.setHelpUrl(""); // Help URL
+    this.setNextStatement(true); // Allow connection to next blocks
+  }
+};
+
+Blockly.JavaScript['js_event_listenerDOMContentLoaded'] = function(block) {
+  const statements_do = Blockly.JavaScript.statementToCode(block, 'DO');
+  const code = `document.addEventListener('DOMContentLoaded', function() {\n${statements_do}\n});\n`;
   return code;
 };
-
-// For...in Loop
-Blockly.JavaScript['js_for_in_loop'] = function(block) {
-  var variable = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  var object = Blockly.JavaScript.valueToCode(block, 'OBJECT', Blockly.JavaScript.ORDER_NONE) || '{}';
-  var statements_do = Blockly.JavaScript.statementToCode(block, 'DO');
-  var code = `for (let ${variable} in ${object}) {\n${statements_do}};\n`;
-  return code;
+// Console log block
+Blockly.Blocks['js_console_log'] = {
+init: function() {
+  this.appendDummyInput()
+    .appendField("console.log")// Label for the block
+    .appendField(new Blockly.FieldTextInput('Hello Coder!'), 'TEXT')// Input for 
+   // Label to clarify input
+  this.setPreviousStatement(true); // Allow connecting to previous blocks
+  this.setNextStatement(true); // Allow connecting to next blocks
+  this.setColour('#FFAB19'); // Set block color
+  this.setTooltip("Log a message to the console."); // Tooltip for the block
+  this.setHelpUrl(""); // Help URL if needed
+}
 };
 
-// Array Declaration
-Blockly.JavaScript['js_array_declare'] = function(block) {
-  var declaration = block.getFieldValue('DECLARATION');
-  var variable = block.getFieldValue('VAR');
-  var elements = Blockly.JavaScript.valueToCode(block, 'ELEMENTS', Blockly.JavaScript.ORDER_NONE) || '[]';
-  var code = declaration + ' ' + variable + ' = [' + elements + '];\n';
-  return code;
+// JavaScript Code Generator for the js_console_log block
+Blockly.JavaScript['js_console_log'] = function(block) {
+var text = block.getFieldValue('TEXT') || '""'; // Get the log message input
+var code = 'console.log(' + text + ');\n'; // Generate the JavaScript code
+return code; // Return the generated code
 };
 
-// Access Array Element
-Blockly.JavaScript['js_array_access'] = function(block) {
-  var array = Blockly.JavaScript.valueToCode(block, 'ARRAY', Blockly.JavaScript.ORDER_MEMBER) || '[]';
-  var index = Blockly.JavaScript.valueToCode(block, 'INDEX', Blockly.JavaScript.ORDER_NONE) || '0';
-  var code = array + '[' + index + ']';
-  return [code, Blockly.JavaScript.ORDER_MEMBER];
+// Function definition block
+Blockly.Blocks['js_function'] = {
+init: function() {
+  this.appendDummyInput()
+    .appendField("function") // Label for the block
+    .appendField(new Blockly.FieldTextInput("myFunction"), "NAME")// Input for function name
+    .appendField("() {"); // Label for the parameter list
+
+  this.appendStatementInput('CONTENT')
+      .setCheck(null)
+
+  this.appendDummyInput()
+      .appendField('}')     // Label for the closing brace
+
+  this.setColour('#FFAB19'); // Set block color
+  this.setTooltip("Define a JavaScript function."); // Tooltip for the block
+  this.setHelpUrl(""); // Help URL if needed
+  this.setPreviousStatement(true); // Allow connecting to previous blocks
+  this.setNextStatement(true); // Allow connecting to next blocks
+}
 };
 
-// Add to Array (Push)
-Blockly.JavaScript['js_array_push'] = function(block) {
-  var array = Blockly.JavaScript.valueToCode(block, 'ARRAY', Blockly.JavaScript.ORDER_MEMBER) || '[]';
-  var element = Blockly.JavaScript.valueToCode(block, 'ELEMENT', Blockly.JavaScript.ORDER_NONE) || 'null';
-  var code = array + '.push(' + element + ');\n';
-  return code;
+// JavaScript Code Generator for the js_function block
+Blockly.JavaScript['js_function'] = function(block) {
+var functionName = block.getFieldValue('NAME'); // Get the function name input
+var statements_do = Blockly.JavaScript.statementToCode(block, 'CONTENT'); // Get the statements inside the function
+var code = 'function ' + functionName + '() {\n' + statements_do + '}\n'; // Generate the JavaScript code
+return code; // Return the generated code
 };
 
-// Array Length
-Blockly.JavaScript['js_array_length'] = function(block) {
-  var array = Blockly.JavaScript.valueToCode(block, 'ARRAY', Blockly.JavaScript.ORDER_MEMBER) || '[]';
-  var code = array + '.length';
-  return [code, Blockly.JavaScript.ORDER_MEMBER];
+// If-Else block
+Blockly.Blocks['js_if_else'] = {
+init: function() {
+  this.appendDummyInput()
+    .appendField("if"); // Label for the if statement
+  this.appendValueInput("CONDITION") // Input for the condition
+    .setCheck("Boolean"); // Check type is Boolean
+  this.appendStatementInput("DO") // Statement input for the if block
+    .appendField(""); // Label for the action if condition is true
+  this.appendDummyInput()
+    .appendField("else"); // Label for the else statement
+  this.appendStatementInput("ELSE") // Statement input for the else block
+    .appendField(""); // Label for the action if condition is false
+  this.setColour('#FFAB19'); // Set block color
+  this.setTooltip("If-Else condition."); // Tooltip for the block
+  this.setHelpUrl(""); // Help URL if needed
+  this.setPreviousStatement(true); // Allow connection to previous blocks
+  this.setNextStatement(true); // Allow connection to next blocks
+}
 };
 
-// Iterate Over Array Using forEach
-Blockly.JavaScript['js_array_foreach'] = function(block) {
-  var array = Blockly.JavaScript.valueToCode(block, 'ARRAY', Blockly.JavaScript.ORDER_MEMBER) || '[]';
-  var item = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('ITEM'), Blockly.Variables.NAME_TYPE);
-  var statements_do = Blockly.JavaScript.statementToCode(block, 'DO');
-  var code = `${array}.forEach(function(${item}) {\n${statements_do}});\n`;
-  return code;
+// JavaScript Code Generator for the js_if_else block
+Blockly.JavaScript['js_if_else'] = function(block) {
+var condition = Blockly.JavaScript.valueToCode(block, 'CONDITION', Blockly.JavaScript.ORDER_ATOMIC) || 'false'; // Get the condition input
+var doStatements = Blockly.JavaScript.statementToCode(block, 'DO'); // Get statements for the if part
+var elseStatements = Blockly.JavaScript.statementToCode(block, 'ELSE'); // Get statements for the else part
+var code = `if (${condition}) {\n${doStatements}\n} else {\n${elseStatements}\n}\n`; // Generate the JavaScript code
+return code; // Return the generated code
 };
 
-// Number Input
+// For loop block
+// Traditional for loop block
+Blockly.Blocks['js_for_loop'] = {
+init: function() {
+  this.appendDummyInput()
+    .appendField("for (let") // Label for the "for" loop, initializing with "let"
+    .appendField(new Blockly.FieldVariable("i"), "VAR") // Variable field with default "i"
+    .appendField("="); // Equal sign for variable initialization
+  this.appendValueInput("START") // Input for the starting value
+    .setCheck("Number"); // Ensure it's a number
+  this.appendDummyInput()
+    .appendField(";") // Semicolon to separate parts of the for loop
+    .appendField(new Blockly.FieldVariable("i"), "VAR") // Re-use variable field
+    .appendField("<"); // Less-than symbol for condition (can be updated for step direction)
+  this.appendValueInput("END") // Input for the ending value
+    .setCheck("Number"); // Ensure it's a number
+  this.appendDummyInput()
+    .appendField(";") // Another semicolon
+    .appendField(new Blockly.FieldVariable("i"), "VAR") // Re-use variable field
+    .appendField("+="); // Increment step
+  this.appendValueInput("STEP") // Input for the step value
+    .setCheck("Number"); // Ensure it's a number
+  this.appendDummyInput()
+    .appendField(") {"); // Closing the "for" part
+  this.appendStatementInput("DO") // Statement input for the loop body
+    .appendField("do"); // Label for the action inside the loop
+  this.appendDummyInput()
+    .appendField("}"); // Closing brace for the loop
+  this.setPreviousStatement(true, null); // Allow connection to previous blocks
+  this.setNextStatement(true, null); // Allow connection to next blocks
+  this.setColour('#FFAB19'); // Set block color
+  this.setTooltip("Traditional for loop in JavaScript."); // Tooltip for the block
+  this.setHelpUrl(""); // Help URL if needed
+}
+};
+
+Blockly.JavaScript['js_for_loop'] = function(block) {
+// Retrieve the variable name specified by the user
+var variable = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+
+// Retrieve the values for start, end, and step
+var start = Blockly.JavaScript.valueToCode(block, 'START', Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+var end = Blockly.JavaScript.valueToCode(block, 'END', Blockly.JavaScript.ORDER_ASSIGNMENT) || '10';
+var step = Blockly.JavaScript.valueToCode(block, 'STEP', Blockly.JavaScript.ORDER_ASSIGNMENT) || '1';
+
+// Retrieve the statements to be executed inside the loop
+var statements_do = Blockly.JavaScript.statementToCode(block, 'DO');
+
+// Generate the traditional JavaScript for loop code
+var code = `for (let ${variable} = ${start}; ${variable} < ${end}; ${variable} += ${step}) {\n${statements_do}}\n`;
+return code; // Return the generated code
+};
+
+// Block for generating numbers
+Blockly.Blocks['number_input'] = {
+init: function() {
+  this.appendDummyInput()
+    .appendField(new Blockly.FieldNumber(0), "NUM"); // Default number is 0
+  this.setOutput(true, "Number"); // Outputs a number
+  this.setColour('#FFAB19'); // Set block color
+  this.setTooltip("Number input."); // Tooltip for the block
+  this.setHelpUrl(""); // Help URL if needed
+}
+};
+
 Blockly.JavaScript['number_input'] = function(block) {
-  var number = block.getFieldValue('NUM');
-  var code = number;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+var number = block.getFieldValue('NUM'); // Get the number from the block
+var code = number; // Use the number as the code
+return [code, Blockly.JavaScript.ORDER_ATOMIC]; // Return the number with proper precedence
 };
+
