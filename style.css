@@ -7,10 +7,18 @@ body {
 }
 
 header {
-  background-color: white;
-  color: #2e3440;
-  padding: 15px;
   text-align: center;
+  background-color: white;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto;
+}
+
+header h1 {
+  margin-top: 10px;
+  font-family: Arial, sans-serif;
   font-size: 24px;
 }
 
@@ -30,7 +38,7 @@ header {
 }
 
 .sidebar-button {
-  background-color: #2e3440;
+  background-color: orange;
   color: white;
   border: none;
   padding: 12px;
@@ -42,7 +50,7 @@ header {
 
 .sidebar-button.active,
 .sidebar-button:hover {
-  background-color:teal;
+  background-color:green;
 }
 
 #fileManager{
@@ -126,7 +134,7 @@ header {
 }
 
 #exportButton:hover {
-  background-color: teal;
+  background-color: green;
 }
 
 /* Aligning buttons */
@@ -136,7 +144,7 @@ header {
 }
 
 .toggle-btn {
-  background-color: #2e3440;
+  background-color: orange;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -147,11 +155,11 @@ header {
 }
 
 .toggle-btn:hover {
-  background-color: teal
+  background-color: green
 }
 
 .toggle-btn.active {
-  background-color: teal/* teal for active button */
+  background-color: green/* green for active button */
 }
 
 .file-item {
