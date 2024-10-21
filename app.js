@@ -472,10 +472,10 @@ function selectFile(index) {
   fileManagerButton.addEventListener("click", function () {
     if (fileManager.style.display === "none" || !fileManager.style.display) {
       fileManager.style.display = "block";
-      fileManagerButton.style.backgroundColor = "teal"
+      fileManagerButton.style.backgroundColor = "green"
     } else {
       fileManager.style.display = "none";
-      fileManagerButton.style.backgroundColor = "#2e3440"
+      fileManagerButton.style.backgroundColor = "orange"
     }
   });
 
