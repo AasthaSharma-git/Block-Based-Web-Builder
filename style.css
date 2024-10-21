@@ -1,0 +1,177 @@
+/* General body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+header {
+  background-color: white;
+  color: #2e3440;
+  padding: 15px;
+  text-align: center;
+  font-size: 24px;
+}
+
+#container {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+/* Sidebar styling */
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 10px;
+  width: 60px;
+  align-items: center;
+}
+
+.sidebar-button {
+  background-color: #2e3440;
+  color: white;
+  border: none;
+  padding: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.sidebar-button.active,
+.sidebar-button:hover {
+  background-color:teal;
+}
+
+#fileManager{
+  transition: all 0.3s ease;
+  display: none; /* Initially hidden */
+}
+
+/* Panel styling */
+#fileManager {
+  width: 300px;
+  padding: 10px;
+  background-color: #eceff4;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+}
+
+#blocklyArea {
+  flex-grow: 1;
+  padding: 10px;
+  transition: width 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f9;
+  overflow: hidden; /* Prevent overflow */
+}
+
+#blocklyDiv {
+  width: 100%;
+  height: 100%;
+}
+
+/* Resizer */
+#resizer {
+  width: 5px;
+  cursor: ew-resize;
+  background-color: #ddd;
+  transition: background-color 0.3s ease;
+}
+
+#resizer:hover {
+  background-color: #aaa;
+}
+
+#rightPane {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: #f7f7f7;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow: auto; /* Ensure scroll if content overflows */
+}
+
+/* Full height for sections when they are displayed */
+
+#previewSection {
+  width: 100%;
+  height: calc(100% - 50px); /* Leave space for the buttons */
+  display: none; /* Hidden by default */
+}
+
+#generatedCodeSection{
+  width: 100%;
+  height: calc(100% - 50px); /* Leave space for the buttons */
+}
+
+#generatedCodeSection.active,
+#previewSection.active {
+  display: block;
+}
+
+#previewSection iframe{
+  width: 100%;
+  height: 100%;
+}
+
+#generatedCode{
+  width: 100%;
+  height: 100%;
+}
+
+#exportButton:hover {
+  background-color: teal;
+}
+
+/* Aligning buttons */
+#toggleButtons {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.toggle-btn {
+  background-color: #2e3440;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.toggle-btn:hover {
+  background-color: teal
+}
+
+.toggle-btn.active {
+  background-color: teal/* teal for active button */
+}
+
+.file-item {
+  display: block;
+  padding: 10px;
+  margin: 5px 0;
+  text-decoration: none;
+  color: #333;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.file-item:hover {
+  background-color: #e1e1e1;
+}
+
+.file-item.active {
+  background-color: #d1e7dd;
+  font-weight: bold;
+  border-color: #0f5132;
+}
