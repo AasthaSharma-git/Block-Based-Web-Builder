@@ -1,226 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Block-Based Web Builder</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Block-Based Web Builder</title>
+    <!-- Include Blockly -->
+    <script src="https://unpkg.com/blockly@9.0.0/blockly.min.js"></script>
 
-  <!-- Include Blockly -->
-  <script src="https://unpkg.com/blockly@9.0.0/blockly.min.js"></script>
+    <!-- Include custom blocks -->
+    <script src="blocks/html_blocks.js"></script>
+    <script src="blocks/css_blocks.js"></script>
+    <script src="blocks/js_blocks.js"></script>
+    <script src="blocks/attributes_blocks.js"></script>
 
-  <!-- Include custom blocks -->
-  <script src="blocks/html_blocks.js"></script>
-  <script src="blocks/css_blocks.js"></script>
-  <script src="blocks/js_blocks.js"></script>
+    <!-- Include JSZip for exporting as ZIP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
 
-  <!-- Include JSZip for exporting as ZIP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+    <!-- Include the main app script -->
+    <script src="app.js" defer></script>
 
-  <!-- Include the main app script -->
-  <script src="app.js" defer></script>
+    <!-- Include custom styles -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-  <!-- Include custom styles -->
-  <link rel="stylesheet" href="style.css" />
-</head>
+  <body>
+    <header>
+      <img
+        src="assets/company_logo.png"
+        width="100"
+        height="100"
+        class="logo"
+        alt="Company Logo"
+      />
+      <h1>Block-Based Web Builder</h1>
+    </header>
 
-<body>
-  <header>
-    <img src="assets/company_logo.png" width="100" height="100" class="logo" alt="Company Logo">
-    <h1>Block-Based Web Builder</h1>
-</header>
-
-  <div id="container">
-    <!-- Sidebar with toggle buttons -->
-    <div id="sidebar">
-      <button id="fileManagerButton" class="sidebar-button">Files</button>
-    </div>
-
-    <!-- File Manager (initially hidden) -->
-    <div id="fileManager">
-      <h2>Files</h2>
-      <div id="fileList">
-          <!-- File items will be dynamically added here -->
+    <div id="container">
+      <!-- Sidebar with toggle buttons -->
+      <div id="sidebar">
+        <button id="fileManagerButton" class="sidebar-button">Files</button>
       </div>
-      
-      <form id="addFileForm">
-        <input type="text" id="newFileName" placeholder="File name" required />
-        <select id="newFileType">
-          <option value="html">HTML</option>
-          <option value="js">JavaScript</option>
-          <option value="css">CSS</option>
-        </select>
-        <button type="submit">Add</button>
-      </form>
+
+      <!-- File Manager (initially hidden) -->
+      <div id="fileManager">
+        <h2>Files</h2>
+        <div id="fileList">
+          <!-- File items will be dynamically added here -->
+        </div>
+
+        <form id="addFileForm">
+          <input
+            type="text"
+            id="newFileName"
+            placeholder="File name"
+            required
+          />
+          <select id="newFileType">
+            <option value="html">HTML</option>
+            <option value="js">JavaScript</option>
+            <option value="css">CSS</option>
+          </select>
+          <button type="submit">Add</button>
+        </form>
+      </div>
+
+      <!-- Blockly coding area (middle panel) -->
+      <div id="blocklyArea">
+        <div id="blocklyDiv"></div>
+      </div>
+
+      <!-- Resizer between coding area and right pane -->
+      <div id="resizer"></div>
+
+      <div id="rightPane">
+        <!-- Toggle buttons for switching views -->
+        <div id="toggleButtons">
+          <button id="showCodeButton" class="toggle-btn active">
+            Show Code
+          </button>
+          <button id="showPreviewButton" class="toggle-btn">
+            Show Preview
+          </button>
+          <button id="exportButton" class="toggle-btn">Export Project</button>
+        </div>
+
+        <!-- Generated Code Section -->
+        <div id="generatedCodeSection">
+          <h2>Generated Code</h2>
+          <textarea id="generatedCode" readonly></textarea>
+        </div>
+
+        <!-- Live Preview Section -->
+        <div id="previewSection" class="hidden">
+          <h2>Live Preview</h2>
+          <button onclick="openOutputInNewTab()">Open Output in New Tab</button>
+          <iframe id="preview" srcdoc=""></iframe>
+        </div>
+      </div>
     </div>
 
-    <!-- Blockly coding area (middle panel) -->
-    <div id="blocklyArea">
-      <div id="blocklyDiv"></div>
-    </div>
+    <!-- Toolbox XML -->
+    <xml id="toolbox" style="display: none">
 
-<!-- Resizer between coding area and right pane -->
-<div id="resizer"></div>
+      <category name="HTML" colour="#192BC2">
+        <block type="html_doctype"></block>
+        <block type="html_html"></block>
+        <block type="html_head"></block>
+        <block type="html_link"></block>
+        <block type="html_body"></block>
+        <block type="html_heading"></block>
+        <block type="html_p"></block>
+        <block type="html_br"></block>
+        <block type="html_button"></block>
+        <block type="html_a"></block>
+        <block type="html_img"></block>
+        <block type="html_div"></block>
+        <block type="html_table"></block>
+        <block type="html_tr"></block>
+        <block type="html_td"></block>
+        <block type="html_ul"></block>
+        <block type="html_ol"></block>
+        <block type="html_li"></block>
+        <block type="html_script"></block>
+      </category>
 
-<div id="rightPane">
-  <!-- Toggle buttons for switching views -->
-  <div id="toggleButtons">
-    <button id="showCodeButton" class="toggle-btn active">Show Code</button>
-    <button id="showPreviewButton" class="toggle-btn">Show Preview</button>
-     <button id="exportButton" class="toggle-btn">Export Project</button>
-  </div>
+      <category name="Attributes" colour="#FFD700">
+        <block type="html_attribute_id"></block>
+        <block type="html_attribute_class"></block>
+        <block type="html_attribute_style"></block>
+        <block type="html_attribute_disabled"></block>
+        <block type="html_attribute_href"></block>
+        <block type="html_attribute_src"></block>
+        <block type="html_attribute_alt"></block>
+        <block type="html_attribute_type"></block>
+        <block type="html_attribute_width"></block>
+        <block type="html_attribute_height"></block>
+      </category>
 
-  <!-- Generated Code Section -->
-  <div id="generatedCodeSection">
-    <h2>Generated Code</h2>
-    <textarea id="generatedCode" readonly></textarea>
-  </div>
+      <category name="CSS" colour="#8EB140">
+        <block type="css_rule"></block>
+        <block type="css_color"></block>
+        <block type="css_background_color"></block>
+        <block type="css_font_size"></block>
+        <block type="css_text_decoration"></block>
+        <block type="css_font_family"></block>
+        <block type="css_margin"></block>
+        <block type="css_padding"></block>
+        <block type="css_width"></block>
+        <block type="css_height"></block>
+        <block type="css_display"></block>
+        <block type="css_position"></block>
+      </category>
 
-  <!-- Live Preview Section -->
-  <div id="previewSection" class="hidden">
-    <h2>Live Preview</h2>
-    <button onclick="openOutputInNewTab()">Open Output in New Tab</button>
-    <iframe id="preview" srcdoc=""></iframe>
-  </div>
-
-</div>
-</div>
-
-   <!-- Toolbox XML -->
- <xml id="toolbox" style="display: none;">
-  <category name="HTML" colour="#192BC2">
-    <block type="html_doctype"></block>
-    <block type="html_html"></block>
-    <block type="html_head"></block>
-    <block type="html_body"></block>
-    <block type="html_heading"></block>
-    <block type="html_p"></block>
-    <block type="html_br"></block>
-    <block type="html_button"></block>
-    <block type="html_a"></block>
-    <block type="html_img"></block>
-    <block type="html_div"></block>
-    <block type="html_table"></block>
-    <block type="html_tr"></block>
-    <block type="html_td"></block>
-    <block type="html_ul"></block>
-    <block type="html_ol"></block>
-    <block type="html_li"></block>
-    <block type="js_script"></block>
-    <block type="html_attribute_id"></block>
-    <block type="html_attribute_class"></block>
-    <block type="html_attribute_style"></block>
-    <block type="html_attribute_disabled"></block>
-  </category>
-
-  <category name="CSS" colour="#8EB140">
-    <block type="css_color"></block>
-    <block type="css_background_color"></block>
-    <block type="css_font_size"></block>
-    <block type="css_margin"></block>
-    <block type="css_padding"></block>
-    <block type="css_width"></block>
-    <block type="css_height"></block>
-    <block type="css_display"></block>
-    <block type="css_position"></block>
-  </category>
-
-  <category name="JavaScript" colour="#FFAB19">
-    <block type="js_alert">
-      <value name="MESSAGE">
-        <shadow type="text">
-          <field name="TEXT">Hello, World!</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="js_console_log">
-      <value name="TEXT">
-        <shadow type="text">
-          <field name="TEXT">Debugging message</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="js_function">
-      <field name="NAME">myFunction</field>
-      <statement name="DO">
-        <block type="js_console_log">
-          <value name="TEXT">
-            <shadow type="text">
-              <field name="TEXT">Function executed!</field>
-            </shadow>
-          </value>
-        </block>
-      </statement>
-    </block>
-
-    <!-- Newly Added Blocks -->
-    <block type="js_variable_declare">
-      <field name="VAR">myVar</field>
-      <value name="VALUE">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
-    </block>
-
-    <block type="js_event_listenerDOMContentLoaded">
-      <statement name="DO">
-        <block type="js_console_log">
-          <value name="TEXT">
-            <shadow type="text">
-              <field name="TEXT">DOM is ready!</field>
-            </shadow>
-          </value>
-        </block>
-      </statement>
-    </block>
-
-    <block type="js_event_listener">
-      <field name="EVENT">click</field>
-      <value name="ELEMENT">
-        <shadow type="text">
-          <field name="TEXT">document.getElementById('myButton')</field>
-        </shadow>
-      </value>
-      <statement name="DO">
+      <category name="JavaScript" colour="#FFAB19">
         <block type="js_alert">
           <value name="MESSAGE">
             <shadow type="text">
-              <field name="TEXT">Button clicked!</field>
+              <field name="TEXT">Hello, World!</field>
             </shadow>
           </value>
         </block>
-      </statement>
-    </block>
-
-    <block type="js_if_else">
-      <value name="CONDITION">
-        <shadow type="logic_boolean">
-          <field name="BOOL">TRUE</field>
-        </shadow>
-      </value>
-      <statement name="DO">
         <block type="js_console_log">
           <value name="TEXT">
             <shadow type="text">
-              <field name="TEXT">Condition is true!</field>
+              <field name="TEXT">Debugging message</field>
             </shadow>
           </value>
         </block>
-      </statement>
-      <statement name="ELSE">
-        <block type="js_console_log">
-          <value name="TEXT">
+        <block type="js_function">
+          <field name="NAME">myFunction</field>
+          <statement name="DO">
+            <block type="js_console_log">
+              <value name="TEXT">
+                <shadow type="text">
+                  <field name="TEXT">Function executed!</field>
+                </shadow>
+              </value>
+            </block>
+          </statement>
+        </block>
+
+        <!-- Newly Added Blocks -->
+        <block type="js_variable_declare">
+          <field name="VAR">myVar</field>
+          <value name="VALUE">
+            <shadow type="math_number">
+              <field name="NUM">10</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="js_event_listenerDOMContentLoaded">
+          <statement name="DO">
+            <block type="js_console_log">
+              <value name="TEXT">
+                <shadow type="text">
+                  <field name="TEXT">DOM is ready!</field>
+                </shadow>
+              </value>
+            </block>
+          </statement>
+        </block>
+
+        <block type="js_event_listener">
+          <field name="EVENT">click</field>
+          <value name="ELEMENT">
             <shadow type="text">
-              <field name="TEXT">Condition is false!</field>
+              <field name="TEXT">document.getElementById('myButton')</field>
             </shadow>
           </value>
+          <statement name="DO">
+            <block type="js_alert">
+              <value name="MESSAGE">
+                <shadow type="text">
+                  <field name="TEXT">Button clicked!</field>
+                </shadow>
+              </value>
+            </block>
+          </statement>
         </block>
-      </statement>
-    </block>
-    <block type="number_input"></block>
-  </category>
 
-</xml>  
-</body>
-
+        <block type="js_if_else">
+          <value name="CONDITION">
+            <shadow type="logic_boolean">
+              <field name="BOOL">TRUE</field>
+            </shadow>
+          </value>
+          <statement name="DO">
+            <block type="js_console_log">
+              <value name="TEXT">
+                <shadow type="text">
+                  <field name="TEXT">Condition is true!</field>
+                </shadow>
+              </value>
+            </block>
+          </statement>
+          <statement name="ELSE">
+            <block type="js_console_log">
+              <value name="TEXT">
+                <shadow type="text">
+                  <field name="TEXT">Condition is false!</field>
+                </shadow>
+              </value>
+            </block>
+          </statement>
+        </block>
+        <block type="number_input"></block>
+      </category>
+    </xml>
+  </body>
 </html>

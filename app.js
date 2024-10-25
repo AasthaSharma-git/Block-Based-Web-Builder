@@ -210,7 +210,7 @@ function selectFile(index) {
     } else if (file.type === 'css') {
         // Use your custom CSS generator
         if (Blockly.Css) {
-            code = Blockly.Css.workspaceToCode(workspace);
+            code = Blockly.JavaScript.workspaceToCode(workspace);
         } else {
             // If no custom generator, use JavaScript generator as placeholder
             code = Blockly.JavaScript.workspaceToCode(workspace);
@@ -428,7 +428,7 @@ function selectFile(index) {
     } else if (file.type === 'css') {
         // Use your custom CSS generator
         if (Blockly.Css) {
-            code = Blockly.Css.workspaceToCode(workspace);
+            code = Blockly.JavaScript.workspaceToCode(workspace);
         } else {
             // If no custom generator, use JavaScript generator as placeholder
             code = Blockly.JavaScript.workspaceToCode(workspace);

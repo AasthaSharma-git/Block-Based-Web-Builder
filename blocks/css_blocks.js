@@ -214,3 +214,114 @@ Blockly.JavaScript['css_position'] = function(block) {
   var code = `${leftCode}position: ${positionType}; `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
+
+
+// CSS Rule block (updated)
+Blockly.Blocks['css_rule'] = {
+  init: function() {
+    // Initial input for the selector
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput('selector'), 'SELECTOR')  // CSS Selector
+        .appendField('{');
+
+    // Input for chaining multiple style properties
+    this.appendValueInput('PROPERTIES')
+        .setCheck(null);  // Allow any style properties to be chained
+
+    this.appendDummyInput()
+        .appendField('}');  // Closing brace
+
+    // Block settings
+    this.setPreviousStatement(true, null);  // Allows this block to connect to others
+    this.setNextStatement(true, null);  // Allows chaining more blocks after this
+    this.setColour('#8EB140');  // Set block color
+    this.setTooltip('Defines a CSS rule with a selector and properties.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['css_rule'] = function(block) {
+  // Get the selector (e.g., '.class' or '#id')
+  var selector = block.getFieldValue('SELECTOR');
+
+  // Retrieve the chain of style properties (chained blocks)
+  var properties = Blockly.JavaScript.valueToCode(block, 'PROPERTIES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  // Generate the full CSS rule
+  var code = `${selector} {\n${properties.trim()}\n}\n`;
+  
+  return code;
+};
+
+// Text Decoration Block
+Blockly.Blocks['css_text_decoration'] = {
+  init: function() {
+    // Main text decoration dropdown
+    this.appendValueInput('LEFT_INPUT')  // Allows chaining on the left side
+        .setCheck(null)  // Allows any type of input
+        .appendField("text-decoration:")
+        .appendField(new Blockly.FieldDropdown([
+            ["none", "none"],
+            ["underline", "underline"],
+            ["overline", "overline"],
+            ["line-through", "line-through"]
+        ]), 'DECORATION_TYPE');  // Dropdown for the text-decoration type
+
+ 
+
+    this.setOutput(true, "String");  // Set output type
+    this.setColour('#8EB140');  // Set block color
+    this.setTooltip("Set the text decoration with optional style, color, and thickness.");
+    this.setHelpUrl("");
+  }
+};
+
+
+Blockly.JavaScript['css_text_decoration'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  var decorationType = block.getFieldValue('DECORATION_TYPE');
+
+  // Generate CSS code for text-decoration properties
+  var code = `${leftCode}text-decoration: ${decorationType};\n`;
+ 
+
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+// Font Family Block
+Blockly.Blocks['css_font_family'] = {
+  init: function() {
+    // Dropdown for predefined font families
+    this.appendValueInput('LEFT_INPUT')  // Allows chaining on the left side
+        .setCheck(null)  // Allows any type of input
+        .appendField("font-family:")
+        .appendField(new Blockly.FieldDropdown([
+            ["Arial", "Arial, sans-serif"],
+            ["Verdana", "Verdana, sans-serif"],
+            ["Georgia", "Georgia, serif"],
+            ["Times New Roman", "Times New Roman, serif"],
+            ["Courier New", "Courier New, monospace"],
+        ]), 'FONT_FAMILY');  // Dropdown for font-family selection
+    
+  
+
+    this.setOutput(true, "String");  // Set output type
+    this.setColour('#8EB140');  // Set block color
+    this.setTooltip("Set the font-family.");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.JavaScript['css_font_family'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  var fontFamily = block.getFieldValue('FONT_FAMILY');
+
+  // Use the custom font if "Custom" is selected, otherwise use the predefined option
+  var finalFontFamily = fontFamily
+
+  var code = `${leftCode}font-family: ${finalFontFamily}; `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
