@@ -46,14 +46,18 @@ header h1 {
   cursor: pointer;
   text-align: center;
   border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
 }
 
 .sidebar-button.active,
 .sidebar-button:hover {
-  background-color:green;
+  background-color: green;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
-#fileManager{
+#fileManager {
   transition: all 0.3s ease;
   display: none; /* Initially hidden */
 }
@@ -106,14 +110,13 @@ header h1 {
 }
 
 /* Full height for sections when they are displayed */
-
 #previewSection {
   width: 100%;
   height: calc(100% - 50px); /* Leave space for the buttons */
   display: none; /* Hidden by default */
 }
 
-#generatedCodeSection{
+#generatedCodeSection {
   width: 100%;
   height: calc(100% - 50px); /* Leave space for the buttons */
 }
@@ -123,18 +126,33 @@ header h1 {
   display: block;
 }
 
-#previewSection iframe{
+#previewSection iframe {
   width: 100%;
   height: 100%;
 }
 
-#generatedCode{
+#generatedCode {
   width: 100%;
   height: 100%;
+}
+
+#exportButton {
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
 }
 
 #exportButton:hover {
   background-color: green;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
 /* Aligning buttons */
@@ -152,14 +170,18 @@ header h1 {
   cursor: pointer;
   border-radius: 5px;
   font-size: 14px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
 }
 
 .toggle-btn:hover {
-  background-color: green
+  background-color: green;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
 .toggle-btn.active {
-  background-color: green/* green for active button */
+  background-color: green; /* green for active button */
 }
 
 .file-item {
@@ -172,6 +194,8 @@ header h1 {
   border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
 }
 
 .file-item:hover {

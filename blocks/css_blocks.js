@@ -65,6 +65,43 @@ Blockly.JavaScript['css_font_size'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
+// Font weight block
+Blockly.Blocks['css_font_weight'] = {
+  init: function() {
+    this.appendValueInput('LEFT_INPUT')  // Allows chaining on the left side
+        .setCheck(null)
+        .appendField("font-weight:")
+        .appendField(new Blockly.FieldDropdown([
+          ["normal", "normal"],
+          ["bold", "bold"],
+          ["bolder", "bolder"],
+          ["lighter", "lighter"],
+          ["100", "100"],
+          ["200", "200"],
+          ["300", "300"],
+          ["400", "400"],
+          ["500", "500"],
+          ["600", "600"],
+          ["700", "700"],
+          ["800", "800"],
+          ["900", "900"]
+        ]), "WEIGHT"); // Dropdown for font-weight values
+    this.setOutput(true, "String");  // Set output type
+    this.setColour('#8EB140');
+    this.setTooltip("Set the font weight.");
+    this.setHelpUrl("");
+  }
+};
+
+// JavaScript code generation for font weight
+Blockly.JavaScript['css_font_weight'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var fontWeight = block.getFieldValue('WEIGHT');
+  var code = `${leftCode}font-weight: ${fontWeight}; `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+
 // Margin block
 Blockly.Blocks['css_margin'] = {
   init: function() {
@@ -325,3 +362,37 @@ Blockly.JavaScript['css_font_family'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
+// List style type block
+Blockly.Blocks['css_list_style_type'] = {
+  init: function() {
+    this.appendValueInput('LEFT_INPUT')  // Allows chaining on the left side
+        .setCheck(null)
+        .appendField("list-style-type:")
+        .appendField(new Blockly.FieldDropdown([
+          ["none", "none"],
+          ["disc", "disc"],
+          ["circle", "circle"],
+          ["square", "square"],
+          ["decimal", "decimal"],
+          ["lower-alpha", "lower-alpha"],
+          ["upper-alpha", "upper-alpha"],
+          ["lower-roman", "lower-roman"],
+          ["upper-roman", "upper-roman"],
+          ["inherit", "inherit"],
+          ["initial", "initial"],
+          ["unset", "unset"]
+        ]), "STYLE_TYPE"); // Dropdown for list-style-type values
+    this.setOutput(true, "String");  // Set output type
+    this.setColour('#8EB140');
+    this.setTooltip("Set the list style type.");
+    this.setHelpUrl("");
+  }
+};
+
+// JavaScript code generation for list style type
+Blockly.JavaScript['css_list_style_type'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var listStyleType = block.getFieldValue('STYLE_TYPE');
+  var code = `${leftCode}list-style-type: ${listStyleType}; `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};

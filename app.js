@@ -3,8 +3,13 @@
 // Initialize the Blockly workspace
 var workspace = Blockly.inject('blocklyDiv', {
     toolbox: document.getElementById('toolbox'),
+
   });
-  
+
+
+
+
+
   // Data structure to hold user-created files
   var files = [];
   var currentFileIndex = -1;
