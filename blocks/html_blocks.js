@@ -5,6 +5,7 @@ Blockly.Blocks['html_doctype'] = {
   init: function () {
     this.appendDummyInput()
       .appendField("<!DOCTYPE html>");
+
     this.setNextStatement(true);
     this.setColour('#192BC2');
     this.setTooltip("Declare the document as HTML5");
@@ -21,10 +22,8 @@ Blockly.Blocks['html_html'] = {
   init: function () {
     // Opening tag: <html>
     this.appendDummyInput()
-      .appendField('<')
-      .appendField(new Blockly.FieldLabel("html"))  // Opening tag name
-      .appendField('>');
-
+      .appendField('<html>')
+      
     // Statement input for nested blocks inside the <html> tag
     this.appendStatementInput("CONTENT")
       .setCheck(null)
@@ -32,9 +31,7 @@ Blockly.Blocks['html_html'] = {
 
     // Closing tag: </html>
     this.appendDummyInput()
-      .appendField("</")
-      .appendField(new Blockly.FieldLabel("html"))  // Closing tag name
-      .appendField('>');
+      .appendField("</html>")
 
     this.setPreviousStatement(true);
 
@@ -55,10 +52,8 @@ Blockly.Blocks['html_head'] = {
   init: function () {
     // Opening tag: <head>
     this.appendDummyInput()
-      .appendField('<')
-      .appendField(new Blockly.FieldLabel("head"))  // Opening tag name
-      .appendField('>');
-
+      .appendField('<head>')
+     
     // Statement input for nested blocks inside the <head> tag
     this.appendStatementInput("CONTENT")
       .setCheck(null)
@@ -66,10 +61,8 @@ Blockly.Blocks['html_head'] = {
 
     // Closing tag: </head>
     this.appendDummyInput()
-      .appendField("</")
-      .appendField(new Blockly.FieldLabel("head"))  // Closing tag name
-      .appendField('>');
-
+      .appendField("</head>")
+ 
     // Allow the block to connect to other blocks
     this.setPreviousStatement(true, null);  // Connection from above
     this.setNextStatement(true, null);  // Connection below
@@ -92,8 +85,7 @@ Blockly.Blocks['html_body'] = {
   init: function () {
     // Opening tag: <body>
     this.appendDummyInput()
-      .appendField('<')
-      .appendField(new Blockly.FieldLabel("body"))  // Opening tag name
+      .appendField('<body')
 
     // Single attributes input for chaining multiple attribute blocks
     this.appendValueInput("ATTRIBUTES")
@@ -109,9 +101,7 @@ Blockly.Blocks['html_body'] = {
 
     // Closing tag: </body>
     this.appendDummyInput()
-      .appendField("</")
-      .appendField(new Blockly.FieldLabel("body"))  // Closing tag name
-      .appendField('>');
+      .appendField("</body>")
 
     // Allow the block to connect to other blocks
     this.setPreviousStatement(true, null);  // Connection from above
@@ -206,8 +196,7 @@ Blockly.JavaScript['html_heading'] = function (block) {
 Blockly.Blocks['html_p'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField('<')
-      .appendField("p");
+      .appendField('<p')
 
     // Allow chaining multiple attributes (if needed)
     this.appendValueInput("ATTRIBUTES")
@@ -254,8 +243,7 @@ Blockly.JavaScript['html_p'] = function (block) {
 Blockly.Blocks['html_button'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField('<')
-      .appendField("button");
+      .appendField('<button')
 
     // Add first attribute input
     this.appendValueInput("ATTRIBUTES")
@@ -614,7 +602,7 @@ Blockly.JavaScript['html_div'] = function (block) {
 
 
 // Block for <br> tag in HTML
-Blockly.Blocks['html_br'] = {
+Blockly.Blocks['html_br1'] = {
   init: function () {
     this.appendDummyInput()
       .appendField("<br>"); // Label for the <br> tag
@@ -626,11 +614,49 @@ Blockly.Blocks['html_br'] = {
   }
 };
 
-Blockly.JavaScript['html_br'] = function (block) {
+Blockly.JavaScript['html_br1'] = function (block) {
   // Generates the <br> HTML tag
   return '<br>\n'; // Newline after <br> for better formatting
 };
 
+//A different looking block for <br> tag in HTML
+Blockly.Blocks['html_br2'] = {
+  init: function() {
+    this.appendValueInput('LEFT_INPUT')
+        .appendField("<br>")
+
+    this.setOutput(true, "String"); // Output type for chaining in paragraph
+    this.setColour("192BC2");
+    this.setTooltip("Line Break");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.JavaScript['html_br2'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  var code = `<br>${leftCode}`;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC]; // Use ORDER_ATOMIC
+};
+
+//Block for <hr> tag in HTML
+Blockly.Blocks['html_hr']={
+  init:function(){
+    this.appendDummyInput()
+        .appendField("<hr>")
+
+    this.setPreviousStatement(true,null);
+    this.setNextStatement(true,null);
+
+    this.setColour('192BC2')
+    this.setTooltip("Creates a horizontal rule (<hr>) in HTML.");
+    this.setHelpUrl(""); // Help URL if needed
+  }
+}
+
+Blockly.JavaScript['html_hr']=function(block){
+  return '<hr>\n'; // Newline after <hr> for better
+}
 // Block for <ul> (unordered list) tag
 Blockly.Blocks['html_ul'] = {
   init: function () {
