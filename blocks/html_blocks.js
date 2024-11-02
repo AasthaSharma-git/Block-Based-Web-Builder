@@ -451,6 +451,85 @@ Blockly.JavaScript['html_table'] = function (block) {
   return code;
 };
 
+Blockly.Blocks['html_caption'] = {
+  init: function () {
+    // Opening tag and attributes input
+    this.appendDummyInput()
+      .appendField('<caption');
+
+    // Add a value input for the attributes field
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField(' '); // Placeholder for attributes
+
+    this.appendDummyInput()
+      .appendField('>')
+      .appendField(new Blockly.FieldTextInput('data'), 'CONTENT') // Direct content text input
+      .appendField('</caption>');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip('Table caption');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['html_caption'] = function (block) {
+  // Get the content from the field text input (typed text)
+  var content = block.getFieldValue('CONTENT') || ''; // Retrieve field content using getFieldValue
+
+  // Get all connected attributes, properly handling chains
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  // Concatenate attributes and remove trailing spaces
+  attributes = attributes.trim();
+
+  // Generate the HTML code for the <td> with the typed content
+  var code = `<caption ${attributes}>${content}</caption>`;
+  return code;
+};
+
+
+Blockly.Blocks['html_th'] = {
+  init: function () {
+    // Opening tag and attributes input
+    this.appendDummyInput()
+      .appendField('<th');
+
+    // Add a value input for the attributes field
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField(' '); // Placeholder for attributes
+
+    this.appendDummyInput()
+      .appendField('>')
+      .appendField(new Blockly.FieldTextInput('data'), 'CONTENT') // Direct content text input
+      .appendField('</th>');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip('Table heading.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['html_th'] = function (block) {
+  // Get the content from the field text input (typed text)
+  var content = block.getFieldValue('CONTENT') || ''; // Retrieve field content using getFieldValue
+
+  // Get all connected attributes, properly handling chains
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  // Concatenate attributes and remove trailing spaces
+  attributes = attributes.trim();
+
+  // Generate the HTML code for the <td> with the typed content
+  var code = `<th ${attributes}>${content}</th>`;
+  return code;
+};
+
 
 // Table row <tr> block
 Blockly.Blocks['html_tr'] = {
@@ -487,7 +566,7 @@ Blockly.JavaScript['html_tr'] = function (block) {
 
   // Concatenate attributes and remove trailing spaces
   attributes = attributes.trim();
-  var code = `<tr $>\n ${cells} </tr>\n`;
+  var code = `<tr ${attributes}>\n ${cells} </tr>\n`;
   return code;
 };
 
@@ -1034,5 +1113,514 @@ Blockly.Blocks['html_style'] = {
 Blockly.JavaScript['html_style'] = function(block) {
   var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
   var code = '<style>\n' + content + '\n</style>\n';
+  return code;
+};
+
+// Header block
+Blockly.Blocks['html_header'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<header>");  // Opening tag label
+
+    // Single attributes input for chaining multiple attribute blocks
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</header>"); // Closing tag label
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("A header section.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header");
+  }
+};
+
+// JavaScript code generation for header
+Blockly.JavaScript['html_header'] = function (block) {
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  attributes = attributes.trim();
+  var code = `<header ${attributes}>\n${content}</header>\n`;
+  return code;
+};
+
+// Footer block
+Blockly.Blocks['html_footer'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<footer>");  // Opening tag label
+
+    // Single attributes input for chaining multiple attribute blocks
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</footer>"); // Closing tag label
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("A footer section.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer");
+  }
+};
+
+
+
+// JavaScript code generation for footer
+Blockly.JavaScript['html_footer'] = function (block) {
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  attributes = attributes.trim();
+  var code = `<footer ${attributes}>\n${content}</footer>\n`;
+  return code;
+};
+
+// Nav block
+Blockly.Blocks['html_nav'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<nav>");  // Opening tag label
+
+    // Single attributes input for chaining multiple attribute blocks
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</nav>"); // Closing tag label
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("A navigation section.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav");
+  }
+};
+
+// JavaScript code generation for nav
+Blockly.JavaScript['html_nav'] = function (block) {
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  attributes = attributes.trim();
+  var code = `<nav ${attributes}>\n${content}</nav>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_article'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<article>");
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</article>");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("An article section.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article");
+  }
+};
+
+Blockly.JavaScript['html_article'] = function (block) {
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<article ${attributes}>\n${content}</article>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_aside'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<aside>");
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</aside>");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("An aside section.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside");
+  }
+};
+
+Blockly.JavaScript['html_aside'] = function (block) {
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<aside ${attributes}>\n${content}</aside>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_div'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<div>");
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</div>");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("A division or container.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div");
+  }
+};
+
+Blockly.JavaScript['html_div'] = function (block) {
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<div ${attributes}>\n${content}</div>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_form'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<form>");
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</form>");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("A form section.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form");
+  }
+};
+
+Blockly.JavaScript['html_form'] = function (block) {
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<form ${attributes}>\n$</form>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_label'] = {
+  init: function () {
+    this.appendDummyInput()
+    .appendField('<label')
+
+  // Allow chaining multiple attributes (if needed)
+  this.appendValueInput("ATTRIBUTES")
+    .setCheck('String')
+    .appendField("");
+
+  this.appendDummyInput("")
+    .appendField('>');
+
+  // Keep the TEXT input as Value Input, but allow both plain text and formatted tags
+  this.appendValueInput("TEXT")
+    .setCheck("String") // Accepts plain text or formatted tags
+    .appendField("");
+
+  this.appendDummyInput()
+    .appendField("</label>");
+
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("A label element, typically used to label form controls.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label");
+  }
+};
+
+Blockly.JavaScript['html_label'] = function (block) {
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<label ${attributes}>\n${content}</label>\n`;
+  return code;
+};
+
+
+Blockly.Blocks['html_input'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<input");
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("An input element.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input");
+  }
+};
+
+Blockly.JavaScript['html_input'] = function (block) {
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<input ${attributes}>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_textarea'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<textarea>");
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendDummyInput()
+      .appendField("</textarea>");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("A textarea element.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea");
+  }
+};
+
+Blockly.JavaScript['html_textarea'] = function (block) {
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<textarea ${attributes}></textarea>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_select'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<select>");
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</select>");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("A select element.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select");
+  }
+};
+
+Blockly.JavaScript['html_select'] = function (block) {
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<select ${attributes}>\n${content}</select>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_option'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<option>");
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendDummyInput()
+      .appendField("</option>");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("An option element.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option");
+  }
+};
+
+Blockly.JavaScript['html_option'] = function (block) {
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<option ${attributes}></option>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_audio'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<audio>");
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</audio>");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("An audio element.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio");
+  }
+};
+
+Blockly.JavaScript['html_audio'] = function (block) {
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<audio ${attributes}>\n${content}</audio>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_video'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<video>");
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</video>");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("A video element.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video");
+  }
+};
+
+Blockly.JavaScript['html_video'] = function (block) {
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<video ${attributes}>\n${content}</video>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_iframe'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<iframe");
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendDummyInput()
+      .appendField("</iframe>");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('192BC2');
+    this.setTooltip("An iframe element.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe");
+  }
+};
+
+Blockly.JavaScript['html_iframe'] = function (block) {
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<iframe ${attributes}></iframe>\n`;
   return code;
 };

@@ -396,3 +396,55 @@ Blockly.JavaScript['css_list_style_type'] = function(block) {
   var code = `${leftCode}list-style-type: ${listStyleType}; `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
+
+// Text-align block
+Blockly.Blocks['css_text_align'] = {
+  init: function() {
+    this.appendValueInput('LEFT_INPUT')  // Allows chaining on the left side
+        .setCheck(null)
+        .appendField("text-align:")
+        .appendField(new Blockly.FieldDropdown([
+          ["left", "left"],
+          ["right", "right"],
+          ["center", "center"],
+          ["justify", "justify"]
+        ]), "ALIGN");  // Dropdown for text-align values
+    this.setOutput(true, "String");  // Set output type
+    this.setColour('#8EB140');  // Customize block color
+    this.setTooltip("Set the text alignment of the element.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/CSS/text-align");
+  }
+};
+
+// JavaScript code generation for text-align
+Blockly.JavaScript['css_text_align'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var alignment = block.getFieldValue('ALIGN');
+  var code = `${leftCode}text-align: ${alignment}; `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+// Border-collapse block
+Blockly.Blocks['css_border_collapse'] = {
+  init: function() {
+    this.appendValueInput('LEFT_INPUT')  // Allows chaining on the left side
+        .setCheck(null)
+        .appendField("border-collapse:")
+        .appendField(new Blockly.FieldDropdown([
+          ["collapse", "collapse"],
+          ["separate", "separate"]
+        ]), "BORDER_COLLAPSE");  // Dropdown for border-collapse values
+    this.setOutput(true, "String");  // Set output type
+    this.setColour('#8EB140');  // Customize block color
+    this.setTooltip("Set the border collapse behavior for table elements.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/CSS/border-collapse");
+  }
+};
+
+// JavaScript code generation for border-collapse
+Blockly.JavaScript['css_border_collapse'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var borderCollapse = block.getFieldValue('BORDER_COLLAPSE');
+  var code = `${leftCode}border-collapse: ${borderCollapse}; `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};

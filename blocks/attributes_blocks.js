@@ -4,7 +4,7 @@ Blockly.Blocks['html_attribute_id'] = {
     // Adding a value input to allow connection on the left side
     this.appendValueInput('LEFT_INPUT')  // Input on the left
       .setCheck(null)  // Change this to the specific type if needed
-      .appendField("id")
+      .appendField("id=")
       .appendField(new Blockly.FieldTextInput(''), 'ID');
 
     this.setOutput(true, null);  // Output on the right side
@@ -31,7 +31,7 @@ Blockly.Blocks['html_attribute_href'] = {
     // Adding a value input to allow connection on the left side
     this.appendValueInput('LEFT_INPUT')  // Input on the left
       .setCheck(null)  // Change this to the specific type if needed
-      .appendField("href")
+      .appendField("href=")
       .appendField(new Blockly.FieldTextInput(''), 'href');
 
     this.setOutput(true, null);  // Output on the right side
@@ -58,7 +58,7 @@ Blockly.Blocks['html_attribute_src'] = {
     // Adding a value input to allow connection on the left side
     this.appendValueInput('LEFT_INPUT')  // Input on the left
       .setCheck(null)  // Change this to the specific type if needed
-      .appendField("src")
+      .appendField("src=")
       .appendField(new Blockly.FieldTextInput(''), 'src');
 
     this.setOutput(true, null);  // Output on the right side
@@ -85,7 +85,7 @@ Blockly.Blocks['html_attribute_alt'] = {
     // Adding a value input to allow connection on the left side
     this.appendValueInput('LEFT_INPUT')  // Input on the left
       .setCheck(null)  // Change this to the specific type if needed
-      .appendField("alt")
+      .appendField("alt=")
       .appendField(new Blockly.FieldTextInput(''), 'alt');
 
     this.setOutput(true, null);  // Output on the right side
@@ -113,7 +113,7 @@ Blockly.Blocks['html_attribute_class'] = {
   init: function () {
     this.appendValueInput('LEFT_INPUT')  // Adding left input
       .setCheck('text')  // Change this to the specific type if needed
-      .appendField("class")
+      .appendField("class=")
       .appendField(new Blockly.FieldTextInput(''), 'CLASS');
     this.setOutput(true, 'String');  // This block outputs a string
     this.setColour('#FFD700');
@@ -140,7 +140,7 @@ Blockly.Blocks['html_attribute_style'] = {
     
     this.appendValueInput('LEFT_INPUT')  // Input for chaining multiple attributes
       .setCheck('String')
-      .appendField("style")
+      .appendField("style=")
 
     this.appendDummyInput("PROPERTIES")
         .appendField('')
@@ -165,18 +165,21 @@ Blockly.JavaScript['html_attribute_style'] = function (block) {
   return [code, Blockly.JavaScript.ORDER_ATOMIC];  // Return as an array
 };
 
-
-
 Blockly.Blocks['html_attribute_type'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField("type")
+      .appendField("type=")
       .appendField(new Blockly.FieldDropdown([
         ["button", "button"],
         ["submit", "submit"],
-        ["reset", "reset"],
         ["text", "text"],
-        ["password", "password"]
+        ["checkbox", "checkbox"],
+        ["radio", "radio"],
+        ["file", "file"],
+        ["hidden", "hidden"],
+        ["image", "image"],
+        ["password", "password"],
+        ["reset", "reset"],
       ]), 'TYPE');
     this.setOutput(true, 'String');
     this.setColour('#FFD700');
@@ -220,7 +223,7 @@ Blockly.Blocks['html_attribute_width'] = {
     // Adding a value input to allow connection on the left side
     this.appendValueInput('LEFT_INPUT')  // Input on the left
       .setCheck(null)  // Change this to the specific type if needed
-      .appendField("width")
+      .appendField("width=")
       .appendField(new Blockly.FieldTextInput(''), 'width');
 
     this.setOutput(true, null);  // Output on the right side
@@ -247,7 +250,7 @@ Blockly.Blocks['html_attribute_height'] = {
     // Adding a value input to allow connection on the left side
     this.appendValueInput('LEFT_INPUT')  // Input on the left
       .setCheck(null)  // Change this to the specific type if needed
-      .appendField("height")
+      .appendField("height=")
       .appendField(new Blockly.FieldTextInput(''), 'height');
 
     this.setOutput(true, null);  // Output on the right side
@@ -268,3 +271,329 @@ Blockly.JavaScript['html_attribute_height'] = function (block) {
   var code = leftCode + `height="${height}" `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
+
+Blockly.Blocks['html_attribute_border'] = {
+  init: function () {
+    // Adding a value input to allow connection on the left side
+    this.appendValueInput('LEFT_INPUT')  // Input on the left
+      .setCheck(null)  // Change this to the specific type if needed
+      .appendField("border=")
+      .appendField(new Blockly.FieldTextInput(''), 'data');
+
+    this.setOutput(true, null);  // Output on the right side
+    this.setColour('#FFD700');
+    this.setTooltip('Specify border of the table.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['html_attribute_border'] = function (block) {
+  // Get the code from any connected blocks on the left
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  // Get the data field value
+  var border = block.getFieldValue('data');
+
+  // Combine the left block's code with this block's id attribute
+  var code = leftCode + `border="${border}" `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_for'] = {
+  init: function () {
+    // Adding a value input to allow connection on the left side
+    this.appendValueInput('LEFT_INPUT')  // Input on the left
+      .setCheck(null)  // Change this to the specific type if needed
+      .appendField("for=")
+      .appendField(new Blockly.FieldTextInput(''), 'data');
+
+    this.setOutput(true, null);  // Output on the right side
+    this.setColour('#FFD700');
+    this.setTooltip('Sets the for attribute for an HTML element.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['html_attribute_for'] = function (block) {
+  // Get the code from any connected blocks on the left
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  // Get the data field value
+  var data = block.getFieldValue('data');
+
+  // Combine the left block's code with this block's for attribute
+  var code = leftCode + `for="${data}" `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_name'] = {
+  init: function () {
+    // Adding a value input to allow connection on the left side
+    this.appendValueInput('LEFT_INPUT')  // Input on the left
+      .setCheck(null)  // Change this to the specific type if needed
+      .appendField("name=")
+      .appendField(new Blockly.FieldTextInput(''), 'data');
+
+    this.setOutput(true, null);  // Output on the right side
+    this.setColour('#FFD700');
+    this.setTooltip('Sets the name attribute for an HTML element.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['html_attribute_name'] = function (block) {
+  // Get the code from any connected blocks on the left
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  // Get the data field value
+  var name = block.getFieldValue('data');
+
+  // Combine the left block's code with this block's name attribute
+  var code = leftCode + `name="${name}" `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_value'] = {
+  init: function () {
+    // Adding a value input to allow connection on the left side
+    this.appendValueInput('LEFT_INPUT')  // Input on the left
+      .setCheck(null)  // Change this to the specific type if needed
+      .appendField("value=")
+      .appendField(new Blockly.FieldTextInput(''), 'data');
+
+    this.setOutput(true, null);  // Output on the right side
+    this.setColour('#FFD700');
+    this.setTooltip('Sets the value attribute for an HTML element.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['html_attribute_for'] = function (block) {
+  // Get the code from any connected blocks on the left
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  // Get the data field value
+  var value = block.getFieldValue('data');
+
+  // Combine the left block's code with this block's value attribute
+  var code = leftCode + `value="${value}" `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_size'] = {
+  init: function() {
+    this.appendValueInput("LEFT_INPUT")
+      .setCheck(null)
+      .appendField("size=")
+      .appendField(new Blockly.FieldNumber(1, 1), "SIZE");
+    this.setOutput(true, "String");
+    this.setColour('#FFD700');
+    this.setTooltip("Sets the size of an input field.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/size");
+  }
+};
+
+Blockly.JavaScript['html_attribute_size'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var sizeValue = block.getFieldValue('SIZE');
+  var code = `${leftCode}size="${sizeValue}" `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_maxlength'] = {
+  init: function() {
+    this.appendValueInput("LEFT_INPUT")
+      .setCheck(null)
+      .appendField("maxlength=")
+      .appendField(new Blockly.FieldNumber(1, 1), "MAXLENGTH");
+    this.setOutput(true, "String");
+    this.setColour('#FFD700');
+    this.setTooltip("Sets the maximum number of characters allowed in an input field.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/maxlength");
+  }
+};
+
+Blockly.JavaScript['html_attribute_maxlength'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var maxlengthValue = block.getFieldValue('MAXLENGTH');
+  var code = `${leftCode}maxlength="${maxlengthValue}" `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_multiple'] = {
+  init: function() {
+    this.appendValueInput("LEFT_INPUT")
+      .setCheck(null)
+      .appendField("multiple");
+    this.setOutput(true, "String");
+    this.setColour('#FFD700');
+    this.setTooltip("Allows the user to select multiple values.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/multiple");
+  }
+};
+
+Blockly.JavaScript['html_attribute_multiple'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var code = `${leftCode}multiple `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_pattern'] = {
+  init: function() {
+    this.appendValueInput("LEFT_INPUT")
+      .setCheck(null)
+      .appendField("pattern=")
+      .appendField(new Blockly.FieldTextInput(""), "PATTERN");
+    this.setOutput(true, "String");
+    this.setColour('#FFD700');
+    this.setTooltip("Specifies a regular expression that the input's value must match.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern");
+  }
+};
+
+Blockly.JavaScript['html_attribute_pattern'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var patternValue = block.getFieldValue('PATTERN');
+  var code = `${leftCode}pattern="${patternValue}" `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_placeholder'] = {
+  init: function() {
+    this.appendValueInput("LEFT_INPUT")
+      .setCheck(null)
+      .appendField("placeholder=")
+      .appendField(new Blockly.FieldTextInput("Enter text"), "PLACEHOLDER");
+    this.setOutput(true, "String");
+    this.setColour('#FFD700');
+    this.setTooltip("Sets a placeholder text for an input field.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/placeholder");
+  }
+};
+
+Blockly.JavaScript['html_attribute_placeholder'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var placeholderValue = block.getFieldValue('PLACEHOLDER');
+  var code = `${leftCode}placeholder="${placeholderValue}" `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_required'] = {
+  init: function() {
+    this.appendValueInput("LEFT_INPUT")
+      .setCheck(null)
+      .appendField("required");
+    this.setOutput(true, "String");
+    this.setColour('#FFD700');
+    this.setTooltip("Makes the input field required.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required");
+  }
+};
+
+Blockly.JavaScript['html_attribute_required'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var code = `${leftCode}required `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_autofocus'] = {
+  init: function() {
+    this.appendValueInput("LEFT_INPUT")
+      .setCheck(null)
+      .appendField("autofocus");
+    this.setOutput(true, "String");
+    this.setColour('#FFD700');
+    this.setTooltip("Automatically focuses the input field when the page loads.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autofocus");
+  }
+};
+
+Blockly.JavaScript['html_attribute_autofocus'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var code = `${leftCode}autofocus `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_lang'] = {
+  init: function () {
+    // Adding a value input to allow connection on the left side
+    this.appendValueInput('LEFT_INPUT')  // Input on the left
+      .setCheck(null)  // Change this to the specific type if needed
+      .appendField("lang=")
+      .appendField(new Blockly.FieldTextInput(''), 'data');
+
+    this.setOutput(true, null);  // Output on the right side
+    this.setColour('#FFD700');
+    this.setTooltip('Sets the lang attribute for an HTML element.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['html_attribute_lang'] = function (block) {
+  // Get the code from any connected blocks on the left
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  // Get the data field value
+  var lang = block.getFieldValue('data');
+
+  // Combine the left block's code with this block's lang attribute
+  var code = leftCode + `lang="${lang}" `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_title'] = {
+  init: function () {
+    // Adding a value input to allow connection on the left side
+    this.appendValueInput('LEFT_INPUT')  // Input on the left
+      .setCheck(null)  // Change this to the specific type if needed
+      .appendField("title=")
+      .appendField(new Blockly.FieldTextInput(''), 'data');
+
+    this.setOutput(true, null);  // Output on the right side
+    this.setColour('#FFD700');
+    this.setTooltip('Sets the title attribute for an HTML element.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['html_attribute_title'] = function (block) {
+  // Get the code from any connected blocks on the left
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  // Get the data field value
+  var title = block.getFieldValue('data');
+
+  // Combine the left block's code with this block's title attribute
+  var code = leftCode + `title="${title}" `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['html_attribute_onclick'] = {
+  init: function () {
+    // Adding a value input to allow connection on the left side
+    this.appendValueInput('LEFT_INPUT')  // Input on the left
+      .setCheck(null)  // Change this to the specific type if needed
+      .appendField("onclick=")
+      .appendField(new Blockly.FieldTextInput(''), 'ONCLICK');
+
+    this.setOutput(true, null);  // Output on the right side
+    this.setColour('#FFD700');
+    this.setTooltip('Sets the onclick attribute for an HTML element.');
+    this.setHelpUrl('https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onclick');
+  }
+};
+
+Blockly.JavaScript['html_attribute_onclick'] = function (block) {
+  // Get the code from any connected blocks on the left
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  // Get the onclick field value
+  var onclick = block.getFieldValue('ONCLICK');
+
+  // Combine the left block's code with this block's onclick attribute
+  var code = leftCode + `onclick="${onclick}" `;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+
+
