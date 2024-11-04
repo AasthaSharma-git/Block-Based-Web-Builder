@@ -2,12 +2,12 @@
 
 // Initialize the Blockly workspace
 var workspace = Blockly.inject('blocklyDiv', {
+    css: true,  
     toolbox: document.getElementById('toolbox'),
 
   });
-
-
-
+// Override the flyout's auto-close functionality
+workspace.getFlyout().autoClose = false;
 
 
   // Data structure to hold user-created files
@@ -477,10 +477,10 @@ function selectFile(index) {
   fileManagerButton.addEventListener("click", function () {
     if (fileManager.style.display === "none" || !fileManager.style.display) {
       fileManager.style.display = "block";
-      fileManagerButton.style.backgroundColor = "green"
+      fileManagerButton.style.backgroundColor = "#F9C22E"
     } else {
       fileManager.style.display = "none";
-      fileManagerButton.style.backgroundColor = "orange"
+      fileManagerButton.style.backgroundColor = "#F15946"
     }
   });
 
