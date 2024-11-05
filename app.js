@@ -5,8 +5,16 @@
 var workspace = Blockly.inject('blocklyDiv', {
     toolbox: document.getElementById('toolbox'),
     trashcan: false,  // Hide the trashcan to prevent accidental deletion
+    theme: {
+        'componentStyles': {
+            'workspaceBackgroundColour': 'white',
+            // 'toolboxBackgroundColour': '#fff',
+            // 'toolboxForegroundColour': '#333',
+            // 'flyoutBackgroundColour': '#fafafa',
+            // 'scrollbarColour': '#999'
+        }
+    }
 });
-
 
 // // Keep the toolbox open
 // workspace.getFlyout().autoClose = false;
@@ -548,10 +556,10 @@ const fileManager = document.getElementById("fileManager");
 fileManagerButton.addEventListener("click", function () {
     if (fileManager.style.display === "none" || !fileManager.style.display) {
         fileManager.style.display = "block";
-        fileManagerButton.style.backgroundColor = "#F9C22E"
+        fileManagerButton.style.backgroundColor = "#AABD8C"
     } else {
         fileManager.style.display = "none";
-        fileManagerButton.style.backgroundColor = "#F15946"
+        fileManagerButton.style.backgroundColor = "#F39B6D"
     }
 });
 

@@ -10,7 +10,7 @@ Blockly.Blocks['js_variable_declare'] = {
 
     this.setPreviousStatement(true); // Allow connecting to previous blocks
     this.setNextStatement(true); // Allow connecting to next blocks
-    this.setColour('#FFAB19'); // Set block color
+    this.setColour('#F85E00'); // Set block color
     this.setTooltip("Declare a variable."); // Tooltip for the block
     this.setHelpUrl(""); // Help URL if needed
   }
@@ -43,7 +43,7 @@ Blockly.Blocks['js_event_listener'] = {
       .setCheck(null); // Accept any type of blocks
     this.appendDummyInput()
       .appendField('});'); // Closing brace for event listener function
-    this.setColour('#FFAB19'); // Set block color
+    this.setColour('#F85E00'); // Set block color
     this.setTooltip("Add an event listener to an element."); // Tooltip
     this.setHelpUrl(""); // Help URL
     this.setPreviousStatement(true); // Allow connection to previous blocks
@@ -84,7 +84,7 @@ Blockly.Blocks['js_alert'] = {
 
     this.setPreviousStatement(true); // Allow connecting to previous blocks
     this.setNextStatement(true); // Allow connecting to next blocks
-    this.setColour('#FFAB19'); // Set block color
+    this.setColour('#F85E00'); // Set block color
     this.setTooltip("Show an alert"); // Tooltip for the block
     this.setHelpUrl(""); // Help URL if needed
   }
@@ -118,7 +118,7 @@ Blockly.Blocks['js_event_listenerDOMContentLoaded'] = {
     this.appendDummyInput()
       .appendField("});"); // Close the event listener block
     this.setPreviousStatement(true); // Allow connection to previous blocks
-    this.setColour('#FFAB19'); // Set block color
+    this.setColour('#F85E00'); // Set block color
     this.setTooltip("Execute code when the DOM is fully loaded."); // Tooltip
     this.setHelpUrl(""); // Help URL
     this.setNextStatement(true); // Allow connection to next blocks
@@ -140,7 +140,7 @@ Blockly.Blocks['js_console_log'] = {
     // Label to clarify input
     this.setPreviousStatement(true); // Allow connecting to previous blocks
     this.setNextStatement(true); // Allow connecting to next blocks
-    this.setColour('#FFAB19'); // Set block color
+    this.setColour('#F85E00'); // Set block color
     this.setTooltip("Log a message to the console."); // Tooltip for the block
     this.setHelpUrl(""); // Help URL if needed
   }
@@ -167,7 +167,7 @@ Blockly.Blocks['js_function'] = {
     this.appendDummyInput()
       .appendField('}')     // Label for the closing brace
 
-    this.setColour('#FFAB19'); // Set block color
+    this.setColour('#F85E00'); // Set block color
     this.setTooltip("Define a JavaScript function."); // Tooltip for the block
     this.setHelpUrl(""); // Help URL if needed
     this.setPreviousStatement(true); // Allow connecting to previous blocks
@@ -196,7 +196,7 @@ Blockly.Blocks['js_if_else'] = {
       .appendField("else"); // Label for the else statement
     this.appendStatementInput("ELSE") // Statement input for the else block
       .appendField(""); // Label for the action if condition is false
-    this.setColour('#FFAB19'); // Set block color
+    this.setColour('#F85E00'); // Set block color
     this.setTooltip("If-Else condition."); // Tooltip for the block
     this.setHelpUrl(""); // Help URL if needed
     this.setPreviousStatement(true); // Allow connection to previous blocks
@@ -243,7 +243,7 @@ Blockly.Blocks['js_for_loop'] = {
       .appendField("}"); // Closing brace for the loop
     this.setPreviousStatement(true, null); // Allow connection to previous blocks
     this.setNextStatement(true, null); // Allow connection to next blocks
-    this.setColour('#FFAB19'); // Set block color
+    this.setColour('#F85E00'); // Set block color
     this.setTooltip("Traditional for loop in JavaScript."); // Tooltip for the block
     this.setHelpUrl(""); // Help URL if needed
   }
@@ -272,7 +272,7 @@ Blockly.Blocks['number_input'] = {
     this.appendDummyInput()
       .appendField(new Blockly.FieldNumber(0), "NUM"); // Default number is 0
     this.setOutput(true, "Number"); // Outputs a number
-    this.setColour('#FFAB19'); // Set block color
+    this.setColour('#F85E00'); // Set block color
     this.setTooltip("Number input."); // Tooltip for the block
     this.setHelpUrl(""); // Help URL if needed
   }
@@ -292,7 +292,7 @@ Blockly.Blocks['js_while_loop'] = {
     this.appendDummyInput().appendField(")");
     this.appendStatementInput("DO").setCheck(null).appendField("{");
     this.appendDummyInput().appendField("}");
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("While loop.");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -311,7 +311,7 @@ Blockly.Blocks['js_function_call'] = {
     this.appendDummyInput().appendField("call function").appendField(new Blockly.FieldTextInput("myFunction"), "FUNCTION_NAME");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Call a defined function.");
   }
 };
@@ -328,7 +328,7 @@ Blockly.Blocks['js_arithmetic'] = {
     this.appendDummyInput().appendField(new Blockly.FieldDropdown([["+", "+"], ["-", "-"], ["*", "*"], ["/", "/"]]), "OPERATOR");
     this.appendValueInput("B").setCheck("Number");
     this.setOutput(true, "Number");
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Performs arithmetic operations.");
   }
 };
@@ -347,7 +347,7 @@ Blockly.Blocks['js_logical'] = {
     this.appendDummyInput().appendField(new Blockly.FieldDropdown([["AND", "&&"], ["OR", "||"]]), "OPERATOR");
     this.appendValueInput("B").setCheck("Boolean");
     this.setOutput(true, "Boolean");
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Performs logical operations.");
   }
 };
@@ -366,7 +366,7 @@ Blockly.Blocks['js_compare'] = {
     this.appendDummyInput().appendField(new Blockly.FieldDropdown([["=", "=="], ["!=", "!="], ["<", "<"], [">", ">"], ["<=", "<="], [">=", ">="]]), "OPERATOR");
     this.appendValueInput("B").setCheck("Number");
     this.setOutput(true, "Boolean");
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Performs comparison operations.");
   }
 };
@@ -383,7 +383,7 @@ Blockly.Blocks['js_return'] = {
   init: function () {
     this.appendValueInput("RETURN").appendField("return");
     this.setPreviousStatement(true);
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Return a value from a function.");
   }
 };
@@ -401,7 +401,7 @@ Blockly.Blocks['js_set_timeout'] = {
     this.appendDummyInput().appendField("},").appendField(new Blockly.FieldTextInput("1000"), "TIMEOUT").appendField("ms);");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Execute code after a delay.");
   }
 };
@@ -420,7 +420,7 @@ Blockly.Blocks['js_set_interval'] = {
     this.appendDummyInput().appendField("},").appendField(new Blockly.FieldTextInput("1000"), "INTERVAL").appendField("ms);");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Execute code at regular intervals.");
   }
 };
@@ -436,7 +436,7 @@ Blockly.Blocks['js_array'] = {
   init: function () {
     this.appendDummyInput().appendField("create array").appendField(new Blockly.FieldTextInput("item1, item2"), "ITEMS");
     this.setOutput(true, "Array");
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Create an array.");
   }
 };
@@ -453,7 +453,7 @@ Blockly.Blocks['js_array_access'] = {
     this.appendValueInput("INDEX").setCheck("Number").appendField("[");
     this.appendDummyInput().appendField("]");
     this.setOutput(true);
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Access array element by index.");
   }
 };
@@ -471,7 +471,7 @@ Blockly.Blocks['js_array_push'] = {
     this.appendValueInput("ITEM").setCheck(null).appendField("value");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Add element to the end of array.");
   }
 };
@@ -490,7 +490,7 @@ Blockly.Blocks['js_switch'] = {
     this.appendDummyInput().appendField("}");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Switch case structure.");
   }
 };
@@ -512,7 +512,7 @@ Blockly.Blocks['js_case'] = {
       .setCheck(null)
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Defines a case in a switch statement.");
   }
 };
@@ -530,7 +530,7 @@ Blockly.Blocks['js_break'] = {
   
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Defines break statement");
   }
 };
@@ -545,7 +545,7 @@ Blockly.Blocks['js_array_map'] = {
     this.appendValueInput("ARRAY").setCheck("Array").appendField("map array");
     this.appendStatementInput("DO").setCheck(null).appendField("with function");
     this.setOutput(true, "Array");
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Map function on array items.");
   }
 };
@@ -560,7 +560,7 @@ Blockly.Blocks['js_array_length'] = {
   init: function () {
     this.appendValueInput("ARRAY").setCheck("Array").appendField("length of array");
     this.setOutput(true, "Number");
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Get the length of an array.");
   }
 };
@@ -575,7 +575,7 @@ Blockly.Blocks['js_array_filter'] = {
     this.appendValueInput("ARRAY").setCheck("Array").appendField("filter array");
     this.appendStatementInput("CONDITION").setCheck("Boolean").appendField("if");
     this.setOutput(true, "Array");
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Filter items from an array based on a condition.");
   }
 };
@@ -590,7 +590,7 @@ Blockly.Blocks['js_json_parse'] = {
   init: function () {
     this.appendValueInput("STRING").setCheck("String").appendField("parse JSON");
     this.setOutput(true, "Object");
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Parse a JSON string into an object.");
   }
 };
@@ -604,7 +604,7 @@ Blockly.Blocks['js_json_stringify'] = {
   init: function () {
     this.appendValueInput("OBJECT").setCheck("Object").appendField("stringify JSON");
     this.setOutput(true, "String");
-    this.setColour('#FFAB19');
+    this.setColour('#F85E00');
     this.setTooltip("Convert an object to a JSON string.");
   }
 };

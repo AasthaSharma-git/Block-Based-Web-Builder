@@ -261,3 +261,6 @@ header h1{
 .blocklyFlyoutBackground {
   fill: #34495e !important; /* Darker background for the flyout */
 }
+.blocklyText {
+  font-weight: bold;
+}

@@ -20,7 +20,7 @@ Blockly.Blocks['css_rule'] = {
     // Block settings
     this.setPreviousStatement(true, null);  // Allows this block to connect to others
     this.setNextStatement(true, null);  // Allows chaining more blocks after this
-    this.setColour('#8EB140');  // Set block color
+    this.setColour('#A5BE00');  // Set block color
     this.setTooltip('Defines a CSS rule with a selector and properties.');
     this.setHelpUrl('');
   }
@@ -52,7 +52,7 @@ Blockly.Blocks['css_color'] = {
         .appendField("color:")
         .appendField(new Blockly.FieldTextInput('red'), 'COLOR');
     this.setOutput(true, 'String');
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip('Sets the color style property.');
     this.setHelpUrl('');
   }
@@ -74,7 +74,7 @@ Blockly.Blocks['css_background_color'] = {
         .appendField(new Blockly.FieldTextInput(''), 'COLOR');  // Text input for color value
 
     this.setOutput(true, "String");  // Set output type
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set a background color property.");
     this.setHelpUrl("");
   }
@@ -96,7 +96,7 @@ Blockly.Blocks['css_font_size'] = {
         .appendField(new Blockly.FieldNumber(16), "SIZE")
         .appendField("px");
     this.setOutput(true, "String");  // Set output type
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the font size in pixels.");
     this.setHelpUrl("");
   }
@@ -131,7 +131,7 @@ Blockly.Blocks['css_font_weight'] = {
           ["900", "900"]
         ]), "WEIGHT"); // Dropdown for font-weight values
     this.setOutput(true, "String");  // Set output type
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the font weight.");
     this.setHelpUrl("");
   }
@@ -156,7 +156,7 @@ Blockly.Blocks['css_margin'] = {
         .appendField("px");
 
     this.setOutput(true, "String");  // Set output type
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the margin size in pixels.");
     this.setHelpUrl("");
   }
@@ -180,7 +180,7 @@ Blockly.Blocks['css_margin_left'] = {
         .appendField("px");
 
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the left margin size in pixels.");
     this.setHelpUrl("");
   }
@@ -204,7 +204,7 @@ Blockly.Blocks['css_margin_right'] = {
         .appendField("px");
 
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the right margin size in pixels.");
     this.setHelpUrl("");
   }
@@ -228,7 +228,7 @@ Blockly.Blocks['css_margin_top'] = {
         .appendField("px");
 
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the top margin size in pixels.");
     this.setHelpUrl("");
   }
@@ -252,7 +252,7 @@ Blockly.Blocks['css_margin_bottom'] = {
         .appendField("px");
 
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the bottom margin size in pixels.");
     this.setHelpUrl("");
   }
@@ -277,7 +277,7 @@ Blockly.Blocks['css_padding'] = {
         .appendField("px");
 
     this.setOutput(true, "String");  // Set output type
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the padding size in pixels.");
     this.setHelpUrl("");
   }
@@ -301,7 +301,7 @@ Blockly.Blocks['css_padding_left'] = {
         .appendField("px");
 
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the left padding size in pixels.");
     this.setHelpUrl("");
   }
@@ -325,7 +325,7 @@ Blockly.Blocks['css_padding_right'] = {
         .appendField("px");
 
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the right padding size in pixels.");
     this.setHelpUrl("");
   }
@@ -349,7 +349,7 @@ Blockly.Blocks['css_padding_top'] = {
         .appendField("px");
 
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the top padding size in pixels.");
     this.setHelpUrl("");
   }
@@ -373,7 +373,7 @@ Blockly.Blocks['css_padding_bottom'] = {
         .appendField("px");
 
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the bottom padding size in pixels.");
     this.setHelpUrl("");
   }
@@ -397,7 +397,7 @@ Blockly.Blocks['css_width'] = {
         .appendField("px");
 
     this.setOutput(true, "String");  // Set output type
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the width in pixels.");
     this.setHelpUrl("");
   }
@@ -421,7 +421,7 @@ Blockly.Blocks['css_height'] = {
         .appendField("px");
 
     this.setOutput(true, "String");  // Set output type
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the height in pixels.");
     this.setHelpUrl("");
   }
@@ -441,7 +441,7 @@ Blockly.Blocks['css_border'] = {
         .appendField("border:")
         .appendField(new Blockly.FieldTextInput('1px solid black'), 'BORDER');
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the border style.");
     this.setHelpUrl("");
   }
@@ -468,7 +468,7 @@ Blockly.Blocks['css_display'] = {
             ["none", "none"]
         ]), "DISPLAY_TYPE");
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the display property.");
     this.setHelpUrl("");
   }
@@ -495,7 +495,7 @@ Blockly.Blocks['css_position'] = {
             ["sticky", "sticky"]
         ]), "POSITION_TYPE");
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the position property.");
     this.setHelpUrl("");
   }
@@ -514,7 +514,7 @@ Blockly.Blocks['css_z_index'] = {
         .appendField("z-index:")
         .appendField(new Blockly.FieldNumber(1), 'Z_INDEX');
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the z-index value.");
     this.setHelpUrl("");
   }
@@ -544,7 +544,7 @@ Blockly.Blocks['css_text_decoration'] = {
  
 
     this.setOutput(true, "String");  // Set output type
-    this.setColour('#8EB140');  // Set block color
+    this.setColour('#A5BE00');  // Set block color
     this.setTooltip("Set the text decoration with optional style, color, and thickness.");
     this.setHelpUrl("");
   }
@@ -581,7 +581,7 @@ Blockly.Blocks['css_font_family'] = {
   
 
     this.setOutput(true, "String");  // Set output type
-    this.setColour('#8EB140');  // Set block color
+    this.setColour('#A5BE00');  // Set block color
     this.setTooltip("Set the font-family.");
     this.setHelpUrl("");
   }
@@ -620,7 +620,7 @@ Blockly.Blocks['css_list_style_type'] = {
           ["unset", "unset"]
         ]), "STYLE_TYPE"); // Dropdown for list-style-type values
     this.setOutput(true, "String");  // Set output type
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the list style type.");
     this.setHelpUrl("");
   }
@@ -647,7 +647,7 @@ Blockly.Blocks['css_text_align'] = {
           ["justify", "justify"]
         ]), "ALIGN");  // Dropdown for text-align values
     this.setOutput(true, "String");  // Set output type
-    this.setColour('#8EB140');  // Customize block color
+    this.setColour('#A5BE00');  // Customize block color
     this.setTooltip("Set the text alignment of the element.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/CSS/text-align");
   }
@@ -668,7 +668,7 @@ Blockly.Blocks['css_letter_spacing'] = {
         .appendField(new Blockly.FieldTextInput('0'), 'LETTER_SPACING')
         .appendField("px");
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the letter spacing.");
     this.setHelpUrl("");
   }
@@ -687,7 +687,7 @@ Blockly.Blocks['css_word_spacing'] = {
         .appendField(new Blockly.FieldTextInput('0'), 'WORD_SPACING')
         .appendField("px");
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the word spacing.");
     this.setHelpUrl("");
   }
@@ -710,7 +710,7 @@ Blockly.Blocks['css_text_transform'] = {
           ["capitalize", "capitalize"]
         ]), 'TEXT_TRANSFORM');
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the text transform property.");
     this.setHelpUrl("");
   }
@@ -733,7 +733,7 @@ Blockly.Blocks['css_border_collapse'] = {
           ["separate", "separate"]
         ]), "BORDER_COLLAPSE");  // Dropdown for border-collapse values
     this.setOutput(true, "String");  // Set output type
-    this.setColour('#8EB140');  // Customize block color
+    this.setColour('#A5BE00');  // Customize block color
     this.setTooltip("Set the border collapse behavior for table elements.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/CSS/border-collapse");
   }
@@ -753,7 +753,7 @@ Blockly.Blocks['css_transition'] = {
         .appendField("transition:")
         .appendField(new Blockly.FieldTextInput('all 0.3s ease'), 'TRANSITION');
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the transition property.");
     this.setHelpUrl("");
   }
@@ -771,7 +771,7 @@ Blockly.Blocks['css_transform'] = {
         .appendField("transform:")
         .appendField(new Blockly.FieldTextInput('rotate(45deg)'), 'TRANSFORM');
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the transform property.");
     this.setHelpUrl("");
   }
@@ -789,7 +789,7 @@ Blockly.Blocks['css_box_shadow'] = {
         .appendField("box-shadow:")
         .appendField(new Blockly.FieldTextInput('2px 2px 5px black'), 'BOX_SHADOW');
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the box shadow.");
     this.setHelpUrl("");
   }
@@ -807,7 +807,7 @@ Blockly.Blocks['css_text_shadow'] = {
         .appendField("text-shadow:")
         .appendField(new Blockly.FieldTextInput('2px 2px 5px black'), 'TEXT_SHADOW');
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the text shadow.");
     this.setHelpUrl("");
   }
@@ -825,7 +825,7 @@ Blockly.Blocks['css_text_shadow'] = {
         .appendField("text-shadow:")
         .appendField(new Blockly.FieldTextInput('2px 2px 5px black'), 'TEXT_SHADOW');
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the text shadow.");
     this.setHelpUrl("");
   }
@@ -843,7 +843,7 @@ Blockly.Blocks['css_opacity'] = {
         .appendField("opacity:")
         .appendField(new Blockly.FieldNumber(1, 0, 1, 0.1), 'OPACITY');
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the opacity.");
     this.setHelpUrl("");
   }
@@ -862,7 +862,7 @@ Blockly.Blocks['css_border_radius'] = {
         .appendField(new Blockly.FieldTextInput('0'), 'BORDER_RADIUS')
         .appendField("px");
     this.setOutput(true, "String");
-    this.setColour('#8EB140');
+    this.setColour('#A5BE00');
     this.setTooltip("Set the border radius.");
     this.setHelpUrl("");
   }
