@@ -7,7 +7,7 @@ Blockly.Blocks['html_doctype'] = {
       .appendField("<!DOCTYPE html>");
 
     this.setNextStatement(true);
-    this.setColour('#192BC2');
+    this.setColour('#0ACDFF');
     this.setTooltip("Declare the document as HTML5");
     this.setHelpUrl("https://www.w3schools.com/tags/tag_doctype.asp");
   }
@@ -35,7 +35,7 @@ Blockly.Blocks['html_html'] = {
 
     this.setPreviousStatement(true);
 
-    this.setColour('192BC2');  // Set block color
+    this.setColour('0ACDFF');  // Set block color
     this.setTooltip("Head section.");  // Tooltip for guidance
     this.setHelpUrl("");  // URL for help (optional)
   }
@@ -67,7 +67,7 @@ Blockly.Blocks['html_head'] = {
     this.setPreviousStatement(true, null);  // Connection from above
     this.setNextStatement(true, null);  // Connection below
 
-    this.setColour('192BC2');  // Set block color
+    this.setColour('0ACDFF');  // Set block color
     this.setTooltip("HTML");  // Tooltip for guidance
     this.setHelpUrl("");  // URL for help (optional)
   }
@@ -107,7 +107,7 @@ Blockly.Blocks['html_body'] = {
     this.setPreviousStatement(true, null);  // Connection from above
     this.setNextStatement(true, null);  // Connection below
 
-    this.setColour('192BC2');  // Set block color
+    this.setColour('0ACDFF');  // Set block color
     this.setTooltip("Body section.");  // Tooltip for guidance
     this.setHelpUrl("");  // URL for help (optional)
   }
@@ -165,7 +165,7 @@ Blockly.Blocks['html_heading'] = {
     this.setPreviousStatement(true, null);  // Connection from above
     this.setNextStatement(true, null);  // Connection below
 
-    this.setColour('192BC2');  // Set block color
+    this.setColour('0ACDFF');  // Set block color
     this.setTooltip("Heading element (h1 to h6).");
     this.setHelpUrl("");
   },
@@ -218,7 +218,7 @@ Blockly.Blocks['html_p'] = {
     this.setPreviousStatement(true, null);  // Connection from above
     this.setNextStatement(true, null);  // Connection below
 
-    this.setColour("192BC2");  // Set block color
+    this.setColour("0ACDFF");  // Set block color
     this.setTooltip("Paragraph element.");  // Tooltip for guidance
     this.setHelpUrl("");  // URL for help (optional)
   }
@@ -267,7 +267,7 @@ Blockly.Blocks['html_button'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip('Button element');
     this.setHelpUrl('');
 
@@ -325,7 +325,7 @@ Blockly.Blocks['html_a'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A hyperlink.");
     this.setHelpUrl("");
   }
@@ -363,7 +363,7 @@ Blockly.Blocks['html_img'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("An image.");
     this.setHelpUrl("");
   }
@@ -395,7 +395,7 @@ Blockly.Blocks['html_form'] = {
       .appendField(new Blockly.FieldTextInput("get"), "METHOD");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A form.");
     this.setHelpUrl("");
   }
@@ -431,7 +431,7 @@ Blockly.Blocks['html_table'] = {
       .appendField("</table>"); // Closing tag label
     this.setPreviousStatement(true, null); // Can connect to previous blocks
     this.setNextStatement(true, null); // Can connect to the next blocks
-    this.setColour('192BC2'); // Set block color
+    this.setColour('0ACDFF'); // Set block color
     this.setTooltip("Creates a table in HTML."); // Tooltip
     this.setHelpUrl(""); // Help URL if needed
   }
@@ -469,7 +469,7 @@ Blockly.Blocks['html_caption'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip('Table caption');
     this.setHelpUrl('');
   }
@@ -509,7 +509,7 @@ Blockly.Blocks['html_th'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip('Table heading.');
     this.setHelpUrl('');
   }
@@ -553,7 +553,7 @@ Blockly.Blocks['html_tr'] = {
       .appendField("</tr>"); // Closing tag label
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A table row.");
     this.setHelpUrl("");
   }
@@ -589,7 +589,7 @@ Blockly.Blocks['html_td'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip('Table cell element with optional attributes.');
     this.setHelpUrl('');
   }
@@ -615,7 +615,15 @@ Blockly.JavaScript['html_td'] = function (block) {
 Blockly.Blocks['html_script'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField("<script>"); // Label for the script block
+      .appendField("<script"); // Label for the script block
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+    
+    this.appendDummyInput()
+        .appendField('>')
+    
 
     this.appendStatementInput("SCRIPT") // Allow blocks to be added inside
       .setCheck(null); // Accept any type of blocks
@@ -623,7 +631,7 @@ Blockly.Blocks['html_script'] = {
     this.appendDummyInput()
       .appendField("</script>"); // Close the script block
 
-    this.setColour('#192BC2'); // Set block color
+    this.setColour('#0ACDFF'); // Set block color
     this.setTooltip("A block for including JavaScript code."); // Tooltip
     this.setHelpUrl(); // Help URL
     this.setPreviousStatement(true); // Allow previous connection
@@ -634,7 +642,14 @@ Blockly.Blocks['html_script'] = {
 // Generate JavaScript code for the script block
 Blockly.JavaScript['html_script'] = function (block) {
   var statements_script = Blockly.JavaScript.statementToCode(block, 'SCRIPT'); // Get the statements inside the block
-  var code = '<script>\n' + statements_script + '</script>\n'; // Wrap the code in script tags
+
+   // Get all connected attributes, properly handling chains
+   var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+   // Concatenate attributes and remove trailing spaces
+   attributes = attributes.trim();
+
+  var code = `<script ${attributes}>\n${statements_script}</script>\n`; // Wrap the code in script tags
   return code; // Return the code to be included in the generated script
 };
 
@@ -659,7 +674,7 @@ Blockly.Blocks['html_div'] = {
       .appendField("</div>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("Defines a div element with optional attributes, content, and styles.");
     this.setHelpUrl("");
   }
@@ -687,7 +702,7 @@ Blockly.Blocks['html_br1'] = {
       .appendField("<br>"); // Label for the <br> tag
     this.setPreviousStatement(true, null); // Allow connecting to previous blocks
     this.setNextStatement(true, null); // Allow connecting to next blocks
-    this.setColour('192BC2'); // Set block color
+    this.setColour('0ACDFF'); // Set block color
     this.setTooltip("Inserts a <br> tag for a line break in HTML."); // Tooltip for the block
     this.setHelpUrl(""); // Help URL if needed
   }
@@ -705,7 +720,7 @@ Blockly.Blocks['html_br2'] = {
         .appendField("<br>")
 
     this.setOutput(true, "String"); // Output type for chaining in paragraph
-    this.setColour("192BC2");
+    this.setColour("0ACDFF");
     this.setTooltip("Line Break");
     this.setHelpUrl("");
   }
@@ -727,7 +742,7 @@ Blockly.Blocks['html_hr']={
     this.setPreviousStatement(true,null);
     this.setNextStatement(true,null);
 
-    this.setColour('192BC2')
+    this.setColour('0ACDFF')
     this.setTooltip("Creates a horizontal rule (<hr>) in HTML.");
     this.setHelpUrl(""); // Help URL if needed
   }
@@ -758,7 +773,7 @@ Blockly.Blocks['html_ul'] = {
       .appendField("</ul>"); // Label the block
     this.setPreviousStatement(true, null); // Can connect to previous blocks
     this.setNextStatement(true, null); // Can connect to the next blocks
-    this.setColour('192BC2'); // Set block color
+    this.setColour('0ACDFF'); // Set block color
     this.setTooltip("Creates an unordered list (<ul>) in HTML."); // Tooltip
     this.setHelpUrl(""); // Help URL if needed
   }
@@ -796,7 +811,7 @@ Blockly.Blocks['html_li'] = {
 
     this.setPreviousStatement(true, null); // Can connect to previous blocks
     this.setNextStatement(true, null); // Can connect to next blocks
-    this.setColour('192BC2'); // Set block color
+    this.setColour('0ACDFF'); // Set block color
     this.setTooltip("Defines a list item (<li>) with editable content."); // Tooltip
     this.setHelpUrl(""); // Help URL if needed
   }
@@ -838,7 +853,7 @@ Blockly.Blocks['html_ol'] = {
       .appendField("</ol>"); // Label the block
     this.setPreviousStatement(true, null); // Can connect to previous blocks
     this.setNextStatement(true, null); // Can connect to the next blocks
-    this.setColour('192BC2'); // Set block color
+    this.setColour('0ACDFF'); // Set block color
     this.setTooltip("Creates an ordered list (<ol>) in HTML."); // Tooltip
     this.setHelpUrl(""); // Help URL if needed
   }
@@ -891,7 +906,7 @@ Blockly.Blocks['html_link'] = {
 
     this.setPreviousStatement(true, null); // Allows this block to connect to previous blocks
     this.setNextStatement(true, null); // Allows connection to subsequent blocks
-    this.setColour('#192BC2');
+    this.setColour('#0ACDFF');
     this.setTooltip("Defines a link to an external resource (e.g., CSS).");
     this.setHelpUrl("");
   }
@@ -931,7 +946,7 @@ Blockly.Blocks['html_tr'] = {
       .appendField("</tr>"); // Closing tag label
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A table row.");
     this.setHelpUrl("");
   }
@@ -959,7 +974,7 @@ Blockly.Blocks['plain_text'] = {
 
     // Set this to chain from left to right
     this.setOutput(true, "String");
-    this.setColour("192BC2");
+    this.setColour("0ACDFF");
     this.setTooltip("Plain text block for adding unformatted text.");
     this.setHelpUrl("");
   }
@@ -980,7 +995,7 @@ Blockly.Blocks['strong'] = {
         .appendField("</strong>");
 
     this.setOutput(true, "String"); // Output type for chaining in paragraph
-    this.setColour("192BC2");
+    this.setColour("0ACDFF");
     this.setTooltip("Strong.");
     this.setHelpUrl("");
   }
@@ -1002,7 +1017,7 @@ Blockly.Blocks['bold_text'] = {
         .appendField("</b>");
 
     this.setOutput(true, "String"); // Output type for chaining in paragraph
-    this.setColour("192BC2");
+    this.setColour("0ACDFF");
     this.setTooltip("Bold text formatting.");
     this.setHelpUrl("");
   }
@@ -1024,7 +1039,7 @@ Blockly.Blocks['underline'] = {
         .appendField("</u>");
 
     this.setOutput(true, "String"); // Output type for chaining in paragraph
-    this.setColour("192BC2");
+    this.setColour("0ACDFF");
     this.setTooltip("Underline");
     this.setHelpUrl("");
   }
@@ -1046,7 +1061,7 @@ Blockly.Blocks['italic'] = {
         .appendField("</i>");
 
     this.setOutput(true, "String"); // Output type for chaining in paragraph
-    this.setColour("192BC2");
+    this.setColour("0ACDFF");
     this.setTooltip("Italic text");
     this.setHelpUrl("");
   }
@@ -1068,7 +1083,7 @@ Blockly.Blocks['emphasized'] = {
         .appendField("</em>");
 
     this.setOutput(true, "String"); // Output type for chaining in paragraph
-    this.setColour("192BC2");
+    this.setColour("0ACDFF");
     this.setTooltip("Emphasized text");
     this.setHelpUrl("");
   }
@@ -1103,7 +1118,7 @@ Blockly.Blocks['html_style'] = {
     this.setNextStatement(true, null);  // Connection below 
 
   
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("Creates a <style> tag with CSS rules.");
     this.setHelpUrl("");
   }
@@ -1139,7 +1154,7 @@ Blockly.Blocks['html_header'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A header section.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header");
   }
@@ -1178,7 +1193,7 @@ Blockly.Blocks['html_footer'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A footer section.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer");
   }
@@ -1219,7 +1234,7 @@ Blockly.Blocks['html_nav'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A navigation section.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav");
   }
@@ -1255,7 +1270,7 @@ Blockly.Blocks['html_article'] = {
       .appendField("</article>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("An article section.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article");
   }
@@ -1289,7 +1304,7 @@ Blockly.Blocks['html_aside'] = {
       .appendField("</aside>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("An aside section.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside");
   }
@@ -1323,7 +1338,7 @@ Blockly.Blocks['html_div'] = {
       .appendField("</div>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A division or container.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div");
   }
@@ -1357,7 +1372,7 @@ Blockly.Blocks['html_form'] = {
       .appendField("</form>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A form section.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form");
   }
@@ -1394,7 +1409,7 @@ Blockly.Blocks['html_label'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A label element, typically used to label form controls.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label");
   }
@@ -1423,7 +1438,7 @@ Blockly.Blocks['html_input'] = {
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("An input element.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input");
   }
@@ -1452,7 +1467,7 @@ Blockly.Blocks['html_textarea'] = {
       .appendField("</textarea>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A textarea element.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea");
   }
@@ -1485,7 +1500,7 @@ Blockly.Blocks['html_select'] = {
       .appendField("</select>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A select element.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select");
   }
@@ -1515,7 +1530,7 @@ Blockly.Blocks['html_option'] = {
       .appendField("</option>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("An option element.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option");
   }
@@ -1548,7 +1563,7 @@ Blockly.Blocks['html_audio'] = {
       .appendField("</audio>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("An audio element.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio");
   }
@@ -1582,7 +1597,7 @@ Blockly.Blocks['html_video'] = {
       .appendField("</video>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("A video element.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video");
   }
@@ -1612,7 +1627,7 @@ Blockly.Blocks['html_iframe'] = {
       .appendField("</iframe>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('192BC2');
+    this.setColour('0ACDFF');
     this.setTooltip("An iframe element.");
     this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe");
   }

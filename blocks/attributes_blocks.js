@@ -21,6 +21,8 @@ Blockly.JavaScript['html_attribute_id'] = function (block) {
   // Get the ID field value
   var id = block.getFieldValue('ID');
 
+  console.log('id side left code:',leftCode)
+
   // Combine the left block's code with this block's id attribute
   var code = leftCode + `id="${id}" `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
@@ -142,10 +144,6 @@ Blockly.Blocks['html_attribute_style'] = {
       .setCheck('String')
       .appendField("style=")
 
-    this.appendDummyInput("PROPERTIES")
-        .appendField('')
-        
-
     this.setOutput(true, 'String');  // Output is a string, part of an attribute chain
     
     this.setColour('#FFD700');
@@ -156,14 +154,41 @@ Blockly.Blocks['html_attribute_style'] = {
 };
 
 Blockly.JavaScript['html_attribute_style'] = function (block) {
-  // Get the concatenated CSS code from the connected blocks
-  var styleCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  // Check if there is a block connected on the left for chaining attributes
+  var leftBlock = block.getInputTargetBlock('LEFT_INPUT');
+  
+  // Retrieve code from connected blocks if they exist
+  var leftCode = leftBlock ? Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_NONE) : '';
 
-  // Combine all CSS properties into the style attribute
-  var code = `style="${styleCode.trim()}" `  // Trim to remove extra spaces
+  console.log('leftCode:', leftCode);
 
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];  // Return as an array
+  // Arrays to hold CSS properties and attributes separately
+  let cssProperties = [];
+  let attributes = [];
+
+  // Separate `leftCode` into parts and process each one
+  leftCode.split(';').forEach(item => {
+    item = item.trim();  // Remove any extra spaces
+    if (item && !item.includes('=')) {
+      // If item doesn't contain '=', assume it's a CSS property
+      cssProperties.push(item.replace('|',''));
+    }
+  });
+
+  leftCode.split(" ").forEach(item => {
+    item = item.trim();  // Trim whitespace
+    if (item.includes('=')) {
+      // If item contains '=', assume it's an HTML attribute
+      attributes.push(item);
+    }
+  });
+
+  // Construct the final HTML attribute string with inline styles
+  let code = `${attributes.join(" ")} style="${cssProperties.join(" ; ")}"`;
+
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
+
 
 Blockly.Blocks['html_attribute_type'] = {
   init: function () {

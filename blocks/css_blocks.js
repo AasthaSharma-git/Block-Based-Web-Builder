@@ -17,7 +17,7 @@ Blockly.Blocks['css_color'] = {
 Blockly.JavaScript['css_color'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var color = block.getFieldValue('COLOR');
-  var code = leftCode + `color: ${color}; `;
+  var code = leftCode + `;color: ${color}| `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -39,7 +39,7 @@ Blockly.Blocks['css_background_color'] = {
 Blockly.JavaScript['css_background_color'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var colorValue = block.getFieldValue('COLOR');
-  var code = `${leftCode}background-color: ${colorValue}; `;
+  var code = `${leftCode};background-color: ${colorValue}| `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -61,7 +61,7 @@ Blockly.Blocks['css_font_size'] = {
 Blockly.JavaScript['css_font_size'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var fontSize = block.getFieldValue('SIZE');
-  var code = `${leftCode}font-size: ${fontSize}px; `;
+  var code = `${leftCode};font-size: ${fontSize}px|; `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -97,7 +97,7 @@ Blockly.Blocks['css_font_weight'] = {
 Blockly.JavaScript['css_font_weight'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var fontWeight = block.getFieldValue('WEIGHT');
-  var code = `${leftCode}font-weight: ${fontWeight}; `;
+  var code = `${leftCode};font-weight: ${fontWeight}| `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -122,7 +122,7 @@ Blockly.JavaScript['css_margin'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var marginValue = block.getFieldValue('MARGIN');
 
-  var code = `${leftCode}margin: ${marginValue}px; `;
+  var code = `${leftCode};margin: ${marginValue}px|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -146,7 +146,7 @@ Blockly.JavaScript['css_padding'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var paddingValue = block.getFieldValue('PADDING');
 
-  var code = `${leftCode}padding: ${paddingValue}px; `;
+  var code = `${leftCode};padding: ${paddingValue}px|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -170,7 +170,7 @@ Blockly.JavaScript['css_width'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var widthValue = block.getFieldValue('WIDTH');
 
-  var code = `${leftCode}width: ${widthValue}px; `;
+  var code = `${leftCode};width: ${widthValue}px|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -194,7 +194,7 @@ Blockly.JavaScript['css_height'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var heightValue = block.getFieldValue('HEIGHT');
 
-  var code = `${leftCode}height: ${heightValue}px; `;
+  var code = `${leftCode};height: ${heightValue}px| `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -221,7 +221,7 @@ Blockly.Blocks['css_display'] = {
 Blockly.JavaScript['css_display'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var displayType = block.getFieldValue('DISPLAY_TYPE');
-  var code = `${leftCode}display: ${displayType}; `;
+  var code = `${leftCode};display: ${displayType}| `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -248,7 +248,7 @@ Blockly.Blocks['css_position'] = {
 Blockly.JavaScript['css_position'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var positionType = block.getFieldValue('POSITION_TYPE');
-  var code = `${leftCode}position: ${positionType}; `;
+  var code = `${leftCode};position: ${positionType}|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -284,8 +284,16 @@ Blockly.JavaScript['css_rule'] = function(block) {
   // Retrieve the chain of style properties (chained blocks)
   var properties = Blockly.JavaScript.valueToCode(block, 'PROPERTIES', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
+  console.log(properties)
+
   // Generate the full CSS rule
-  var code = `${selector} {\n${properties.trim()}\n}\n`;
+  properties = properties.replaceAll(';','')
+  
+  properties=properties.split('|')
+
+  properties = properties.map(property => property.trim()).filter(property => property.length > 0).join(';\n')
+
+  var code = `${selector} {\n${properties.trim()}}\n`;
   
   return code;
 };
@@ -320,7 +328,7 @@ Blockly.JavaScript['css_text_decoration'] = function(block) {
   var decorationType = block.getFieldValue('DECORATION_TYPE');
 
   // Generate CSS code for text-decoration properties
-  var code = `${leftCode}text-decoration: ${decorationType};\n`;
+  var code = `${leftCode};text-decoration: ${decorationType}|\n`;
  
 
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
@@ -358,7 +366,7 @@ Blockly.JavaScript['css_font_family'] = function(block) {
   // Use the custom font if "Custom" is selected, otherwise use the predefined option
   var finalFontFamily = fontFamily
 
-  var code = `${leftCode}font-family: ${finalFontFamily}; `;
+  var code = `${leftCode};font-family: ${finalFontFamily}| `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -393,7 +401,7 @@ Blockly.Blocks['css_list_style_type'] = {
 Blockly.JavaScript['css_list_style_type'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var listStyleType = block.getFieldValue('STYLE_TYPE');
-  var code = `${leftCode}list-style-type: ${listStyleType}; `;
+  var code = `${leftCode};list-style-type: ${listStyleType}| `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -420,7 +428,7 @@ Blockly.Blocks['css_text_align'] = {
 Blockly.JavaScript['css_text_align'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var alignment = block.getFieldValue('ALIGN');
-  var code = `${leftCode}text-align: ${alignment}; `;
+  var code = `${leftCode};text-align: ${alignment}|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -445,6 +453,6 @@ Blockly.Blocks['css_border_collapse'] = {
 Blockly.JavaScript['css_border_collapse'] = function(block) {
   var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var borderCollapse = block.getFieldValue('BORDER_COLLAPSE');
-  var code = `${leftCode}border-collapse: ${borderCollapse}; `;
+  var code = `${leftCode};border-collapse: ${borderCollapse}| `;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
