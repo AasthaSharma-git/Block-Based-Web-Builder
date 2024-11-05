@@ -23,7 +23,7 @@ Blockly.Blocks['html_html'] = {
     // Opening tag: <html>
     this.appendDummyInput()
       .appendField('<html>')
-      
+
     // Statement input for nested blocks inside the <html> tag
     this.appendStatementInput("CONTENT")
       .setCheck(null)
@@ -53,7 +53,7 @@ Blockly.Blocks['html_head'] = {
     // Opening tag: <head>
     this.appendDummyInput()
       .appendField('<head>')
-     
+
     // Statement input for nested blocks inside the <head> tag
     this.appendStatementInput("CONTENT")
       .setCheck(null)
@@ -62,7 +62,7 @@ Blockly.Blocks['html_head'] = {
     // Closing tag: </head>
     this.appendDummyInput()
       .appendField("</head>")
- 
+
     // Allow the block to connect to other blocks
     this.setPreviousStatement(true, null);  // Connection from above
     this.setNextStatement(true, null);  // Connection below
@@ -150,10 +150,10 @@ Blockly.Blocks['html_heading'] = {
     this.appendDummyInput()
       .appendField('>');
 
-    // Use a value input for text, allowing for both plain text and formatted tags
-    this.appendValueInput("TEXT")
-      .setCheck("String") // Accepts plain text or formatted tags
-      .appendField("");
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
 
     // Automatically closing the selected heading tag
     this.appendDummyInput()
@@ -179,7 +179,9 @@ Blockly.Blocks['html_heading'] = {
 // JavaScript code generation for the heading block
 Blockly.JavaScript['html_heading'] = function (block) {
   var headingLevel = block.getFieldValue('HEADING_LEVEL');  // Get the selected heading level
-  var headingText = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_ATOMIC) || ''; // Get the connected text
+
+  // Get the content 
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT').trim();
 
   // Get all connected attributes, properly handling chains
   var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
@@ -188,28 +190,28 @@ Blockly.JavaScript['html_heading'] = function (block) {
   attributes = attributes.trim();
 
   // Generate the HTML for the heading element with the entered text
-  var code = `<${headingLevel} ${attributes}>${headingText}</${headingLevel}>\n`;
+  var code = `<${headingLevel} ${attributes}>${content}</${headingLevel}>\n`;
   return code;
 };
 
 
 Blockly.Blocks['html_p'] = {
   init: function () {
+    
     this.appendDummyInput()
       .appendField('<p')
 
-    // Allow chaining multiple attributes (if needed)
+    // Single attributes input for chaining multiple attribute blocks
     this.appendValueInput("ATTRIBUTES")
       .setCheck('String')
-      .appendField("");
+      .appendField("")
 
-    this.appendDummyInput("")
+    this.appendDummyInput()
       .appendField('>');
 
-    // Keep the TEXT input as Value Input, but allow both plain text and formatted tags
-    this.appendValueInput("TEXT")
-      .setCheck("String") // Accepts plain text or formatted tags
-      .appendField("");
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
 
     this.appendDummyInput()
       .appendField("</p>");
@@ -230,8 +232,8 @@ Blockly.JavaScript['html_p'] = function (block) {
   var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
   attributes = attributes.trim();
 
-  // Get the content from the Value Input (TEXT)
-  var content = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  // Get the content 
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
 
   // Generate the HTML with the content and attributes
   var code = `<p ${attributes}>\n${content}\n</p>\n`;
@@ -383,31 +385,6 @@ Blockly.JavaScript['html_img'] = function (block) {
   return code;
 };
 
-// Form <form> block
-Blockly.Blocks['html_form'] = {
-  init: function () {
-    this.appendStatementInput("CONTENT")
-      .setCheck(null)
-      .appendField("Form")
-      .appendField("action")
-      .appendField(new Blockly.FieldTextInput(""), "ACTION")
-      .appendField("method")
-      .appendField(new Blockly.FieldTextInput("get"), "METHOD");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour('0ACDFF');
-    this.setTooltip("A form.");
-    this.setHelpUrl("");
-  }
-};
-
-Blockly.JavaScript['html_form'] = function (block) {
-  var action = block.getFieldValue('ACTION');
-  var method = block.getFieldValue('METHOD');
-  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
-  var code = '<form action="' + action + '" method="' + method + '">\n' + content + '</form>\n';
-  return code;
-};
 
 // Block for <table> tag
 Blockly.Blocks['html_table'] = {
@@ -535,7 +512,7 @@ Blockly.JavaScript['html_th'] = function (block) {
 Blockly.Blocks['html_tr'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField("<tr>")
+      .appendField("<tr")
 
     // Single attributes input for chaining multiple attribute blocks
     this.appendValueInput("ATTRIBUTES")
@@ -620,10 +597,10 @@ Blockly.Blocks['html_script'] = {
     this.appendValueInput("ATTRIBUTES")
       .setCheck('String')
       .appendField("");
-    
+
     this.appendDummyInput()
-        .appendField('>')
-    
+      .appendField('>')
+
 
     this.appendStatementInput("SCRIPT") // Allow blocks to be added inside
       .setCheck(null); // Accept any type of blocks
@@ -643,11 +620,11 @@ Blockly.Blocks['html_script'] = {
 Blockly.JavaScript['html_script'] = function (block) {
   var statements_script = Blockly.JavaScript.statementToCode(block, 'SCRIPT'); // Get the statements inside the block
 
-   // Get all connected attributes, properly handling chains
-   var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  // Get all connected attributes, properly handling chains
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-   // Concatenate attributes and remove trailing spaces
-   attributes = attributes.trim();
+  // Concatenate attributes and remove trailing spaces
+  attributes = attributes.trim();
 
   var code = `<script ${attributes}>\n${statements_script}</script>\n`; // Wrap the code in script tags
   return code; // Return the code to be included in the generated script
@@ -696,7 +673,7 @@ Blockly.JavaScript['html_div'] = function (block) {
 
 
 // Block for <br> tag in HTML
-Blockly.Blocks['html_br1'] = {
+Blockly.Blocks['html_br'] = {
   init: function () {
     this.appendDummyInput()
       .appendField("<br>"); // Label for the <br> tag
@@ -708,39 +685,21 @@ Blockly.Blocks['html_br1'] = {
   }
 };
 
-Blockly.JavaScript['html_br1'] = function (block) {
+Blockly.JavaScript['html_br'] = function (block) {
   // Generates the <br> HTML tag
   return '<br>\n'; // Newline after <br> for better formatting
 };
 
-//A different looking block for <br> tag in HTML
-Blockly.Blocks['html_br2'] = {
-  init: function() {
-    this.appendValueInput('LEFT_INPUT')
-        .appendField("<br>")
 
-    this.setOutput(true, "String"); // Output type for chaining in paragraph
-    this.setColour("0ACDFF");
-    this.setTooltip("Line Break");
-    this.setHelpUrl("");
-  }
-};
-
-Blockly.JavaScript['html_br2'] = function(block) {
-  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
-
-  var code = `<br>${leftCode}`;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC]; // Use ORDER_ATOMIC
-};
 
 //Block for <hr> tag in HTML
-Blockly.Blocks['html_hr']={
-  init:function(){
+Blockly.Blocks['html_hr'] = {
+  init: function () {
     this.appendDummyInput()
-        .appendField("<hr>")
+      .appendField("<hr>")
 
-    this.setPreviousStatement(true,null);
-    this.setNextStatement(true,null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
 
     this.setColour('0ACDFF')
     this.setTooltip("Creates a horizontal rule (<hr>) in HTML.");
@@ -748,7 +707,7 @@ Blockly.Blocks['html_hr']={
   }
 }
 
-Blockly.JavaScript['html_hr']=function(block){
+Blockly.JavaScript['html_hr'] = function (block) {
   return '<hr>\n'; // Newline after <hr> for better
 }
 // Block for <ul> (unordered list) tag
@@ -967,13 +926,17 @@ Blockly.JavaScript['html_tr'] = function (block) {
 
 Blockly.Blocks['plain_text'] = {
   init: function () {
-    this.appendValueInput('LEFT_INPUT')  // Allow chaining on the left
-        .setCheck(null)
-        .appendField('')
-        .appendField(new Blockly.FieldTextInput('Text'), 'TEXT')
 
-    // Set this to chain from left to right
-    this.setOutput(true, "String");
+
+    this.appendDummyInput()
+      .appendField('')
+      .appendField(new Blockly.FieldTextInput('data'), 'CONTENT') // Direct content text input
+      .appendField('');
+
+    this.setPreviousStatement(true)
+    this.setNextStatement(true)
+
+
     this.setColour("0ACDFF");
     this.setTooltip("Plain text block for adding unformatted text.");
     this.setHelpUrl("");
@@ -981,128 +944,215 @@ Blockly.Blocks['plain_text'] = {
 };
 
 Blockly.JavaScript['plain_text'] = function (block) {
-  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
-  var text = block.getFieldValue('TEXT');
-  var code = text + leftCode
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+
+  var text = block.getFieldValue('CONTENT');
+  var code = text
+  return code
 };
 
 Blockly.Blocks['strong'] = {
-  init: function() {
-    this.appendValueInput('LEFT_INPUT')
-        .appendField("<strong>")
-        .appendField(new Blockly.FieldTextInput("bold text"), "TEXT")
-        .appendField("</strong>");
+  init: function () {
+    // Opening tag: <body>
+    this.appendDummyInput()
+      .appendField('<strong>')
 
-    this.setOutput(true, "String"); // Output type for chaining in paragraph
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</strong>");
+
+    // Allow the block to connect to other blocks
+    this.setPreviousStatement(true, null);  // Connection from above
+    this.setNextStatement(true, null);  // Connection below
+
     this.setColour("0ACDFF");
     this.setTooltip("Strong.");
     this.setHelpUrl("");
   }
 };
 
-Blockly.JavaScript['strong'] = function(block) {
-  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
-  var text = block.getFieldValue('TEXT');
-  
-  var code = `<strong>${text}</strong>${leftCode}`;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC]; // Use ORDER_ATOMIC
+Blockly.JavaScript['strong'] = function (block) {
+  // Get the content 
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+
+  var code = `<strong>${content}</strong>`;
+  return code; // Use ORDER_ATOMIC
 };
 
 Blockly.Blocks['bold_text'] = {
-  init: function() {
-    this.appendValueInput('LEFT_INPUT')
-        .appendField("<b>")
-        .appendField(new Blockly.FieldTextInput("bold text"), "TEXT")
-        .appendField("</b>");
+  init: function () {
+   
+    this.appendDummyInput()
+      .appendField('<b>')
 
-    this.setOutput(true, "String"); // Output type for chaining in paragraph
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</b>");
+
+    // Allow the block to connect to other blocks
+    this.setPreviousStatement(true, null);  // Connection from above
+    this.setNextStatement(true, null);  // Connection below
+
     this.setColour("0ACDFF");
-    this.setTooltip("Bold text formatting.");
+    this.setTooltip("Bold Text.");
     this.setHelpUrl("");
   }
 };
 
-Blockly.JavaScript['bold_text'] = function(block) {
-  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
-  var text = block.getFieldValue('TEXT');
-  
-  var code = `<b>${text}</b>${leftCode}`;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC]; // Use ORDER_ATOMIC
-};
+Blockly.JavaScript['bold_text'] = function (block) {
+  // Get the content 
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
 
+  var code = `<b>${content}</b>`;
+  return code; // Use ORDER_ATOMIC
+};
 Blockly.Blocks['underline'] = {
-  init: function() {
-    this.appendValueInput('LEFT_INPUT')
-        .appendField("<u>")
-        .appendField(new Blockly.FieldTextInput("bold text"), "TEXT")
-        .appendField("</u>");
+  init: function () {
+   
+    this.appendDummyInput()
+      .appendField('<u>')
 
-    this.setOutput(true, "String"); // Output type for chaining in paragraph
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</u>");
+
+    // Allow the block to connect to other blocks
+    this.setPreviousStatement(true, null);  // Connection from above
+    this.setNextStatement(true, null);  // Connection below
+
     this.setColour("0ACDFF");
-    this.setTooltip("Underline");
+    this.setTooltip("Underline Text.");
     this.setHelpUrl("");
   }
 };
 
-Blockly.JavaScript['underline'] = function(block) {
-  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
-  var text = block.getFieldValue('TEXT');
-  
-  var code = `<u>${text}</u>${leftCode}`;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC]; // Use ORDER_ATOMIC
+Blockly.JavaScript['underline'] = function (block) {
+  // Get the content 
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+
+  var code = `<u>${content}</u>`;
+  return code; // Use ORDER_ATOMIC
 };
 
 Blockly.Blocks['italic'] = {
-  init: function() {
-    this.appendValueInput('LEFT_INPUT')
-        .appendField("<i>")
-        .appendField(new Blockly.FieldTextInput("bold text"), "TEXT")
-        .appendField("</i>");
+  init: function () {
+   
+    this.appendDummyInput()
+      .appendField('<i>')
 
-    this.setOutput(true, "String"); // Output type for chaining in paragraph
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</i>");
+
+    // Allow the block to connect to other blocks
+    this.setPreviousStatement(true, null);  // Connection from above
+    this.setNextStatement(true, null);  // Connection below
+
     this.setColour("0ACDFF");
-    this.setTooltip("Italic text");
+    this.setTooltip("Italic Text.");
     this.setHelpUrl("");
   }
 };
 
-Blockly.JavaScript['italic'] = function(block) {
-  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
-  var text = block.getFieldValue('TEXT');
-  
-  var code = `<i>${text}</i>${leftCode}`;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC]; // Use ORDER_ATOMIC
-};
+Blockly.JavaScript['italic'] = function (block) {
+  // Get the content 
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
 
+  var code = `<i>${content}</i>`;
+  return code; // Use ORDER_ATOMIC
+};
 Blockly.Blocks['emphasized'] = {
-  init: function() {
-    this.appendValueInput('LEFT_INPUT')
-        .appendField("<em>")
-        .appendField(new Blockly.FieldTextInput("bold text"), "TEXT")
-        .appendField("</em>");
+  init: function () {
+   
+    this.appendDummyInput()
+      .appendField('<em>')
 
-    this.setOutput(true, "String"); // Output type for chaining in paragraph
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</em>");
+
+    // Allow the block to connect to other blocks
+    this.setPreviousStatement(true, null);  // Connection from above
+    this.setNextStatement(true, null);  // Connection below
+
     this.setColour("0ACDFF");
-    this.setTooltip("Emphasized text");
+    this.setTooltip("Emphasized Text.");
     this.setHelpUrl("");
   }
 };
 
-Blockly.JavaScript['emphasized'] = function(block) {
-  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
-  var text = block.getFieldValue('TEXT');
-  
-  var code = `<em>${text}</em>${leftCode}`;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC]; // Use ORDER_ATOMIC
+Blockly.JavaScript['emphasized'] = function (block) {
+  // Get the content 
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+
+  var code = `<em>${content}</em>`;
+  return code; 
 };
+
+Blockly.Blocks['span'] = {
+  init: function () {
+    // Opening tag: <body>
+    this.appendDummyInput()
+      .appendField('<span')
+
+     // Single attributes input for chaining multiple attribute blocks
+     this.appendValueInput("ATTRIBUTES")
+     .setCheck('String')
+     .appendField(" ")
+
+     this.appendDummyInput()
+     .appendField('>');
+
+
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</span>");
+
+    // Allow the block to connect to other blocks
+    this.setPreviousStatement(true, null);  // Connection from above
+    this.setNextStatement(true, null);  // Connection below
+
+    this.setColour("0ACDFF");
+    this.setTooltip("span");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.JavaScript['span'] = function (block) {
+   // Get all connected attributes and trim trailing spaces
+   var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+   attributes = attributes.trim();
+  // Get the content 
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+
+  var code = `<span ${attributes}>${content}</span>`;
+  return code; // Use ORDER_ATOMIC
+};
+
 
 // Style content block
 Blockly.Blocks['html_style'] = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField('<style>')
-     
+
 
     // Statement input for nested blocks inside the <head> tag
     this.appendStatementInput("CONTENT")
@@ -1112,12 +1162,12 @@ Blockly.Blocks['html_style'] = {
     // Closing tag: </style>
     this.appendDummyInput()
       .appendField("</style>")
-  
+
     // Allow the block to connect to other blocks
     this.setPreviousStatement(true, null);  // Connection from above
     this.setNextStatement(true, null);  // Connection below 
 
-  
+
     this.setColour('0ACDFF');
     this.setTooltip("Creates a <style> tag with CSS rules.");
     this.setHelpUrl("");
@@ -1125,7 +1175,7 @@ Blockly.Blocks['html_style'] = {
 };
 
 // JavaScript code generation for style content
-Blockly.JavaScript['html_style'] = function(block) {
+Blockly.JavaScript['html_style'] = function (block) {
   var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
   var code = '<style>\n' + content + '\n</style>\n';
   return code;
@@ -1379,32 +1429,33 @@ Blockly.Blocks['html_form'] = {
 };
 
 Blockly.JavaScript['html_form'] = function (block) {
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
   var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
   attributes = attributes.trim();
-  var code = `<form ${attributes}>\n$</form>\n`;
+  var code = `<form ${attributes}>\n${content}</form>\n`;
   return code;
 };
 
 Blockly.Blocks['html_label'] = {
   init: function () {
     this.appendDummyInput()
-    .appendField('<label')
+      .appendField('<label')
 
-  // Allow chaining multiple attributes (if needed)
-  this.appendValueInput("ATTRIBUTES")
-    .setCheck('String')
-    .appendField("");
+    // Allow chaining multiple attributes (if needed)
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
 
-  this.appendDummyInput("")
-    .appendField('>');
+    this.appendDummyInput("")
+      .appendField('>');
 
-  // Keep the TEXT input as Value Input, but allow both plain text and formatted tags
-  this.appendValueInput("TEXT")
-    .setCheck("String") // Accepts plain text or formatted tags
-    .appendField("");
+    // Keep the TEXT input as Value Input, but allow both plain text and formatted tags
+    this.appendValueInput("TEXT")
+      .setCheck("String") // Accepts plain text or formatted tags
+      .appendField("");
 
-  this.appendDummyInput()
-    .appendField("</label>");
+    this.appendDummyInput()
+      .appendField("</label>");
 
 
     this.setPreviousStatement(true, null);
@@ -1453,18 +1504,20 @@ Blockly.JavaScript['html_input'] = function (block) {
 
 Blockly.Blocks['html_textarea'] = {
   init: function () {
+    // Opening tag and attributes input
     this.appendDummyInput()
-      .appendField("<textarea>");
+      .appendField('<textarea');
 
+    // Add a value input for the attributes field
     this.appendValueInput("ATTRIBUTES")
       .setCheck('String')
-      .appendField("");
+      .appendField(' '); // Placeholder for attributes
 
     this.appendDummyInput()
-      .appendField('>');
+      .appendField('>')
+      .appendField(new Blockly.FieldTextInput('data'), 'CONTENT') // Direct content text input
+      .appendField('</textarea>');
 
-    this.appendDummyInput()
-      .appendField("</textarea>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour('0ACDFF');
@@ -1474,9 +1527,11 @@ Blockly.Blocks['html_textarea'] = {
 };
 
 Blockly.JavaScript['html_textarea'] = function (block) {
+  var content = block.getFieldValue('CONTENT') || '';
   var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
   attributes = attributes.trim();
-  var code = `<textarea ${attributes}></textarea>\n`;
+  var code = `<textarea ${attributes}>${content}</textarea>\n`;
   return code;
 };
 
@@ -1517,17 +1572,18 @@ Blockly.JavaScript['html_select'] = function (block) {
 Blockly.Blocks['html_option'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField("<option>");
+      .appendField('<option');
 
+    // Add a value input for the attributes field
     this.appendValueInput("ATTRIBUTES")
       .setCheck('String')
-      .appendField("");
+      .appendField(' '); // Placeholder for attributes
 
     this.appendDummyInput()
-      .appendField('>');
+      .appendField('>')
+      .appendField(new Blockly.FieldTextInput('data'), 'CONTENT') // Direct content text input
+      .appendField('</option>');
 
-    this.appendDummyInput()
-      .appendField("</option>");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour('0ACDFF');
@@ -1537,9 +1593,12 @@ Blockly.Blocks['html_option'] = {
 };
 
 Blockly.JavaScript['html_option'] = function (block) {
+  // Get the content from the field text input (typed text)
+  var content = block.getFieldValue('CONTENT') || ''; // Retrieve field content using getFieldValue
+
   var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
   attributes = attributes.trim();
-  var code = `<option ${attributes}></option>\n`;
+  var code = `<option ${attributes}>${content}</option>\n`;
   return code;
 };
 
@@ -1613,18 +1672,19 @@ Blockly.JavaScript['html_video'] = function (block) {
 
 Blockly.Blocks['html_iframe'] = {
   init: function () {
-    this.appendDummyInput()
-      .appendField("<iframe");
 
+    this.appendDummyInput()
+      .appendField('<iframe')
+
+    // Allow chaining multiple attributes (if needed)
     this.appendValueInput("ATTRIBUTES")
       .setCheck('String')
       .appendField("");
 
-    this.appendDummyInput()
-      .appendField('>');
+    this.appendDummyInput("")
+      .appendField('> </iframe>');
 
-    this.appendDummyInput()
-      .appendField("</iframe>");
+
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour('0ACDFF');
@@ -1637,5 +1697,69 @@ Blockly.JavaScript['html_iframe'] = function (block) {
   var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
   attributes = attributes.trim();
   var code = `<iframe ${attributes}></iframe>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_source'] = {
+  init: function () {
+
+    this.appendDummyInput()
+      .appendField('<source')
+
+    // Allow chaining multiple attributes (if needed)
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput("")
+      .appendField('> </source>');
+
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('0ACDFF');
+    this.setTooltip("A source element.");
+
+  }
+};
+
+Blockly.JavaScript['html_source'] = function (block) {
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<source ${attributes}></source>\n`;
+  return code;
+};
+
+Blockly.Blocks['html_datalist'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("<datalist>");
+
+    this.appendValueInput("ATTRIBUTES")
+      .setCheck('String')
+      .appendField("");
+
+    this.appendDummyInput()
+      .appendField('>');
+
+    this.appendStatementInput("CONTENT")
+      .setCheck(null)
+      .appendField('');
+
+    this.appendDummyInput()
+      .appendField("</datalist>");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('0ACDFF');
+    this.setTooltip("A datalist element.");
+    this.setHelpUrl("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist");
+  }
+};
+
+Blockly.JavaScript['html_datalist'] = function (block) {
+  var content = Blockly.JavaScript.statementToCode(block, 'CONTENT');
+  var attributes = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTES', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  attributes = attributes.trim();
+  var code = `<datalist ${attributes}>\n${content}</datalist>\n`;
   return code;
 };

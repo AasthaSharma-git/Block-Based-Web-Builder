@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Block Based Web Builder</title>
 
-    <link rel="icon" type="image/x-icon" href="/assets/company_logo-tab.png">
+    <link rel="icon" type="image/x-icon" href="/assets/company_logo-tab.png" />
 
     <!-- Include Blockly -->
     <script src="https://unpkg.com/blockly@9.0.0/blockly.min.js"></script>
@@ -27,7 +27,6 @@
 
   <body>
     <header>
-      
       <img
         src="assets/company_logo.png"
         height="50"
@@ -36,7 +35,6 @@
       />
 
       <h1>BLOCK BASED WEB BUILDER</h1>
-    
     </header>
 
     <div id="container">
@@ -105,12 +103,10 @@
 
     <!-- Toolbox XML -->
     <xml id="toolbox" style="display: none">
-
       <category name="HTML" colour="#0ACDFF">
-       
         <block type="html_doctype"></block>
         <block type="html_html"></block>
-        <block type="html_head"></block>     
+        <block type="html_head"></block>
         <block type="html_body"></block>
         <block type="html_style"></block>
         <block type="html_link"></block>
@@ -122,8 +118,8 @@
         <block type="emphasized"></block>
         <block type="italic"></block>
         <block type="underline"></block>
-        <block type="html_br1"></block>
-        <block type="html_br2"></block>
+        <block type="span"></block>
+        <block type="html_br"></block>
         <block type="html_hr"></block>
         <block type="html_button"></block>
         <block type="html_a"></block>
@@ -149,29 +145,39 @@
         <block type="html_input"></block>
         <block type="html_textarea"></block>
         <block type="html_select"></block>
+        <block type="html_datalist"></block>
         <block type="html_option"></block>
         <block type="html_audio"></block>
         <block type="html_video"></block>
+        <block type="html_source"></block>
         <block type="html_iframe"></block>
       </category>
 
       <category name="Attributes" colour="#FFD700">
         <block type="html_attribute_lang"></block>
-        <block type="html_attribute_title"></block>   
+        <block type="html_attribute_title"></block>
         <block type="html_attribute_id"></block>
         <block type="html_attribute_class"></block>
         <block type="html_attribute_style"></block>
         <block type="html_attribute_disabled"></block>
+        <block type="html_attribute_autoplay"></block>
+        <block type="html_attribute_muted"></block>
+        <block type="html_attribute_controls"></block>
+        <block type="html_attribute_type"></block>
         <block type="html_attribute_href"></block>
         <block type="html_attribute_src"></block>
         <block type="html_attribute_alt"></block>
-        <block type="html_attribute_type"></block>
+        <block type="html_attribute_type_form"></block>
         <block type="html_attribute_width"></block>
         <block type="html_attribute_height"></block>
         <block type="html_attribute_border"></block>
+        <block type="html_attribute_label"></block>
+        <block type="html_attribute_value"></block>
+        <block type="html_attribute_list"></block>
         <block type="html_attribute_for"></block>
         <block type="html_attribute_name"></block>
-        <block type="html_attribute_value"></block>
+        <block type="html_attribute_rows"></block>
+        <block type="html_attribute_cols"></block>
         <block type="html_attribute_size"></block>
         <block type="html_attribute_maxlength"></block>
         <block type="html_attribute_multiple"></block>
@@ -180,25 +186,66 @@
         <block type="html_attribute_required"></block>
         <block type="html_attribute_autofocus"></block>
         <block type="html_attribute_onclick"></block>
+    
       </category>
 
       <category name="CSS" colour="#8EB140">
         <block type="css_rule"></block>
-        <block type="css_color"></block>
-        <block type="css_background_color"></block>
-        <block type="css_font_size"></block>
-        <block type="css_text_decoration"></block>
-        <block type="css_font_family"></block>
-        <block type="css_font_weight"></block>
-        <block type="css_list_style_type"></block>
-        <block type="css_margin"></block>
-        <block type="css_padding"></block>
-        <block type="css_width"></block>
-        <block type="css_height"></block>
-        <block type="css_display"></block>
-        <block type="css_position"></block>
-        <block type="css_border_collapse"></block>
-        <block type="css_text_align"></block>
+
+        <category name="Layout" colour="#8EB140">
+          <block type="css_display"></block>
+          <block type="css_position"></block>
+          <block type="css_z_index"></block>
+        </category>
+
+        <category name="Box Model" colour="#8EB140">
+          <block type="css_margin"></block>
+          <block type="css_margin_left"></block>
+          <block type="css_margin_right"></block>
+          <block type="css_margin_top"></block>
+          <block type="css_margin_bottom"></block>
+          <block type="css_padding"></block>
+          <block type="css_padding_left"></block>
+          <block type="css_padding_right"></block>
+          <block type="css_padding_top"></block>
+          <block type="css_padding_bottom"></block>
+          <block type="css_width"></block>
+          <block type="css_height"></block>
+          <block type="css_border"></block>
+        </category>
+
+        <category name="Color and Background" colour="#8EB140">
+          <block type="css_color"></block>
+          <block type="css_background_color"></block>
+        </category>
+
+        <category name="Typography" colour="#8EB140">
+          <block type="css_font_size"></block>
+          <block type="css_text_decoration"></block>
+          <block type="css_font_family"></block>
+          <block type="css_font_weight"></block>
+          <block type="css_text_align"></block>
+          <block type="css_text_transform"></block>
+          <block type="css_letter_spacing"></block>
+          <block type="css_word_spacing"></block>
+        </category>
+
+        <category name="Visual Effects" colour="#8EB140">
+          <block type="css_transform"></block>
+          <block type="css_opacity"></block>
+          <block type="css_transition"></block>
+          <block type="css_text_shadow"></block>
+          <block type="css_box_shadow"></block>
+          <block type="css_border_radius"></block>
+        </category>
+
+        <category name="List" colour="#8EB140">
+          <block type="css_list_style_type"></block>
+        </category>
+
+        <category name="Table" colour="#8EB140">
+          <block type="css_border_collapse"></block>
+        </category>
       </category>
 
       <category name="JavaScript" colour="#FFAB19">
