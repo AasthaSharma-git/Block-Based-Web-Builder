@@ -308,6 +308,7 @@ function generateCodeForFile(file) {
 }
 
 // Function to update the live preview iframe
+
 function updateLivePreview() {
     if (currentFileIndex === -1) return; // No file selected
 
@@ -315,7 +316,6 @@ function updateLivePreview() {
 
     // Check if the selected file is an HTML file
     if (selectedFile.type !== 'html') {
-        // Notify the user to select an HTML file for preview
         console.warn('Please select an HTML file to preview.');
         document.getElementById('preview').srcdoc = ''; // Clear the iframe
         return;
@@ -324,29 +324,57 @@ function updateLivePreview() {
     // Get the selected HTML file's code
     var htmlContent = selectedFile.generatedCode;
 
-    // Aggregate all CSS and JS code from their respective files
-    var allCSS = files
-        .filter(file => file.type === 'css')
-        .map(file => file.generatedCode)
+    console.log("HTML Content:", htmlContent);
+
+    // Temporary container to parse HTML and find linked resources
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(htmlContent, 'text/html');
+
+    var bodyContent = doc.body.innerHTML;
+
+    // Collect CSS and JS file names from link and script tags in the HTML
+    var linkedCSS = Array.from(doc.querySelectorAll('link[rel="stylesheet"]'))
+        .map(link => link.getAttribute('href'));
+
+    var linkedJS = Array.from(doc.querySelectorAll('script[src]'))
+        .map(script => script.getAttribute('src'));
+
+    console.log("Linked CSS files:", linkedCSS);
+    console.log("Linked JS files:", linkedJS);
+
+    // Aggregate CSS and JS contents based on the linked files
+    var allCSS = linkedCSS
+        .map(href => {
+            var cssFile = files.find(file => `${file.name}.css` === href);
+            console.log(`CSS file for ${href}:`, cssFile);
+            return cssFile ? cssFile.generatedCode : '';
+        })
         .join('\n');
 
-    var allJS = files
-        .filter(file => file.type === 'js')
-        .map(file => file.generatedCode)
+    var allJS = linkedJS
+        .map(src => {
+            var jsFile = files.find(file => `${file.name}.js` === src);
+            console.log(`JS file for ${src}:`, jsFile);
+            return jsFile ? jsFile.generatedCode : '';
+        })
         .join('\n');
 
-    // Construct the full HTML document with CSS and JS included
+    console.log("All CSS combined:", allCSS);
+    console.log("All JS combined:", allJS);
+
+    // Construct the full HTML document with the specific CSS and JS included
     var fullHTML = `<!DOCTYPE html>
-  <html lang="en">
-  <head>
-  <meta charset="UTF-8">
-  <title>Live Preview - ${selectedFile.name}</title>
-  ${allCSS ? `<style>${allCSS}</style>` : ''}
-  </head>
-  <body>
-  ${htmlContent}
-  ${allJS ? `<script>${allJS}</script>` : ''}
-  <script>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Live Preview - ${selectedFile.name}</title>
+        ${allCSS ? `<style>${allCSS}</style>` : ''}
+    </head>
+    <body>
+        ${bodyContent}
+    
+        ${allJS ? `<script>${allJS}</script>` : ''}
+         <script>
       // Intercept link clicks and handle internal/external navigation
       document.addEventListener('click', function(e) {
           var target = e.target.closest('a'); // Support nested elements inside <a>
@@ -364,15 +392,17 @@ function updateLivePreview() {
               }
           }
       });
-  </script>
-  </body>
-  </html>`;
+    </script>
+    </body>
+    </html>`;
+
+    console.log("Final HTML for preview:", fullHTML);
 
     // Update the Live Preview iframe's srcdoc
     var iframe = document.getElementById('preview');
     iframe.srcdoc = fullHTML;
-
 }
+
 
 // Function to load a specific page into the Live Preview iframe
 function loadPage(page) {
@@ -403,7 +433,6 @@ function loadPage(page) {
 
 // Function to export all files as a ZIP
 function exportProjectAsZip() {
-    var allCode = generateAllCode();
     var zip = new JSZip();
 
     // Identify the main HTML file (e.g., 'index.html')
@@ -416,56 +445,41 @@ function exportProjectAsZip() {
 
     // Add HTML files
     files.filter(file => file.type === 'html').forEach(file => {
-        if (file.name.toLowerCase() === 'index') {
-            // Main HTML file includes links to CSS and JS
-            var linkedCSS = files.filter(f => f.type === 'css').map(cssFile => `<link rel="stylesheet" href="${cssFile.name}.css">`).join('\n  ');
-            var linkedJS = files.filter(f => f.type === 'js').map(jsFile => `<script src="${jsFile.name}.js"></script>`).join('\n  ');
+        var htmlContent = file.generatedCode;
 
-            // Parse the main HTML content to inject CSS and JS links
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(file.generatedCode, 'text/html');
+        // Parse the HTML to inject only referenced CSS and JS files
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(htmlContent, 'text/html');
 
-            // Inject CSS links into <head>
-            if (linkedCSS) {
-                var styleElement = doc.createElement('style');
-                styleElement.innerHTML = linkedCSS;
-                doc.head.appendChild(styleElement);
-            }
+        // Add linked CSS files
+        var cssLinks = Array.from(doc.querySelectorAll('link[rel="stylesheet"]'))
+            .map(link => link.getAttribute('href'))
+            .filter(href => href.endsWith('.css'));
 
-            // Inject JS scripts before </body>
-            if (linkedJS) {
-                var scriptElement = doc.createElement('script');
-                scriptElement.innerHTML = linkedJS;
-                doc.body.appendChild(scriptElement);
-            }
+        cssLinks.forEach(cssFileName => {
+            var cssFile = files.find(file => `${file.name}.css` === cssFileName);
+            if (cssFile) zip.file(cssFileName, cssFile.generatedCode);
+        });
 
-            // **Removed**: Navigation script injection to keep exported HTML clean
+        // Add linked JS files
+        var jsLinks = Array.from(doc.querySelectorAll('script[src]'))
+            .map(script => script.getAttribute('src'))
+            .filter(src => src.endsWith('.js'));
 
-            var finalHtmlContent = doc.documentElement.outerHTML;
+        jsLinks.forEach(jsFileName => {
+            var jsFile = files.find(file => `${file.name}.js` === jsFileName);
+            if (jsFile) zip.file(jsFileName, jsFile.generatedCode);
+        });
 
-            zip.file(`${file.name}.html`, finalHtmlContent);
-        } else {
-            // Other HTML files are treated as separate pages
-            zip.file(`${file.name}.html`, file.generatedCode);
-        }
-    });
-
-    // Add CSS files
-    files.filter(file => file.type === 'css').forEach(file => {
-        zip.file(`${file.name}.css`, file.generatedCode);
-    });
-
-    // Add JS files
-    files.filter(file => file.type === 'js').forEach(file => {
-        zip.file(`${file.name}.js`, file.generatedCode);
+        // Add the HTML file itself
+        zip.file(`${file.name}.html`, doc.documentElement.outerHTML);
     });
 
     // Generate the ZIP file and trigger download
-    zip.generateAsync({ type: 'blob' }).then(function (content) {
+    zip.generateAsync({ type: 'blob' }).then(content => {
         var a = document.createElement('a');
         a.href = URL.createObjectURL(content);
         a.download = 'project.zip';
-        a.style.display = 'none';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -556,10 +570,10 @@ const fileManager = document.getElementById("fileManager");
 fileManagerButton.addEventListener("click", function () {
     if (fileManager.style.display === "none" || !fileManager.style.display) {
         fileManager.style.display = "block";
-        fileManagerButton.style.backgroundColor = "#AABD8C"
+        fileManagerButton.style.backgroundColor = "#F9C22E"
     } else {
         fileManager.style.display = "none";
-        fileManagerButton.style.backgroundColor = "#F39B6D"
+        fileManagerButton.style.backgroundColor = "#F15946"
     }
 });
 
