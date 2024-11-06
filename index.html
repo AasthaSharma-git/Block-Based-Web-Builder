@@ -34,7 +34,7 @@
         alt="Company Logo"
       />
 
-      <h1>BLOCK BASED WEB BUILDER</h1>
+      <h1></h1>
     </header>
 
     <div id="container">
@@ -95,7 +95,7 @@
         <!-- Live Preview Section -->
         <div id="previewSection" class="hidden">
           <h2>Live Preview</h2>
-          <button onclick="openOutputInNewTab()">Open Output in New Tab</button>
+          <button id="popOut" class="toggle-btn">Open Output in New Tab</button>
           <iframe id="preview" srcdoc=""></iframe>
         </div>
       </div>
@@ -190,7 +190,10 @@
       </category>
 
       <category name="CSS" colour="#8EB140">
-        <block type="css_rule"></block>
+       
+        <category name="Selector" colour="#8EB140">
+          <block type="css_rule"></block>
+        </category>
 
         <category name="Layout" colour="#8EB140">
           <block type="css_display"></block>

@@ -4,7 +4,7 @@
 
 var workspace = Blockly.inject('blocklyDiv', {
     toolbox: document.getElementById('toolbox'),
-    trashcan: false,  // Hide the trashcan to prevent accidental deletion
+    trashcan: false,  // Hide the trashcan to prevent accidental deletion,
     theme: {
         'componentStyles': {
             'workspaceBackgroundColour': 'white',
@@ -15,6 +15,8 @@ var workspace = Blockly.inject('blocklyDiv', {
         }
     }
 });
+
+
 
 // // Keep the toolbox open
 // workspace.getFlyout().autoClose = false;
@@ -45,14 +47,14 @@ var workspace = Blockly.inject('blocklyDiv', {
 
 // // Check if a block should be deleted based on its position
 // function shouldDeleteBlock(block) {
-    
+
 //     const blockPosition = block.getBoundingRectangle();
 //     const flyoutRect = workspace.getFlyout().getClientRect();
 
 //     // If flyout is visible, delete if block is dragged into it
 //     if (workspace.getFlyout().isVisible()) {
-      
-  
+
+
 //       return isBlockInRegion(blockPosition, flyoutRect);
 //     } 
 //     // If flyout is not visible, delete if block is in the custom delete region
@@ -74,13 +76,13 @@ var workspace = Blockly.inject('blocklyDiv', {
 
 //   // Listen for drag events and handle deletion
 //   workspace.addChangeListener(function (event) {
-   
+
 //     if (event.type === "drag" && !event.isStart) {
-      
+
 //       const block = workspace.getBlockById(event.blockId);
 //     //   block.dispose(false)
 //       if (block && shouldDeleteBlock(block)) {
-        
+
 //         block.dispose(false); // Dispose of block without triggering another delete event
 //       }
 //       else{
@@ -165,7 +167,6 @@ function renderFileList() {
 }
 
 // Function to select a file
-// Function to select a file
 function selectFile(index) {
     if (index < 0 || index >= files.length) return;
 
@@ -187,6 +188,7 @@ function selectFile(index) {
     if (file.xml.trim() !== '') {
         var xml = Blockly.Xml.textToDom(file.xml);
         Blockly.Xml.domToWorkspace(xml, workspace);
+        console.log(xml);
     }
 
     // Update the generated code textarea
@@ -307,9 +309,9 @@ function generateCodeForFile(file) {
     return code;
 }
 
-// Function to update the live preview iframe
+//Function to generate HTML from blocks
 
-function updateLivePreview() {
+function generateHTMLFromBlocks() {
     if (currentFileIndex === -1) return; // No file selected
 
     var selectedFile = files[currentFileIndex];
@@ -324,13 +326,15 @@ function updateLivePreview() {
     // Get the selected HTML file's code
     var htmlContent = selectedFile.generatedCode;
 
-    console.log("HTML Content:", htmlContent);
+    // console.log("HTML Content:", htmlContent);
 
     // Temporary container to parse HTML and find linked resources
     var parser = new DOMParser();
     var doc = parser.parseFromString(htmlContent, 'text/html');
 
     var bodyContent = doc.body.innerHTML;
+    var bodyStyle = doc.body.getAttribute('style') || '';  // Get the inline style on <body>
+
 
     // Collect CSS and JS file names from link and script tags in the HTML
     var linkedCSS = Array.from(doc.querySelectorAll('link[rel="stylesheet"]'))
@@ -339,14 +343,14 @@ function updateLivePreview() {
     var linkedJS = Array.from(doc.querySelectorAll('script[src]'))
         .map(script => script.getAttribute('src'));
 
-    console.log("Linked CSS files:", linkedCSS);
-    console.log("Linked JS files:", linkedJS);
+    // console.log("Linked CSS files:", linkedCSS);
+    // console.log("Linked JS files:", linkedJS);
 
     // Aggregate CSS and JS contents based on the linked files
     var allCSS = linkedCSS
         .map(href => {
             var cssFile = files.find(file => `${file.name}.css` === href);
-            console.log(`CSS file for ${href}:`, cssFile);
+            // console.log(`CSS file for ${href}:`, cssFile);
             return cssFile ? cssFile.generatedCode : '';
         })
         .join('\n');
@@ -354,13 +358,21 @@ function updateLivePreview() {
     var allJS = linkedJS
         .map(src => {
             var jsFile = files.find(file => `${file.name}.js` === src);
-            console.log(`JS file for ${src}:`, jsFile);
+            // console.log(`JS file for ${src}:`, jsFile);
             return jsFile ? jsFile.generatedCode : '';
         })
         .join('\n');
 
-    console.log("All CSS combined:", allCSS);
-    console.log("All JS combined:", allJS);
+    // console.log("All CSS combined:", allCSS);
+    // console.log("All JS combined:", allJS);
+
+    return [allCSS, bodyStyle, bodyContent, allJS, selectedFile]
+}
+// Function to update the live preview iframe
+
+function updateLivePreview() {
+
+    const [allCSS, bodyStyle, bodyContent, allJS, selectedFile] = generateHTMLFromBlocks()
 
     // Construct the full HTML document with the specific CSS and JS included
     var fullHTML = `<!DOCTYPE html>
@@ -370,7 +382,7 @@ function updateLivePreview() {
         <title>Live Preview - ${selectedFile.name}</title>
         ${allCSS ? `<style>${allCSS}</style>` : ''}
     </head>
-    <body>
+    <body ${bodyStyle ? `style="${bodyStyle}"` : ''}>
         ${bodyContent}
     
         ${allJS ? `<script>${allJS}</script>` : ''}
@@ -396,16 +408,29 @@ function updateLivePreview() {
     </body>
     </html>`;
 
-    console.log("Final HTML for preview:", fullHTML);
+    // console.log("Final HTML for preview:", fullHTML);
 
     // Update the Live Preview iframe's srcdoc
     var iframe = document.getElementById('preview');
     iframe.srcdoc = fullHTML;
+
+    // Also update the pop-out window
+    updatePopOutWindow(allCSS, bodyStyle, bodyContent, allJS);
 }
 
 
 // Function to load a specific page into the Live Preview iframe
-function loadPage(page) {
+function loadPage(page) {function updatePopOutWindow(allCSS, bodyStyle, bodyContent, allJS) {
+    if (previewWindow && !previewWindow.closed) {
+        previewWindow.postMessage({
+            type: "updateContent",
+            css: allCSS,
+            style: bodyStyle,
+            content: bodyContent,
+            js: allJS
+        }, "*");
+    }
+}
     // Ensure the page exists in userFiles
     if (!userFiles.hasOwnProperty(page)) {
         alert(`File "${page}" does not exist.`);
@@ -496,6 +521,24 @@ function createInitialHtmlFile() {
     var initialFileName = 'index';
     var initialFileType = 'html';
     addFile(initialFileName, initialFileType);
+
+
+    // Inject default blocks for HTML
+    injectDefaultHtmlBlocks(workspace);  // Ensure 'workspace' is defined here
+}
+
+// Function to inject default blocks for HTML structure
+function injectDefaultHtmlBlocks(workspace) {
+
+
+    // const xmlText = `
+    //    <xml xmlns="https://developers.google.com/blockly/xml"><block type="html_doctype" id="=~G0u!a[/8K^=WF|Q18C" x="26" y="28"><next><block type="html_html" id="AJRC)uHs3[w3Hm[{9y;I"><statement name="CONTENT"><block type="html_head" id=".vC4_R99:m%\`p_PhZJt|"><next><block type="html_body" id="}8/9vZOxk9M?gGv/tm,G"><value name="ATTRIBUTES"><block type="html_attribute_style" id="ULu;W@d~f@2|gHRyRmPC"><value name="LEFT_INPUT"><block type="css_background_color" id="/UOSX/AWaa=]jK^}I-xp"><field name="COLOR">pink</field></block></value></block></value><statement name="CONTENT"><block type="html_heading" id="WY|y(wzStycc;q9U/+Sb"><field name="HEADING_LEVEL">h1</field><field name="HEADING_LEVEL_CLOSING">h1</field><value name="ATTRIBUTES"><block type="html_attribute_style" id="Y;GzqtNBuj4R@,?-CrLy"><value name="LEFT_INPUT"><block type="css_text_align" id="bLN#q.s+EedSmDcQ/\`5}"><field name="ALIGN">left</field><value name="LEFT_INPUT"><block type="css_border" id="FUkm;SH*/\`|5N7z5d_PS"><field name="BORDER">4px dotted white</field></block></value></block></value></block></value><statement name="CONTENT"><block type="plain_text" id="m,s4IST$KO86@BY;0g^s"><field name="CONTENT">I am the best!</field></block></statement></block></statement></block></next></block></statement></block></next></block></xml>
+    // `;
+
+    const xmlText=``
+
+    const xml = Blockly.Xml.textToDom(xmlText);
+    Blockly.Xml.domToWorkspace(xml, workspace);
 }
 
 // Initialize by creating an initial HTML file when the page loads
@@ -636,4 +679,74 @@ function toggleView(view) {
     }
 }
 
+let previewWindow = null;
+function updatePopOutWindow(allCSS, bodyStyle, bodyContent, allJS) {
+    if (previewWindow && !previewWindow.closed) {
+        previewWindow.postMessage({
+            type: "updateContent",
+            css: allCSS,
+            style: bodyStyle,
+            content: bodyContent,
+            js: allJS
+        }, "*");
+    }
+}
+function popOutPreview() {
+    if (previewWindow && !previewWindow.closed) {
+        // Focus the existing preview window if already open
+        previewWindow.focus();
+    } else {
+        // Open a new preview window
+        previewWindow = window.open("", "PreviewWindow", "width=800,height=600");
 
+        // Basic HTML structure with a message listener for updates
+        const [allCSS, bodyStyle, bodyContent, allJS, selectedFile] = generateHTMLFromBlocks();
+
+        previewWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>Live Preview - ${selectedFile.name}</title>
+                ${allCSS ? `<style>${allCSS}</style>` : ''}
+                <script>
+                    // Set up listener to handle updates from main window
+                    window.addEventListener('message', (event) => {
+                        if (event.data.type === "updateContent") {
+                            const { css, style, content, js } = event.data;
+                            // Update CSS
+                            document.head.querySelector("style")?.remove();
+                            if (css) {
+                                const styleTag = document.createElement("style");
+                                styleTag.innerHTML = css;
+                                document.head.appendChild(styleTag);
+                            }
+                            // Update body content
+                            document.body.innerHTML = content;
+                            // Update body style
+                            document.body.style = style;
+                            // Update JS
+                            const scriptTag = document.createElement("script");
+                            scriptTag.innerHTML = js;
+                            document.body.appendChild(scriptTag);
+                        }
+                    });
+                </script>
+            </head>
+            <body style="${bodyStyle}">
+                ${bodyContent}
+                <script>${allJS}</script>
+            </body>
+            </html>
+        `);
+
+        // Send initial content to preview window
+        setTimeout(() => {
+            updatePopOutWindow(allCSS, bodyStyle, bodyContent, allJS, selectedFile);
+        }, 100);
+    }
+}
+
+document.getElementById('popOut').addEventListener('click', function () {
+    popOutPreview()
+})

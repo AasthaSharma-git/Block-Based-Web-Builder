@@ -1,5 +1,6 @@
 // blocks/html_blocks.js
 
+
 // <!DOCTYPE html>
 Blockly.Blocks['html_doctype'] = {
   init: function () {
