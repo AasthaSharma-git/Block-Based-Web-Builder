@@ -103,58 +103,99 @@
 
     <!-- Toolbox XML -->
     <xml id="toolbox" style="display: none">
-      <category name="HTML" colour="#0ACDFF">
-        <block type="html_doctype"></block>
-        <block type="html_html"></block>
-        <block type="html_head"></block>
-        <block type="html_body"></block>
-        <block type="html_style"></block>
-        <block type="html_link"></block>
-        <block type="html_heading"></block>
-        <block type="plain_text"></block>
-        <block type="html_p"></block>
-        <block type="strong"></block>
-        <block type="bold_text"></block>
-        <block type="emphasized"></block>
-        <block type="italic"></block>
-        <block type="underline"></block>
-        <block type="span"></block>
-        <block type="html_br"></block>
-        <block type="html_hr"></block>
-        <block type="html_button"></block>
-        <block type="html_a"></block>
-        <block type="html_img"></block>
-        <block type="html_div"></block>
-        <block type="html_table"></block>
-        <block type="html_caption"></block>
-        <block type="html_th"></block>
-        <block type="html_tr"></block>
-        <block type="html_td"></block>
-        <block type="html_ul"></block>
-        <block type="html_ol"></block>
-        <block type="html_li"></block>
-        <block type="html_header"></block>
-        <block type="html_footer"></block>
-        <block type="html_nav"></block>
-        <block type="html_script"></block>
-        <block type="html_article"></block>
-        <block type="html_aside"></block>
-        <block type="html_div"></block>
-        <block type="html_form"></block>
-        <block type="html_label"></block>
-        <block type="html_input"></block>
-        <block type="html_textarea"></block>
-        <block type="html_select"></block>
-        <block type="html_datalist"></block>
-        <block type="html_option"></block>
-        <block type="html_audio"></block>
-        <block type="html_video"></block>
-        <block type="html_source"></block>
-        <block type="html_iframe"></block>
+      <category name="HTML">
+        <category name="Document Strcuture" colour="#0ACDFF">
+          <label text="Document Strcuture"></label>
+          <block type="html_doctype"></block>
+          <block type="html_html"></block>
+          <block type="html_head"></block>
+          <block type="html_body"></block>
+        </category>
+
+        <category name="Metadata and links" colour="#0ACDFF">
+          <label text="Metadata and links"></label>
+          <block type="html_style"></block>
+          <block type="html_link"></block>
+          <block type="html_script"></block>
+        </category>
+
+        <category name="Text" colour="#0ACDFF">
+          <label text="Text"></label>
+          <block type="plain_text"></block>
+          <block type="html_heading"></block>
+          <block type="html_p"></block>
+        </category>
+
+        <category name="Text Formatting" colour="#0ACDFF">
+          <label text="Text Formatting"></label>
+          <block type="strong"></block>
+          <block type="bold_text"></block>
+          <block type="emphasized"></block>
+          <block type="italic"></block>
+          <block type="underline"></block>
+          <block type="span"></block>
+        </category>
+
+        <category name="Line Breaks and Dividers" colour="#0ACDFF">
+          <label text="Line Breaks and Dividers"></label>
+          <block type="html_br"></block>
+          <block type="html_hr"></block>
+        </category>
+
+        <category name="Media" colour="#0ACDFF">
+          <label text="Media"></label>
+          <block type="html_img"></block>
+          <block type="html_audio"></block>
+          <block type="html_video"></block>
+          <block type="html_source"></block>
+          <block type="html_iframe"></block>
+        </category>
+     
+        <category name="Interactive Elements" colour="#0ACDFF">
+          <label text="Interactive Elements"></label>
+          <block type="html_button"></block>
+          <block type="html_a"></block>
+        </category>
+
+        <category name="Containers and Layout" colour="#0ACDFF">
+          <label text="Containers and Layout"></label>
+          <block type="html_div"></block>
+          <block type="html_header"></block>
+          <block type="html_footer"></block>
+          <block type="html_nav"></block> 
+          <block type="html_article"></block>
+          <block type="html_aside"></block>
+        </category>
+
+        <category name="Form" colour="#0ACDFF">
+          <label text="Form"></label>
+          <block type="html_form"></block>
+          <block type="html_label"></block>
+          <block type="html_input"></block>
+          <block type="html_textarea"></block>
+          <block type="html_select"></block>
+          <block type="html_datalist"></block>
+          <block type="html_option"></block>
+        </category>
+
+        <category name="List" colour="#0ACDFF">
+          <block type="html_ul"></block>
+          <block type="html_ol"></block>
+          <block type="html_li"></block>
+        </category>  
+
+        <category name="Table" colour="#0ACDFF">
+          <block type="html_table"></block>
+          <block type="html_caption"></block>
+          <block type="html_th"></block>
+          <block type="html_tr"></block>
+          <block type="html_td"></block>
+        </category>
       </category>
 
-      <category name="Attributes" colour="#FFAB19">
+      <category name="Attributes">
         <category name="Basic" colour="#FFAB19">
+          <label text="Basic"></label>
           <block type="html_attribute_id"></block>
           <block type="html_attribute_class"></block>
           <block type="html_attribute_title"></block>
@@ -166,6 +207,7 @@
         </category>
 
         <category name="Content" colour="#FFAB19">
+          <label text="Content"></label>
           <block type="html_attribute_placeholder"></block>
           <block type="html_attribute_value"></block>
           <block type="html_attribute_href"></block>
@@ -174,10 +216,12 @@
         </category>
 
         <category name="Events" colour="#FFAB19">
+          <label text="Events"></label>
           <block type="html_attribute_onclick"></block>
         </category>
 
         <category name="Input" colour="#FFAB19">
+          <label text="Input"></label>
           <block type="html_attribute_rows"></block>
           <block type="html_attribute_cols"></block>
           <block type="html_attribute_size"></block>
@@ -186,6 +230,7 @@
         </category>
 
         <category name="Form" colour="#FFAB19">
+          <label text="Form"></label>
           <block type="html_attribute_for"></block>
           <block type="html_attribute_name"></block>
           <block type="html_attribute_pattern"></block>
@@ -198,6 +243,7 @@
         </category>
 
         <category name="Media" colour="#FFAB19">
+          <label text="Media"></label>
           <block type="html_attribute_autoplay"></block>
           <block type="html_attribute_muted"></block>
           <block type="html_attribute_controls"></block>
@@ -207,18 +253,21 @@
   
       </category>
 
-      <category name="CSS" colour="#8EB140">
+      <category name="CSS">
         <category name="Selector" colour="#8EB140">
+          <label text="Selector"></label>
           <block type="css_rule"></block>
         </category>
 
         <category name="Layout" colour="#8EB140">
+          <label text="Layout"></label>
           <block type="css_display"></block>
           <block type="css_position"></block>
           <block type="css_z_index"></block>
         </category>
 
         <category name="Box Model" colour="#8EB140">
+          <label text="Box Model"></label>
           <block type="css_margin"></block>
           <block type="css_margin_left"></block>
           <block type="css_margin_right"></block>
@@ -235,11 +284,13 @@
         </category>
 
         <category name="Color and Background" colour="#8EB140">
+          <label text="Color and Background"></label>
           <block type="css_color"></block>
           <block type="css_background_color"></block>
         </category>
 
         <category name="Typography" colour="#8EB140">
+          <label text="Typography"></label>
           <block type="css_font_size"></block>
           <block type="css_text_decoration"></block>
           <block type="css_font_family"></block>
@@ -251,6 +302,7 @@
         </category>
 
         <category name="Visual Effects" colour="#8EB140">
+          <label text="Visual Effects"></label>
           <block type="css_transform"></block>
           <block type="css_opacity"></block>
           <block type="css_transition"></block>
@@ -260,15 +312,17 @@
         </category>
 
         <category name="List" colour="#8EB140">
+          <label text="List"></label>
           <block type="css_list_style_type"></block>
         </category>
 
         <category name="Table" colour="#8EB140">
+          <label text="Table"></label>
           <block type="css_border_collapse"></block>
         </category>
       </category>
 
-      <category name="JavaScript" colour="#F85E00">
+      <category name="JavaScript">
         <block type="js_alert">
           <value name="MESSAGE">
             <shadow type="text">

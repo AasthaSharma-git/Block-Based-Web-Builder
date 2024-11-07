@@ -838,30 +838,20 @@ Blockly.JavaScript['html_ol'] = function (block) {
 Blockly.Blocks['html_link'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField("<link"); // Opening tag for link
-
-    this.appendDummyInput()
+      .appendField("<link") // Opening tag for link
       .appendField("rel=")
       .appendField(new Blockly.FieldDropdown([
         ["stylesheet", "stylesheet"],
         ["icon", "icon"],
         ["preload", "preload"],
         ["alternate", "alternate"]
-      ]), "REL");
-
-    this.appendDummyInput()
+      ]), "REL")
       .appendField("href=")
-      .appendField(new Blockly.FieldTextInput("style.css"), "HREF");
-
-    this.appendDummyInput()
+      .appendField(new Blockly.FieldTextInput("style.css"), "HREF")
       .appendField("type=")
-      .appendField(new Blockly.FieldTextInput("text/css"), "TYPE");
-
-    this.appendDummyInput()
+      .appendField(new Blockly.FieldTextInput("text/css"), "TYPE")
       .appendField("media=")
-      .appendField(new Blockly.FieldTextInput("all"), "MEDIA");
-
-    this.appendDummyInput()
+      .appendField(new Blockly.FieldTextInput("all"), "MEDIA")
       .appendField("/>"); // Self-closing tag for <link>
 
     this.setPreviousStatement(true, null); // Allows this block to connect to previous blocks

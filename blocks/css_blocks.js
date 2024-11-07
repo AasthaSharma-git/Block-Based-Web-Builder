@@ -437,9 +437,10 @@ Blockly.JavaScript['css_height'] = function(block) {
 
 Blockly.Blocks['css_border'] = {
   init: function() {
-    this.appendDummyInput()
-        .appendField("border:")
-        .appendField(new Blockly.FieldTextInput('1px solid black'), 'BORDER');
+    this.appendValueInput('LEFT_INPUT')  // Allow chaining on the left
+    .setCheck(null)
+    .appendField("border:")
+    .appendField(new Blockly.FieldTextInput('1px solid black'), 'BORDER');
     this.setOutput(true, "String");
     this.setColour('#A5BE00');
     this.setTooltip("Set the border style.");
@@ -448,8 +449,9 @@ Blockly.Blocks['css_border'] = {
 };
 
 Blockly.JavaScript['css_border'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var borderValue = block.getFieldValue('BORDER');
-  var code = `;border: ${borderValue}|`;
+  var code = `${leftCode};border: ${borderValue}|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -510,9 +512,10 @@ Blockly.JavaScript['css_position'] = function(block) {
 
 Blockly.Blocks['css_z_index'] = {
   init: function() {
-    this.appendDummyInput()
+      this.appendValueInput('LEFT_INPUT')  // Allow chaining on the left
+        .setCheck(null)
         .appendField("z-index:")
-        .appendField(new Blockly.FieldNumber(1), 'Z_INDEX');
+        .appendField(new Blockly.FieldTextInput(1), 'Z_INDEX');
     this.setOutput(true, "String");
     this.setColour('#A5BE00');
     this.setTooltip("Set the z-index value.");
@@ -521,8 +524,11 @@ Blockly.Blocks['css_z_index'] = {
 };
 
 Blockly.JavaScript['css_z_index'] = function(block) {
+
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
   var zIndexValue = block.getFieldValue('Z_INDEX');
-  var code = `;z-index: ${zIndexValue}|`;
+  var code = `${leftCode};z-index: ${zIndexValue}|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -663,7 +669,8 @@ Blockly.JavaScript['css_text_align'] = function(block) {
 
 Blockly.Blocks['css_letter_spacing'] = {
   init: function() {
-    this.appendDummyInput()
+    this.appendValueInput('LEFT_INPUT')  // Allow chaining on the left
+        .setCheck(null)
         .appendField("letter-spacing:")
         .appendField(new Blockly.FieldTextInput('0'), 'LETTER_SPACING')
         .appendField("px");
@@ -675,14 +682,16 @@ Blockly.Blocks['css_letter_spacing'] = {
 };
 
 Blockly.JavaScript['css_letter_spacing'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var letterSpacingValue = block.getFieldValue('LETTER_SPACING');
-  var code = `;letter-spacing: ${letterSpacingValue}px|`;
+  var code = `${leftCode};letter-spacing: ${letterSpacingValue}px|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['css_word_spacing'] = {
   init: function() {
-    this.appendDummyInput()
+    this.appendValueInput('LEFT_INPUT')  // Allow chaining on the left
+        .setCheck(null)
         .appendField("word-spacing:")
         .appendField(new Blockly.FieldTextInput('0'), 'WORD_SPACING')
         .appendField("px");
@@ -694,8 +703,9 @@ Blockly.Blocks['css_word_spacing'] = {
 };
 
 Blockly.JavaScript['css_word_spacing'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var wordSpacingValue = block.getFieldValue('WORD_SPACING');
-  var code = `;word-spacing: ${wordSpacingValue}px|`;
+  var code = `${leftCode};word-spacing: ${wordSpacingValue}px|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -749,7 +759,8 @@ Blockly.JavaScript['css_border_collapse'] = function(block) {
 
 Blockly.Blocks['css_transition'] = {
   init: function() {
-    this.appendDummyInput()
+    this.appendValueInput('LEFT_INPUT')  // Allow chaining on the left
+        .setCheck(null)
         .appendField("transition:")
         .appendField(new Blockly.FieldTextInput('all 0.3s ease'), 'TRANSITION');
     this.setOutput(true, "String");
@@ -760,14 +771,16 @@ Blockly.Blocks['css_transition'] = {
 };
 
 Blockly.JavaScript['css_transition'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var transitionValue = block.getFieldValue('TRANSITION');
-  var code = `;transition: ${transitionValue}|`;
+  var code = `${leftCode};transition: ${transitionValue}|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['css_transform'] = {
   init: function() {
-    this.appendDummyInput()
+    this.appendValueInput('LEFT_INPUT')  // Allow chaining on the left
+        .setCheck(null)
         .appendField("transform:")
         .appendField(new Blockly.FieldTextInput('rotate(45deg)'), 'TRANSFORM');
     this.setOutput(true, "String");
@@ -778,14 +791,16 @@ Blockly.Blocks['css_transform'] = {
 };
 
 Blockly.JavaScript['css_transform'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var transformValue = block.getFieldValue('TRANSFORM');
-  var code = `;transform: ${transformValue}|`;
+  var code = `${leftCode};transform: ${transformValue}|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['css_box_shadow'] = {
   init: function() {
-    this.appendDummyInput()
+    this.appendValueInput('LEFT_INPUT')  // Allow chaining on the left
+        .setCheck(null)
         .appendField("box-shadow:")
         .appendField(new Blockly.FieldTextInput('2px 2px 5px black'), 'BOX_SHADOW');
     this.setOutput(true, "String");
@@ -796,14 +811,16 @@ Blockly.Blocks['css_box_shadow'] = {
 };
 
 Blockly.JavaScript['css_box_shadow'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var boxShadowValue = block.getFieldValue('BOX_SHADOW');
-  var code = `;box-shadow: ${boxShadowValue}|`;
+  var code = `${leftCode};box-shadow: ${boxShadowValue}|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['css_text_shadow'] = {
   init: function() {
-    this.appendDummyInput()
+    this.appendValueInput('LEFT_INPUT')  // Allow chaining on the left
+        .setCheck(null)
         .appendField("text-shadow:")
         .appendField(new Blockly.FieldTextInput('2px 2px 5px black'), 'TEXT_SHADOW');
     this.setOutput(true, "String");
@@ -814,14 +831,16 @@ Blockly.Blocks['css_text_shadow'] = {
 };
 
 Blockly.JavaScript['css_text_shadow'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var textShadowValue = block.getFieldValue('TEXT_SHADOW');
-  var code = `;text-shadow: ${textShadowValue}|`;
+  var code = `${leftCode};text-shadow: ${textShadowValue}|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['css_text_shadow'] = {
   init: function() {
-    this.appendDummyInput()
+    this.appendValueInput('LEFT_INPUT')  // Allow chaining on the left
+        .setCheck(null) 
         .appendField("text-shadow:")
         .appendField(new Blockly.FieldTextInput('2px 2px 5px black'), 'TEXT_SHADOW');
     this.setOutput(true, "String");
@@ -832,14 +851,16 @@ Blockly.Blocks['css_text_shadow'] = {
 };
 
 Blockly.JavaScript['css_text_shadow'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var textShadowValue = block.getFieldValue('TEXT_SHADOW');
-  var code = `;text-shadow: ${textShadowValue}|`;
+  var code = `${leftCode};text-shadow: ${textShadowValue}|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['css_opacity'] = {
   init: function() {
-    this.appendDummyInput()
+    this.appendValueInput('LEFT_INPUT')  // Allow chaining on the left
+        .setCheck(null) 
         .appendField("opacity:")
         .appendField(new Blockly.FieldNumber(1, 0, 1, 0.1), 'OPACITY');
     this.setOutput(true, "String");
@@ -850,14 +871,16 @@ Blockly.Blocks['css_opacity'] = {
 };
 
 Blockly.JavaScript['css_opacity'] = function(block) {
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var opacityValue = block.getFieldValue('OPACITY');
-  var code = `;opacity: ${opacityValue}|`;
+  var code = `${leftCode};opacity: ${opacityValue}|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['css_border_radius'] = {
   init: function() {
-    this.appendDummyInput()
+    this.appendValueInput('LEFT_INPUT')  // Allow chaining on the left
+        .setCheck(null)
         .appendField("border-radius:")
         .appendField(new Blockly.FieldTextInput('0'), 'BORDER_RADIUS')
         .appendField("px");
@@ -869,8 +892,10 @@ Blockly.Blocks['css_border_radius'] = {
 };
 
 Blockly.JavaScript['css_border_radius'] = function(block) {
+
+  var leftCode = Blockly.JavaScript.valueToCode(block, 'LEFT_INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var borderRadiusValue = block.getFieldValue('BORDER_RADIUS');
-  var code = `;border-radius: ${borderRadiusValue}px|`;
+  var code = `${leftCode};border-radius: ${borderRadiusValue}px|`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 

@@ -1,0 +1,5 @@
+Image sources:
+1)HTML:https://www.flaticon.com/free-icon/html_2306098?term=html&page=1&position=24&origin=search&related_id=2306098
+2)Attributes:https://www.flaticon.com/free-icon/filter_3126489?term=settings&page=7&position=8&origin=search&related_id=3126489
+3)CSS:https://www.flaticon.com/free-icon/color-palette_3368866?term=style&page=1&position=10&origin=search&related_id=3368866
+4)Javascript:https://www.flaticon.com/free-icon/js_5968292?term=js&page=1&position=2&origin=search&related_id=5968292
