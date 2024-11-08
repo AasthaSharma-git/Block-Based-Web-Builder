@@ -43,8 +43,6 @@ header h1{
   align-items: center;
 }
 
-
-
 #fileManagerButton {
   background-color: #2c3e50;
   display: flex;
@@ -94,6 +92,30 @@ h2{
   border: 2px solid white
 }
 
+.file-item {
+  display: block;
+  padding: 10px;
+  margin: 5px 0;
+  text-decoration: none;
+  color: #333;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+}
+
+.file-item:hover {
+  background-color: #e1e1e1;
+}
+
+.file-item.active {
+  background-color: #d1e7dd;
+  font-weight: bold;
+  border-color: #0f5132;
+}
+
 #blocklyArea {
   flex-grow: 1;
   padding: 10px;
@@ -140,6 +162,7 @@ h2{
 }
 
 #previewSection h2{
+  margin-top: -10px;
   color: white;
 }
 
@@ -149,6 +172,7 @@ h2{
 }
 
 #generatedCodeSection h2{
+  margin-top: -10px;
   color:white
 }
 
@@ -168,15 +192,14 @@ h2{
   height: 100%;
 }
 
-
 #toggleButtons {
   display: flex;
-  text-align: center;
   margin-bottom: 10px;
   flex-wrap: wrap; /* Allow buttons to wrap to the next line */
   justify-content: flex-start; /* Align buttons to the left */
-  align-items: center; /* Center items vertically */
-  margin: 5px; /* Use gap instead of margin for consistent spacing */
+  margin-top: -22px;
+  margin-left: -22px;
+  
 }
 
 /* When the screen width is smaller than 500px, stack buttons vertically */
@@ -188,11 +211,11 @@ h2{
 
   .toggle-btn {
     margin: 10px 0; /* Space between buttons when stacked */
-    width: 100%; /* Optional: Make buttons fill the width */
+    
   }
 }
 
-.toggle-btn {
+.toggle-btn {  
   background-color: #2c3e50;
   display: flex;
   align-items: center;
@@ -200,7 +223,8 @@ h2{
   box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   font-weight: bold;
-  width: 120px;
+  width: 130px;
+  height:50px;
   margin: 20px; /* Can be adjusted if needed */
   border-radius: 5px;
   font-size: 14px;
@@ -214,32 +238,11 @@ h2{
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
-
-
-
-.file-item {
-  display: block;
-  padding: 10px;
-  margin: 5px 0;
-  text-decoration: none;
-  color: #333;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s;
+#popOut{
+  margin-left: 0px;
+  width: 215px
 }
 
-.file-item:hover {
-  background-color: #e1e1e1;
-}
-
-.file-item.active {
-  background-color: #d1e7dd;
-  font-weight: bold;
-  border-color: #0f5132;
-}
 /* Toolbox background */
 .blocklyToolboxDiv {
   background-color: #2c3e50; /* Dark background for toolbox */
@@ -247,12 +250,16 @@ h2{
   color: #ecf0f1; /* Default text color */
 }
 
+.blocklyToolboxCategory {
+  margin-left: -7px;
+}
+
 /* Style each category row */
 .blocklyTreeRow {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   margin-bottom: 5px; /* Increase spacing between each item */
-
+ 
 }
 
 /* Change category name styling */
