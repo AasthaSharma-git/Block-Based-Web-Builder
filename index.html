@@ -40,7 +40,13 @@
     <div id="container">
       <!-- Sidebar with toggle buttons -->
       <div id="sidebar">
-        <button id="fileManagerButton" class="sidebar-button">Files</button>
+
+         <button id="fileManagerButton">
+          <div class="files-button">
+            <img src="./assets/options/files.png" alt="Files Icon" class="files-icon">
+            <span class="files-text">Files</span>
+        </div>
+        </button>
       </div>
 
       <!-- File Manager (initially hidden) -->
@@ -78,12 +84,17 @@
         <!-- Toggle buttons for switching views -->
         <div id="toggleButtons">
           <button id="showCodeButton" class="toggle-btn active">
-            Show Code
+            <img src="./assets/options/code.png"  width="40px">
+            <span>Show Code</span>
           </button>
           <button id="showPreviewButton" class="toggle-btn">
+            <img src="./assets/options/output.png" width="40px">
             Show Preview
           </button>
-          <button id="exportButton" class="toggle-btn">Export Project</button>
+          <button id="exportButton" class="toggle-btn">
+            <img src="./assets/options/export.png" class="files-icon">
+            Export Project
+          </button>
         </div>
 
         <!-- Generated Code Section -->
@@ -95,7 +106,10 @@
         <!-- Live Preview Section -->
         <div id="previewSection" class="hidden">
           <h2>Live Preview</h2>
-          <button id="popOut" class="toggle-btn">Open Output in New Tab</button>
+          <button id="popOut" class="toggle-btn">
+            <img src="./assets/options/pop-out.png" width="35px">
+            Open Output in New Tab
+          </button>
           <iframe id="preview" srcdoc=""></iframe>
         </div>
       </div>

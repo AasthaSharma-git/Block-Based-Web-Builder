@@ -613,10 +613,12 @@ const fileManager = document.getElementById("fileManager");
 fileManagerButton.addEventListener("click", function () {
     if (fileManager.style.display === "none" || !fileManager.style.display) {
         fileManager.style.display = "block";
-        fileManagerButton.style.backgroundColor = "#F9C22E"
+        this.classList.toggle('active');
+       
     } else {
         fileManager.style.display = "none";
-        fileManagerButton.style.backgroundColor = "#F15946"
+        this.classList.toggle('active');
+       
     }
 });
 

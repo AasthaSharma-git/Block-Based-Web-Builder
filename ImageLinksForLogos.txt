@@ -3,3 +3,9 @@ Image sources:
 2)Attributes:https://www.flaticon.com/free-icon/filter_3126489?term=settings&page=7&position=8&origin=search&related_id=3126489
 3)CSS:https://www.flaticon.com/free-icon/color-palette_3368866?term=style&page=1&position=10&origin=search&related_id=3368866
 4)Javascript:https://www.flaticon.com/free-icon/js_5968292?term=js&page=1&position=2&origin=search&related_id=5968292
+5)Files:https://www.flaticon.com/free-icon/folder_1157026?term=files&page=1&position=43&origin=search&related_id=1157026
+6)Export:https://www.flaticon.com/free-icon/inbox_10741247?term=download&page=1&position=31&origin=search&related_id=10741247
+7)Output:https://www.flaticon.com/free-icon/html_11367088?term=css+html+js&page=1&position=7&origin=search&related_id=11367088
+8)Preview:https://www.flaticon.com/free-icon/web-apps_17871205?term=html&page=2&position=78&origin=search&related_id=17871205
+9)Popout:https://www.flaticon.com/free-icon/web-browser_3815502?term=pop&page=1&position=5&origin=search&related_id=3815502
+  
