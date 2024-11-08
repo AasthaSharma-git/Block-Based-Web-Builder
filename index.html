@@ -35,7 +35,9 @@
       />
 
       <h1></h1>
+     
     </header>
+    
 
     <div id="container">
       <!-- Sidebar with toggle buttons -->
@@ -71,11 +73,16 @@
           <button type="submit">Add</button>
         </form>
       </div>
+      
+      
 
       <!-- Blockly coding area (middle panel) -->
-      <div id="blocklyArea">
+      <div id="blocklyArea"> 
+       
         <div id="blocklyDiv"></div>
+       
       </div>
+      
 
       <!-- Resizer between coding area and right pane -->
       <div id="resizer"></div>
@@ -99,7 +106,7 @@
 
         <!-- Generated Code Section -->
         <div id="generatedCodeSection">
-          <h2>Generated Code</h2>
+          <h2>Generated Code For <span id="current-filename"></span></h2>
           <textarea id="generatedCode" readonly></textarea>
         </div>
 
@@ -117,6 +124,7 @@
 
     <!-- Toolbox XML -->
     <xml id="toolbox" style="display: none">
+     
       <category name="HTML">
         <category name="Document Strcuture" colour="#0ACDFF">
           <label text="Document Strcuture"></label>

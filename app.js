@@ -18,6 +18,13 @@ var workspace = Blockly.inject('blocklyDiv', {
 
 
 
+// Create a function to add or update the label block
+function updateFileLabelBlock(fileName) {
+   document.getElementById('current-filename').textContent=fileName;
+}
+
+
+
 // // Keep the toolbox open
 // workspace.getFlyout().autoClose = false;
 
@@ -131,6 +138,7 @@ function addFile(name, type) {
 function renderFileList() {
     var fileList = document.getElementById('fileList');
     fileList.innerHTML = '';
+    
 
     files.forEach((file, index) => {
         // Create a clickable <a> tag for each file
@@ -157,6 +165,10 @@ function renderFileList() {
         a.addEventListener('contextmenu', function (e) {
             e.preventDefault();
             if (confirm(`Are you sure you want to delete "${file.name}.${file.type}"?`)) {
+                if(index==currentFileIndex){
+                    alert("Cannot delete the active file.");
+                    return;
+                }
                 deleteFile(index);
             }
         });
@@ -183,12 +195,15 @@ function selectFile(index) {
     currentFileIndex = index;
     var file = files[index];
 
+    updateFileLabelBlock(`${file.name}.${file.type}`);
+
     // Load the selected file's blocks into the workspace
     workspace.clear();
     if (file.xml.trim() !== '') {
         var xml = Blockly.Xml.textToDom(file.xml);
         Blockly.Xml.domToWorkspace(xml, workspace);
-        console.log(xml);
+        //Show xml of the selected file
+        // console.log(xml);
     }
 
     // Update the generated code textarea
